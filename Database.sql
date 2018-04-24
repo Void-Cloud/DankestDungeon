@@ -1,7 +1,7 @@
 CREATE TABLE Room
 (
   RoomID INT NOT NULL,
-  Encounter BOOLEAN NOT NULL, --Marks wether the room has a random encounter
+  Encounter BOOLEAN NOT NULL, --Marks whether the room has a random encounter
   Description VARACHAR(255) NOT NULL,
   Level INT NOT NULL,
   PRIMARY KEY (RoomID)
