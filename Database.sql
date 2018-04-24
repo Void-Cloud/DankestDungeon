@@ -1,3 +1,7 @@
+DROP DATABASE IF EXISTS dankesdungeon;
+CREATE DATABASE dankestdungeon;
+USE dankestdungeon;
+
 CREATE TABLE Room
 (
   RoomID INT NOT NULL,
