@@ -1,8 +1,8 @@
 CREATE TABLE Room
 (
   RoomID INT NOT NULL,
-  Encounter INT NOT NULL,
-  Description INT NOT NULL,
+  Encounter BOOLEAN NOT NULL, --Marks wether the room has a random encounter
+  Description VARACHAR(255) NOT NULL,
   Level INT NOT NULL,
   PRIMARY KEY (RoomID)
 );
@@ -10,15 +10,15 @@ CREATE TABLE Room
 CREATE TABLE EnemyType
 (
   EnemytypeID INT NOT NULL,
-  Name INT NOT NULL,
+  Name VARCHAR(255) NOT NULL,
   Level INT NOT NULL,
   HitPoints INT NOT NULL,
   AttackPower INT NOT NULL,
-  Description INT NOT NULL,
-  Dialogue INT NOT NULL,
-  DeathDialogue INT NOT NULL,
-  Riddle INT NOT NULL,
-  Unique INT NOT NULL,
+  Description VARCHAR(255) NOT NULL,
+  Dialogue VARCHAR(255) NOT NULL,
+  DeathDialogue VARCHAR(255) NOT NULL,
+  Riddle VARCHAR(255) NOT NULL,
+  Unique BOOLEAN NOT NULL,
   Money INT NOT NULL,
   PRIMARY KEY (EnemytypeID)
 );
@@ -26,9 +26,9 @@ CREATE TABLE EnemyType
 CREATE TABLE Magic
 (
   MagicID INT NOT NULL,
-  Name INT NOT NULL,
+  Name VARCHAR(255) NOT NULL,
   Damage INT NOT NULL,
-  Target INT NOT NULL,
+  Target VARCHAR(255) NOT NULL,
   Cooldown INT NOT NULL,
   PRIMARY KEY (MagicID)
 );
@@ -47,8 +47,8 @@ CREATE TABLE Enemy
 CREATE TABLE Merchant
 (
   MerchantID INT NOT NULL,
-  Name INT NOT NULL,
-  Dialogue INT NOT NULL,
+  Name VARCHAR(255) NOT NULL,
+  Dialogue VARCHAR(255) NOT NULL,
   RoomID INT NOT NULL,
   PRIMARY KEY (MerchantID),
   FOREIGN KEY (RoomID) REFERENCES Room(RoomID)
@@ -57,8 +57,8 @@ CREATE TABLE Merchant
 CREATE TABLE Trap
 (
   TrapID INT NOT NULL,
-  Description INT NOT NULL,
-  Active INT NOT NULL,
+  Description VARCHAR(255) NOT NULL,
+  Active BOOLEAN NOT NULL,
   RoomID INT NOT NULL,
   PRIMARY KEY (TrapID),
   FOREIGN KEY (RoomID) REFERENCES Room(RoomID)
@@ -67,21 +67,21 @@ CREATE TABLE Trap
 CREATE TABLE Dialogue
 (
   ID INT NOT NULL,
-  Dialogue INT NOT NULL,
+  Dialogue VARCHAR(255) NOT NULL,
   PRIMARY KEY (ID)
 );
 
 CREATE TABLE Itemtype
 (
   ItemtypeID INT NOT NULL,
-  Name INT NOT NULL,
-  Description INT NOT NULL,
+  Name VARCHAR(255) NOT NULL,
+  Description VARCHAR(255) NOT NULL,
   AttackPower INT NOT NULL,
   HitPoints INT NOT NULL,
-  Movable INT NOT NULL,
-  Type INT NOT NULL,
+  Movable BOOLEAN NOT NULL,
+  Type VARCHAR(255) NOT NULL,
   Value INT NOT NULL,
-  Exists INT NOT NULL,
+  Exists BOOLEAN NOT NULL,
   PRIMARY KEY (ItemtypeID)
 );
 
@@ -96,7 +96,7 @@ CREATE TABLE Can_cast
 
 CREATE TABLE Leads_to
 (
-  Direction INT NOT NULL,
+  Direction VARCHAR(255) NOT NULL,
   RoomID_1 INT NOT NULL,
   Leads_toRoomID_2 INT NOT NULL,
   PRIMARY KEY (RoomID_1, Leads_toRoomID_2),
@@ -110,7 +110,7 @@ CREATE TABLE PlayerCharater
   HitPoints INT NOT NULL,
   Inventorylimit INT NOT NULL,
   Money INT NOT NULL,
-  Description INT NOT NULL,
+  Description VARCHAR(255) NOT NULL,
   RoomID INT NOT NULL,
   PRIMARY KEY (ID),
   FOREIGN KEY (RoomID) REFERENCES Room(RoomID)
