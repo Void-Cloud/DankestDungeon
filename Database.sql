@@ -1,4 +1,4 @@
-DROP DATABASE IF EXISTS dankesdungeon;
+DROP DATABASE IF EXISTS dankestdungeon;
 CREATE DATABASE dankestdungeon;
 USE dankestdungeon;
 
