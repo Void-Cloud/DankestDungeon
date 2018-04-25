@@ -136,34 +136,78 @@ CREATE TABLE Item
   FOREIGN KEY (ItemtypeID) REFERENCES Itemtype(ItemtypeID)
 );
 
-#Ensimmäinen kerros ja huoneet
+#First level rooms and connections
 
-INSERT INTO Room VALUES(1, 0,"Top Room", 1);
-INSERT INTO Room VALUES(2, 1,"Second row left", 1);
-INSERT INTO Room VALUES(3, 1,"Second row right - trap", 1);
-INSERT INTO Room VALUES(4, 1,"Third row middle", 1);
-INSERT INTO Room VALUES(5, 1,"Third row right", 1);
-INSERT INTO Room VALUES(6, 1,"Third row left - trap", 1);
-INSERT INTO Room VALUES(7, 1,"Fourth row middle left", 1);
-INSERT INTO Room VALUES(8, 1,"Fourth row further left - trap", 1);
-INSERT INTO Room VALUES(9, 0,"Fourth row middle right - sphinx", 1);
-INSERT INTO Room VALUES(10, 0,"Fourth row further right - BOSS ROOM", 1);
+INSERT INTO Room VALUES(1, 0,"Top Room", 1); #Top Room
+INSERT INTO Room VALUES(2, 1,"Second row left", 1); #Second row left
+INSERT INTO Room VALUES(3, 1,"Second row right - trap", 1); #Second row right - trap
+INSERT INTO Room VALUES(4, 1,"Third row middle", 1); #Third row middle
+INSERT INTO Room VALUES(5, 1,"Third row right", 1); #Third row right
+INSERT INTO Room VALUES(6, 1,"Third row left - trap", 1); #Third row left - trap
+INSERT INTO Room VALUES(7, 1,"Fourth row middle left", 1); #Fourth row middle left
+INSERT INTO Room VALUES(8, 1,"Fourth row further left - trap", 1); #Fourth row further left - trap
+INSERT INTO Room VALUES(9, 0,"Fourth row middle right - sphinx", 1); #Fourth row middle right - sphinx
+INSERT INTO Room VALUES(10, 0,"Fourth row further right - BOSS ROOM", 1); #Fourth row further right - BOSS ROOM
 
-INSERT INTO Leads_to VALUES("D",1,2);
-INSERT INTO Leads_to VALUES("U",2,1);
-INSERT INTO Leads_to VALUES("E",2,3);
-INSERT INTO Leads_to VALUES("W",3,2);
-INSERT INTO Leads_to VALUES("D",3,4);
+INSERT INTO Leads_to VALUES("D",1,2); #Top Room -> Second row left
+INSERT INTO Leads_to VALUES("U",2,1); #Second row left -> Top Room
+INSERT INTO Leads_to VALUES("E",2,3); #Second row left -> Second row right
+INSERT INTO Leads_to VALUES("W",3,2); #Second row right -> Second row left
+INSERT INTO Leads_to VALUES("D",3,4); #Second row right -> Third row middle
 INSERT INTO Leads_to VALUES("U",4,3);
 INSERT INTO Leads_to VALUES("E",4,5);
-INSERT INTO Leads_to VALUES("W",5,4);
 INSERT INTO Leads_to VALUES("W",4,6);
+INSERT INTO Leads_to VALUES("W",5,4);
 INSERT INTO Leads_to VALUES("E",6,4);
 INSERT INTO Leads_to VALUES("D",6,7);
 INSERT INTO Leads_to VALUES("U",7,6);
 INSERT INTO Leads_to VALUES("W",7,8);
-INSERT INTO Leads_to VALUES("E",8,7);
 INSERT INTO Leads_to VALUES("E",7,9);
+INSERT INTO Leads_to VALUES("E",8,7);
 INSERT INTO Leads_to VALUES("W",9,7);
 INSERT INTO Leads_to VALUES("E",9,10);
 INSERT INTO Leads_to VALUES("W",10,9);
+
+#Second level rooms and connections
+
+INSERT INTO Room VALUES(11, 0,"Middle room", 2); #Middle room
+INSERT INTO Room VALUES(12, 1,"North room", 2); #North room
+INSERT INTO Room VALUES(13, 1,"North west room", 2); #North west room
+INSERT INTO Room VALUES(14, 1,"West room", 2); #West room
+INSERT INTO Room VALUES(15, 1,"South west room", 2); #South west room
+INSERT INTO Room VALUES(16, 1,"South room", 2); #South room
+INSERT INTO Room VALUES(17, 1,"South east room", 2); #South east room
+INSERT INTO Room VALUES(18, 1,"East room", 2); #East room
+INSERT INTO Room VALUES(19, 1,"North east room", 2); #North east
+INSERT INTO Room VALUES(20, 0,"Golden skull room", 2); #Golden skull room
+INSERT INTO Room VALUES(21, 0,"Boss room", 2); #Boss room
+
+INSERT INTO Leads_to VALUES("D",10,11);
+INSERT INTO Leads_to VALUES("N",11,12);
+INSERT INTO Leads_to VALUES("W",11,14);
+INSERT INTO Leads_to VALUES("S",11,16);
+INSERT INTO Leads_to VALUES("E",11,18);
+INSERT INTO Leads_to VALUES("S",12,11);
+INSERT INTO Leads_to VALUES("W",12,13);
+INSERT INTO Leads_to VALUES("E",12,19);
+INSERT INTO Leads_to VALUES("E",13,12);
+INSERT INTO Leads_to VALUES("S",13,14);
+INSERT INTO Leads_to VALUES("E",14,11);
+INSERT INTO Leads_to VALUES("N",14,13);
+INSERT INTO Leads_to VALUES("W",14,21); #locked
+INSERT INTO Leads_to VALUES("S",14,15);
+INSERT INTO Leads_to VALUES("N",15,14);
+INSERT INTO Leads_to VALUES("E",15,16);
+INSERT INTO Leads_to VALUES("W",16,15);
+INSERT INTO Leads_to VALUES("N",16,11);
+INSERT INTO Leads_to VALUES("E",16,17);
+INSERT INTO Leads_to VALUES("W",17,16);
+INSERT INTO Leads_to VALUES("N",17,18);
+INSERT INTO Leads_to VALUES("W",18,11);
+INSERT INTO Leads_to VALUES("S",18,17);
+INSERT INTO Leads_to VALUES("E",18,20); #locked
+INSERT INTO Leads_to VALUES("N",18,19);
+INSERT INTO Leads_to VALUES("S",19,18);
+INSERT INTO Leads_to VALUES("W",19,12);
+INSERT INTO Leads_to VALUES("W",20,18);
+INSERT INTO Leads_to VALUES("E",21,14);
