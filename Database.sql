@@ -4,16 +4,16 @@ USE dankestdungeon;
 
 CREATE TABLE Room
 (
-  RoomID INT NOT NULL,
+  RoomID INT NOT NULL AUTO_INCREMENT,
   Encounter BOOLEAN NOT NULL, --Marks whether the room has a random encounter
-  Description VARACHAR(255) NOT NULL,
+  Description VARCHAR(255) NOT NULL,
   Level INT NOT NULL,
   PRIMARY KEY (RoomID)
 );
 
 CREATE TABLE EnemyType
 (
-  EnemytypeID INT NOT NULL,
+  EnemytypeID INT NOT NULL AUTO_INCREMENT,
   Name VARCHAR(255) NOT NULL,
   Level INT NOT NULL,
   HitPoints INT NOT NULL,
@@ -29,7 +29,7 @@ CREATE TABLE EnemyType
 
 CREATE TABLE Magic
 (
-  MagicID INT NOT NULL,
+  MagicID INT NOT NULL AUTO_INCREMENT,
   Name VARCHAR(255) NOT NULL,
   Damage INT NOT NULL,
   Target VARCHAR(255) NOT NULL,
@@ -39,7 +39,7 @@ CREATE TABLE Magic
 
 CREATE TABLE Enemy
 (
-  EnemyID INT NOT NULL,
+  EnemyID INT NOT NULL AUTO_INCREMENT,
   Hitpoints INT NOT NULL,
   RoomID INT NOT NULL,
   EnemytypeID INT NOT NULL,
@@ -50,7 +50,7 @@ CREATE TABLE Enemy
 
 CREATE TABLE Merchant
 (
-  MerchantID INT NOT NULL,
+  MerchantID INT NOT NULL AUTO_INCREMENT,
   Name VARCHAR(255) NOT NULL,
   Dialogue VARCHAR(255) NOT NULL,
   RoomID INT NOT NULL,
@@ -60,7 +60,7 @@ CREATE TABLE Merchant
 
 CREATE TABLE Trap
 (
-  TrapID INT NOT NULL,
+  TrapID INT NOT NULL AUTO_INCREMENT,
   Description VARCHAR(255) NOT NULL,
   Active BOOLEAN NOT NULL,
   RoomID INT NOT NULL,
@@ -70,14 +70,14 @@ CREATE TABLE Trap
 
 CREATE TABLE Dialogue
 (
-  ID INT NOT NULL,
+  ID INT NOT NULL AUTO_INCREMENT,
   Dialogue VARCHAR(255) NOT NULL,
   PRIMARY KEY (ID)
 );
 
 CREATE TABLE Itemtype
 (
-  ItemtypeID INT NOT NULL,
+  ItemtypeID INT NOT NULL AUTO_INCREMENT,
   Name VARCHAR(255) NOT NULL,
   Description VARCHAR(255) NOT NULL,
   AttackPower INT NOT NULL,
@@ -91,7 +91,7 @@ CREATE TABLE Itemtype
 
 CREATE TABLE Can_cast
 (
-  EnemytypeID INT NOT NULL,
+  EnemytypeID INT NOT NULL AUTO_INCREMENT,
   MagicID INT NOT NULL,
   PRIMARY KEY (EnemytypeID, MagicID),
   FOREIGN KEY (EnemytypeID) REFERENCES EnemyType(EnemytypeID),
@@ -100,7 +100,7 @@ CREATE TABLE Can_cast
 
 CREATE TABLE Leads_to
 (
-  Direction VARCHAR(255) NOT NULL,
+  Direction VARCHAR(255) NOT NULL AUTO_INCREMENT,
   RoomID_1 INT NOT NULL,
   Leads_toRoomID_2 INT NOT NULL,
   PRIMARY KEY (RoomID_1, Leads_toRoomID_2),
@@ -110,7 +110,7 @@ CREATE TABLE Leads_to
 
 CREATE TABLE PlayerCharater
 (
-  ID INT NOT NULL,
+  ID INT NOT NULL AUTO_INCREMENT,
   HitPoints INT NOT NULL,
   Inventorylimit INT NOT NULL,
   Money INT NOT NULL,
@@ -122,7 +122,7 @@ CREATE TABLE PlayerCharater
 
 CREATE TABLE Item
 (
-  ItemID INT NOT NULL,
+  ItemID INT NOT NULL AUTO_INCREMENT,
   ID INT,
   RoomID INT,
   MagicID INT,
