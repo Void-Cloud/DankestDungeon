@@ -7,20 +7,28 @@ Pyramid
 Enemy types
 
 Scorpions
-The black Scorpions are small, but menacing. Their grasping pedipalps open and close, and the venomous stingers at the end of their tails are curved forward, pointing straight at you...
+The black Scorpions are small, but menacing. Their grasping pedipalps open and close, and the venomous stingers at the end of their tails are curved forward, pointing straight at you... (Their hit points are 6, and attack power just 1.)
 
 Mummy Cat
-Mummy Cat is licking its mummified, linen-wrapped paw, purring peacefully. Such a lovely cat! 
+Mummy Cat is licking its mummified, linen-wrapped paw, purring peacefully. Such a lovely cat! (Looks can be deceiving, though: its hit points are 14 and attack power 2.)
 
 Mummy 
-Mummy looks desolate, sad and disfigured. He seems to be searching for something, perhaps for his long-lost soul, or his embalmed heart. Then he feels his face, and a happy smile spreads across his face as he touches his glasses.
+Mummy looks desolate, sad and disfigured. He seems to be searching for something, perhaps for his long-lost soul, or his embalmed heart. Then he feels his face, and a happy smile spreads across his face as he touches his glasses. (Hit points 21, attack power 5)
 
 Sphinx
-Sphinx has the body of a lioness and the head of a beautiful woman. She is carved out of a huge monolith. She does seem a little... stoned... (Tää on kyl aika tosi huono jo...:))
+Sphinx has the body of a lioness and the head of a beautiful woman. She is carved out of a huge monolith. She does seem a little... stoned... (Don't make her angry: her hit points are 31, and attack power 20.) (Tää on kyl aika tosi huono jo...:))
 
 Anubis
-Anubis, the Jackal-headed God of the Dead, the Protector of Tombs, the Embalmer, the Mother of Dragons, the Guide of Souls... His strength is his jackal-like fighting, and his weakness is that he's imaginary.
+Anubis, the Jackal-headed God of the Dead, the Protector of Tombs, the Embalmer, the Mother of Dragons, the Guide of Souls... His strength is his jackal-like fighting, and his weakness is that he's imaginary. (Hit points 50, attack power 10)
 
 Rooms
 
+Ehdotus: ennen pelin alkua, voisiko siihen laittaa sen nettisivun tarinan tekstin vai onko hölmä idea?
+
+It is a dark and dank night. The sky is pitch-black. A gathering sandstorm spreads across the desert, the wind howling and throwing sand on your sweaty face as you climb up the Pyramid. You cannot see further than an inch. You push on, slowly advancing. The thought of the mythical treasure hidden inside gives you the strength to reach the top. You are, after all, the greatest treasure hunter known to man. You take a crow bar out of your bag and start to pry apart the stones blocking the entrance to the Pyramid. You succeed, breaking your crow bar in the process. At last, you step down into the depths of the Pyramid…
+
 Room1
+You are in the topmost room in the Pyramid. The entrance above you used before is now closed. The room is dimly-lit and the walls are covered with hieroglyphs: animals, vases, people, odd shapes, eyes watching you...  It's magnificent and creepy at the same time. (There is .... in the room.) An exit leads down. 
+
+
+Room2
