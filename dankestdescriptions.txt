@@ -2,6 +2,8 @@ Names and desriptions
 
 Ai niin, pitikö näistä vihollisten kuvauksista paljastua heikkoudet ja esimerkiksi, mitä taikoja ne käyttävät???
 
+Pyramid
+
 Enemy types
 
 Scorpions
@@ -11,11 +13,14 @@ Mummy Cat
 Mummy Cat is licking its mummified, linen-wrapped paw, purring peacefully. Such a lovely cat! 
 
 Mummy 
-Mummy wanders around in the room with a sad and desolate expression on his disfigured face. He seems to be looking for something, perhaps for his long-lost soul. Then he feels his face, and a happy smile spreads across his face as he touches his glasses.
+Mummy looks desolate, sad and disfigured. He seems to be searching for something, perhaps for his long-lost soul, or his embalmed heart. Then he feels his face, and a happy smile spreads across his face as he touches his glasses.
 
 Sphinx
-Sphinx has the body of a lioness and the head of a beautiful woman. "Nothing is written in stone" is written in her stone pedestal. 
+Sphinx has the body of a lioness and the head of a beautiful woman. She is carved out of a huge monolith. She does seem a little... stoned... (Tää on kyl aika tosi huono jo...:))
 
 Anubis
-Anubis, the Jackal-headed God of the Dead, ...
+Anubis, the Jackal-headed God of the Dead, the Protector of Tombs, the Embalmer, the Mother of Dragons, the Guide of Souls... His strength is his jackal-like fighting, and his weakness is that he's imaginary.
 
+Rooms
+
+Room1
