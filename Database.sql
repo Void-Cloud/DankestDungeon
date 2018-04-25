@@ -172,13 +172,13 @@ INSERT INTO Leads_to VALUES("W",10,9);
 
 INSERT INTO Room VALUES(11, 0,"Middle room", 2); #Middle room
 INSERT INTO Room VALUES(12, 1,"North room", 2); #North room
-INSERT INTO Room VALUES(13, 1,"North west room", 2); #North west room
+INSERT INTO Room VALUES(13, 1,"North west room", 2); #North west room - button
 INSERT INTO Room VALUES(14, 1,"West room", 2); #West room
-INSERT INTO Room VALUES(15, 1,"South west room", 2); #South west room
+INSERT INTO Room VALUES(15, 1,"South west room", 2); #South west room - button
 INSERT INTO Room VALUES(16, 1,"South room", 2); #South room
-INSERT INTO Room VALUES(17, 1,"South east room", 2); #South east room
+INSERT INTO Room VALUES(17, 1,"South east room", 2); #South east room - button
 INSERT INTO Room VALUES(18, 1,"East room", 2); #East room
-INSERT INTO Room VALUES(19, 1,"North east room", 2); #North east
+INSERT INTO Room VALUES(19, 1,"North east room", 2); #North east - button
 INSERT INTO Room VALUES(20, 0,"Golden skull room", 2); #Golden skull room
 INSERT INTO Room VALUES(21, 0,"Boss room", 2); #Boss room
 
@@ -211,3 +211,67 @@ INSERT INTO Leads_to VALUES("S",19,18);
 INSERT INTO Leads_to VALUES("W",19,12);
 INSERT INTO Leads_to VALUES("W",20,18);
 INSERT INTO Leads_to VALUES("E",21,14);
+
+#third level rooms and connections
+
+INSERT INTO Room VALUES(22, 0,"Start Room", 3); #Start room
+INSERT INTO Room VALUES(23, 1,"Start room north", 3); #Start room north
+INSERT INTO Room VALUES(24, 1,"Start room west", 3); #Start room west
+INSERT INTO Room VALUES(25, 1,"Start room NW", 3); #Start Room north west
+INSERT INTO Room VALUES(26, 1,"Middle room", 3); #Middle room
+INSERT INTO Room VALUES(27, 0,"Squre room east", 3); #Squre room east
+INSERT INTO Room VALUES(28, 1,"Squre room north east", 3); #Squre room north east - anvil
+INSERT INTO Room VALUES(29, 1,"Squre room north", 3); #Squre room north
+INSERT INTO Room VALUES(30, 1,"Squre room north west", 3); #Squre room north west - key piece
+INSERT INTO Room VALUES(31, 1,"Squre room west", 3); #Squre room west
+INSERT INTO Room VALUES(32, 1,"Squre room south west", 3); #Squre room south west
+INSERT INTO Room VALUES(33, 1,"Squre room south", 3); #Squre room south
+INSERT INTO Room VALUES(34, 1,"Squre room south east", 3); #Squre room south east - key piece
+INSERT INTO Room VALUES(35, 0,"Squre room middle", 3); #Squre room middle - Golden Monkey
+INSERT INTO Room VALUES(36, 0,"Boss room", 3); #Boss room
+
+INSERT INTO Leads_to VALUES("D",21,22);
+INSERT INTO Leads_to VALUES("N",22,23);
+INSERT INTO Leads_to VALUES("W",22,24);
+INSERT INTO Leads_to VALUES("S",23,22);
+INSERT INTO Leads_to VALUES("W",23,25);
+INSERT INTO Leads_to VALUES("E",24,22);
+INSERT INTO Leads_to VALUES("N",24,25);
+INSERT INTO Leads_to VALUES("E",25,23);
+INSERT INTO Leads_to VALUES("S",25,24);
+INSERT INTO Leads_to VALUES("W",25,26);
+INSERT INTO Leads_to VALUES("E",26,25);
+INSERT INTO Leads_to VALUES("W",26,27);
+INSERT INTO Leads_to VALUES("E",27,26);
+INSERT INTO Leads_to VALUES("W",27,35);
+INSERT INTO Leads_to VALUES("S",27,34);
+INSERT INTO Leads_to VALUES("N",27,28);
+INSERT INTO Leads_to VALUES("S",28,27);
+INSERT INTO Leads_to VALUES("W",28,29);
+INSERT INTO Leads_to VALUES("E",29,28);
+INSERT INTO Leads_to VALUES("N",29,36); #locked
+INSERT INTO Leads_to VALUES("S",29,35);
+INSERT INTO Leads_to VALUES("W",29,30);
+INSERT INTO Leads_to VALUES("E",30,29);
+INSERT INTO Leads_to VALUES("S",30,31);
+INSERT INTO Leads_to VALUES("N",31,30);
+INSERT INTO Leads_to VALUES("E",31,35);
+INSERT INTO Leads_to VALUES("S",31,32);
+INSERT INTO Leads_to VALUES("N",32,31);
+INSERT INTO Leads_to VALUES("E",32,33);
+INSERT INTO Leads_to VALUES("W",33,32);
+INSERT INTO Leads_to VALUES("N",33,35);
+INSERT INTO Leads_to VALUES("E",33,34);
+INSERT INTO Leads_to VALUES("W",34,33);
+INSERT INTO Leads_to VALUES("N",34,27);
+INSERT INTO Leads_to VALUES("N",35,29);
+INSERT INTO Leads_to VALUES("W",35,31);
+INSERT INTO Leads_to VALUES("S",35,33);
+INSERT INTO Leads_to VALUES("E",35,27);
+
+#Dankest dungeon
+
+INSERT INTO Room VALUES(37, 0, "Dankest start", 4) #Dankest start
+INSERT INTO Room VALUES(38, 0, "Dankest boss", 4) #Dankest boss
+
+INSERT INTO Leads_to VALUES("E",37,38);
