@@ -1,1 +1,19 @@
 Names and desriptions
+
+Enemy types
+
+Scorpions
+The black Scorpions are small, but menacing. Their grasping pedipalps open and close, and the venomous stingers at the end of their tails are curved forward, pointing straight at you...
+
+Mummy Cat
+Mummy Cat is licking its mummified, linen-wrapped paw, purring peacefully. Such a lovely cat! 
+
+Mummy 
+Mummy wanders around in the room with a sad and desolate expression on his disfigured face. He seems to be looking for something, perhaps for his long-lost soul. Then he feels his face, and a happy smile spreads across his face as he touches his glasses.
+
+Sphinx
+Sphinx has the body of a lioness and the head of a beautiful woman. "Nothing is written in stone" is written in her stone pedestal. 
+
+Anubis
+Anubis, the Jackal-headed God of the Dead, ...
+
