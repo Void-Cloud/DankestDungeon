@@ -118,16 +118,16 @@ CREATE TABLE Item
 
 #First level rooms and connections
 
-INSERT INTO Room VALUES(1, 0,"Top Room", 1); #Top Room
-INSERT INTO Room VALUES(2, 1,"Second row left", 1); #Second row left
-INSERT INTO Room VALUES(3, 1,"Second row right - trap", 1); #Second row right - trap
-INSERT INTO Room VALUES(4, 1,"Third row middle", 1); #Third row middle
-INSERT INTO Room VALUES(5, 1,"Third row right", 1); #Third row right
-INSERT INTO Room VALUES(6, 1,"Third row left - trap", 1); #Third row left - trap
-INSERT INTO Room VALUES(7, 1,"Fourth row middle left", 1); #Fourth row middle left
-INSERT INTO Room VALUES(8, 1,"Fourth row further left - trap", 1); #Fourth row further left - trap
-INSERT INTO Room VALUES(9, 0,"Fourth row middle right - sphinx", 1); #Fourth row middle right - sphinx
-INSERT INTO Room VALUES(10, 0,"Fourth row further right - BOSS ROOM", 1); #Fourth row further right - BOSS ROOM
+INSERT INTO Room VALUES(1, 0,"This is the top most room in the Pyramid. The walls are covered with hieroglyphs: animals, vases, people, odd shapes, eyes watching...  It's magnificent and creepy. There's a stairway leading down.", 1); #Top Room
+INSERT INTO Room VALUES(2, 1,"This room is a kind of an antechamber, an entrance way to the most sacred parts of the Pyramid. Lots of hieroglyphs on the limestone walls again... There's a stairway leading up.", 1); #Second row left
+INSERT INTO Room VALUES(3, 1,"In this room there's a mural painting of a weighing scale and of a guy who has the head of a black scruffy dog. What's that drawn on the scales... a feather and a human heart... Eww. The stone stairs lead downwards.", 1); #Second row right - trap
+INSERT INTO Room VALUES(4, 1,"This is the grand gallery. What a big room! The stone stairs lead upwards.", 1); #Third row middle
+INSERT INTO Room VALUES(5, 1,"This must be the Queen's burial chamber. There's a huge, empty sarcophagus made of stone on the floor. And no, I shouldn't lie in it!", 1); #Third row right
+INSERT INTO Room VALUES(6, 1,"Oh vow! Really nice decor here, probably the King's chamber. There's a spiral stairway going downwards.", 1); #Third row left - trap
+INSERT INTO Room VALUES(7, 1,"Here is the biggest subterranean chamber. Still so many hieroglyphs everywhere... There's a spiral stairway going upwards.", 1); #Fourth row middle left
+INSERT INTO Room VALUES(8, 1,"This room would make a great wine cellar, maybe it's been one in the olden day. But sadly no wine here.", 1); #Fourth row further left - trap
+INSERT INTO Room VALUES(9, 0,"Yet another burial chamber, not as fancy as the others. Maybe it was for the pharaoh's distant cousin or something. There's a big ornamental door, where might that lead?", 1); #Fourth row middle right - sphinx
+INSERT INTO Room VALUES(10, 0,"In this room there are just way too many hieroglyphs. Enough with the hieroglyphs already! There's a stairway going further and further down...", 1); #Fourth row further right - BOSS ROOM
 
 INSERT INTO Leads_to VALUES("D",1,2); #Top Room -> Second row left
 INSERT INTO Leads_to VALUES("U",2,1); #Second row left -> Top Room
@@ -150,17 +150,17 @@ INSERT INTO Leads_to VALUES("W",10,9);
 
 #Second level rooms and connections
 
-INSERT INTO Room VALUES(11, 0,"Middle room", 2); #Middle room
-INSERT INTO Room VALUES(12, 1,"North room", 2); #North room
-INSERT INTO Room VALUES(13, 1,"North west room", 2); #North west room - button
-INSERT INTO Room VALUES(14, 1,"West room", 2); #West room
-INSERT INTO Room VALUES(15, 1,"South west room", 2); #South west room - button
-INSERT INTO Room VALUES(16, 1,"South room", 2); #South room
-INSERT INTO Room VALUES(17, 1,"South east room", 2); #South east room - button
-INSERT INTO Room VALUES(18, 1,"East room", 2); #East room
-INSERT INTO Room VALUES(19, 1,"North east room", 2); #North east - button
-INSERT INTO Room VALUES(20, 0,"Golden skull room", 2); #Golden skull room
-INSERT INTO Room VALUES(21, 0,"Boss room", 2); #Boss room
+INSERT INTO Room VALUES(11, 0,"Oh dear! This is obviously the middle room in a ruined Mayan Temple! The walls are covered with sculpted tablets depicting totemic animals. Maybe the treasure is in this room... Nope.", 2); #Middle room
+INSERT INTO Room VALUES(12, 1,"This hall is an ancient indoor Mesoamerican ballcourt. It was easy to get a ball back then, just use a spare head!", 2); #North room
+INSERT INTO Room VALUES(13, 1,"This is the obsidian room, the walls are decorated with blades of volcanic glass used by the Mayan people... wait, what? That's a real thing? I thought GRRM made that up!", 2); #North west room - button
+INSERT INTO Room VALUES(14, 1,"This must be the Mayan kitchen. I'm not hungry though. There's an old wooden door. ", 2); #West room
+INSERT INTO Room VALUES(15, 1,"A room for food storage, I assume. Lots of pictures of corn painted on the walls.", 2); #South west room - button
+INSERT INTO Room VALUES(16, 1,"Oh, a balcony! A great view over the Guatemalan rainforests! ", 2); #South room
+INSERT INTO Room VALUES(17, 1,"Lintels portraying Mayan Gods and animals are fastened on the walls of this room. I'll call this 'the lintel room'", 2); #South east room - button
+INSERT INTO Room VALUES(18, 1,"A room full of pictures of animals on the walls. Again. I'm starting to see a pattern here. Again. There's also a hidden trap door. You cannot see it.", 2); #East room
+INSERT INTO Room VALUES(19, 1,"The powder room! I've been looking for this as long as for the treasure!", 2); #North east - button
+INSERT INTO Room VALUES(20, 0,"This is the hidden room.", 2); #Golden skull room
+INSERT INTO Room VALUES(21, 0,"I'm in an altar room of the Mayan Temple now. The built-in altar is full of pictures of sacrificial animals (and sacrificial people).", 2); #Boss room
 
 INSERT INTO Leads_to VALUES("D",10,11);
 INSERT INTO Leads_to VALUES("N",11,12);
@@ -194,21 +194,21 @@ INSERT INTO Leads_to VALUES("E",21,14);
 
 #third level rooms and connections
 
-INSERT INTO Room VALUES(22, 0,"Start Room", 3); #Start room
-INSERT INTO Room VALUES(23, 1,"Start room north", 3); #Start room north
-INSERT INTO Room VALUES(24, 1,"Start room west", 3); #Start room west
-INSERT INTO Room VALUES(25, 1,"Start room NW", 3); #Start Room north west
-INSERT INTO Room VALUES(26, 1,"Middle room", 3); #Middle room
-INSERT INTO Room VALUES(27, 0,"Squre room east", 3); #Squre room east
-INSERT INTO Room VALUES(28, 1,"Squre room north east", 3); #Squre room north east - anvil
-INSERT INTO Room VALUES(29, 1,"Squre room north", 3); #Squre room north
-INSERT INTO Room VALUES(30, 1,"Squre room north west", 3); #Squre room north west - key piece
-INSERT INTO Room VALUES(31, 1,"Squre room west", 3); #Squre room west
-INSERT INTO Room VALUES(32, 1,"Squre room south west", 3); #Squre room south west
-INSERT INTO Room VALUES(33, 1,"Squre room south", 3); #Squre room south
-INSERT INTO Room VALUES(34, 1,"Squre room south east", 3); #Squre room south east - key piece
-INSERT INTO Room VALUES(35, 0,"Squre room middle", 3); #Squre room middle - Golden Monkey
-INSERT INTO Room VALUES(36, 0,"Boss room", 3); #Boss room
+INSERT INTO Room VALUES(22, 0,"Hold up! The walls are decorated from the floor up to the ceiling with bones, human bones. This is the foyer of the Catacombs.", 3); #Start room
+INSERT INTO Room VALUES(23, 1,"They seem to be going for the same boney look in this dining room. I do like that collar bone, is it Scandinavian? Could I get that at Ikea?", 3); #Start room north
+INSERT INTO Room VALUES(24, 1,"This is the skull room. The room's walls are covered with skulls. There's a bit of brain still left in that one.", 3); #Start room west
+INSERT INTO Room VALUES(25, 1,"The rib room! I'm so hungry!", 3); #Start Room north west
+INSERT INTO Room VALUES(26, 1,"There are lots of different bones in this room. Let's see: head, shoulders, knees, toes, knees, toes...", 3); #Middle room
+INSERT INTO Room VALUES(27, 0,"The tooth room. They really should have been using fluoride toothpaste.", 3); #Squre room east
+INSERT INTO Room VALUES(28, 1,"The phalange room. Phalange is a really weird word.", 3); #Squre room north east - anvil
+INSERT INTO Room VALUES(29, 1,"The intermediate cuneiform bone room. Need I say more? There's also a door made of - surprise, surprise - bones.", 3); #Squre room north
+INSERT INTO Room VALUES(30, 1,"The stapes room. The stapes is the smallest and lightest bone in the human body, I just looked it up on Wikipedia.", 3); #Squre room north west - key piece
+INSERT INTO Room VALUES(31, 1,"This room's id number is 31. 31, for crying out loud! And there has been no sign of the effing treasure in this whole game! Just those golden items... wonder if they're worth anything?", 3); #Squre room west
+INSERT INTO Room VALUES(32, 1,"The Room. Tommy Wiseau's 2003 film The Room has been repeatedly mentioned as one of the worst films ever made. Its main character is a banker called Johnny, played by Wiseau himself, who...", 3); #Squre room south west
+INSERT INTO Room VALUES(33, 1,"The operating theatre. Unfortunately all the nice stuff like bone cutters and amputation saws have been taken away.", 3); #Squre room south
+INSERT INTO Room VALUES(34, 1,"The bones-for-sale room. There's a sign on the wall saying: 'Come and get all the best calf bones on the market! Half price, used only once, hardly any bite marks. Call 02-718 28 18 now!'", 3); #Squre room south east - key piece
+INSERT INTO Room VALUES(35, 0,"The living room. Well, how many wannabe jokes is one supposed to be able to make about rooms and bones? Not that many, I agree.", 3); #Squre room middle - Golden Monkey
+INSERT INTO Room VALUES(36, 0,"The ticket office. A large sign advertises that the Catacombs are open for tourists from 10 am to 6 pm and ticket prices range from 10 to 20 euros.", 3); #Boss room
 
 INSERT INTO Leads_to VALUES("D",21,22);
 INSERT INTO Leads_to VALUES("N",22,23);
@@ -251,8 +251,8 @@ INSERT INTO Leads_to VALUES("E",35,27);
 
 #Dankest dungeon
 
-INSERT INTO Room VALUES(37, 0, "Dankest start", 4); #Dankest start
-INSERT INTO Room VALUES(38, 0, "Dankest boss", 4); #Dankest boss
+INSERT INTO Room VALUES(37, 0, "...An eery whisper, almost like a bark, echoes in the ominous dungeon... The smell of something sweet, rotten even, lingers in the stuffy air... There are cobwebs on the broken chains...  Something is moving in the next room... I have been teleported away from the Catacombs to the Dankest Dungeon... There's an enormous black door.", 4); #Dankest start
+INSERT INTO Room VALUES(38, 0, "Wooow! Dang dude, da crib is phat yo!", 4); #Dankest boss
 
 INSERT INTO Leads_to VALUES("E",37,38);
 
