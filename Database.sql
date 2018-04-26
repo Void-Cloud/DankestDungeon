@@ -328,3 +328,10 @@ INSERT INTO EnemyType VALUES(NULL, 'Priest of The Underworld', 3, 100, 20, "Prie
 #Level 3 enemytypes, Dankest Dungeon
 
 INSERT INTO EnemyType VALUES(NULL, 'Snoop Dogg', 4, 140, 42, "Oh my god!! It's Snoop Dogg the Greatest rapper of all time. He looks pretty chill, how can that be? (He must be really stoned or drunk...) (Hes hit points are 140 and attack power 42.)", "When the pimp's in the crib ma. Drop it like it's hot. Drop it like it's hot. Drop it like it's hot.", "Damm you beat me now have this medal.", "", 1, 420); #Snoop Dogg
+
+#Merchants
+
+INSERT INTO Merchant VALUES(NULL,'',"Hey you over there! Do you wanna buy some sweet weapons that I have? For low price it's all yours.", "Old looking fellow stares at you in the rooms corner. He seems to have something in his backbag. Looks like that he'is waving at you to come closer.", 5); #Level 1 merchant
+INSERT INTO Merchant VALUES(NULL,'Mayan Monk', "Looks like you are lost young man do you wnna buy some sweets that I have in my monk bag?.", "You see old mayan monk in the room. He seemst to be praying. Sudently he notices you and takes bag from hes back.", 14); #Level 2 merchant
+INSERT INTO Merchant VALUES(NULL,'Merchant', "", "", 26); #Level 3 merhcant
+INSERT INTO Merchant VALUES(NULL,'Loyal Hound Man',"Ah you have reached to the final boss. I suggest you buy some upgrades or my master is going to finnish you with one hit. Wof wof.", "You see man..no its dog no its man. Well it doesn't matter, it seems like the houndman has something he wants you to know.", 37); #Level 4 merchant
