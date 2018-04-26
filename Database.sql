@@ -331,10 +331,10 @@ INSERT INTO EnemyType VALUES(NULL, 'Snoop Dogg', 4, 140, 42, "Oh my god!! It's S
 
 #Merchants
 
-INSERT INTO Merchant VALUES(NULL,'',"Hey you over there! Do you wanna buy some sweet weapons that I have? For low price it's all yours.", "Old looking fellow stares at you in the rooms corner. He seems to have something in his backbag. Looks like that he'is waving at you to come closer.", 5); #Level 1 merchant
-INSERT INTO Merchant VALUES(NULL,'Mayan Monk', "Looks like you are lost young man do you wnna buy some sweets that I have in my monk bag?.", "You see old mayan monk in the room. He seemst to be praying. Sudently he notices you and takes bag from hes back.", 14); #Level 2 merchant
-INSERT INTO Merchant VALUES(NULL,'Merchant', "", "", 26); #Level 3 merhcant
-INSERT INTO Merchant VALUES(NULL,'Loyal Hound Man',"Ah you have reached to the final boss. I suggest you buy some upgrades or my master is going to finnish you with one hit. Wof wof.", "You see man..no its dog no its man. Well it doesn't matter, it seems like the houndman has something he wants you to know.", 37); #Level 4 merchant
+INSERT INTO Merchant VALUES(NULL,'',"Hey you over there! Do you wanna buy some sweet weapons that I have? For a low price it's all yours.", "Old looking fellow stares at you from the corner of the room. He seems to have something in his backbag. Looks like that he is waving at you to come closer.", 5); #Level 1 merchant
+INSERT INTO Merchant VALUES(NULL,'Mayan Monk', "Looks like you are lost young man do you wanna buy some sweets that I have in my monk bag?.", "You see old mayan monk in the room. He seemst to be praying. Sudently he notices you and takes a bag from his back.", 14); #Level 2 merchant
+INSERT INTO Merchant VALUES(NULL,'Merchant', "Got some rare things on sale, stranger! ", "A strange man in a black trench-coat with a huge backbag is standing behind a desk filled with items. There is also a torch that is burning with a blue flame.", 26); #Level 3 merhcant
+INSERT INTO Merchant VALUES(NULL,'Loyal Hound Man',"Ah you have reached to the final boss. I suggest you buy some upgrades or my master is going to finnish you with one hit. Wof wof.", "You see man... no, its dog, no, its man. Well it doesn't matter, it seems like the houndman has something he wants you to know.", 37); #Level 4 merchant
 
 #Put bosses into their rooms
 
