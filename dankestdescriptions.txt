@@ -10,13 +10,13 @@ Scorpions
 The black Scorpions are small, but menacing. Their grasping pedipalps open and close, and the venomous stingers at the end of their tails are curved forward, pointing straight at you... (Their hit points are 6, and attack power just 1.)
 
 Mummy Cat
-Mummy Cat is licking its mummified, linen-wrapped paw, purring peacefully. Such a lovely cat! (Looks can be deceiving, though: its hit points are 14 and attack power 2.)
+Mummy Cat is licking its mummified, linen-wrapped paw, purring peacefully. Such a lovely cat! (Appearances can be deceiving, though: its hit points are 14 and attack power 2.)
 
 Mummy 
-The Mummy stands still in the corner. His hideous disfigured and odd-coloured corps is visible between the linen shreds wrapped around him. It is hard to understand that once he's been a huma, too. But hey, looks aren't everything! (Hit points 21, attack power 5)
+The Mummy stands still in the corner. His hideous disfigured and odd-coloured corps is visible between the linen shreds wrapped around him. It is hard to understand that once he's been a human, too. But hey, looks aren't everything! (Hit points 21, attack power 5)
 
 Sphinx
-Sphinx has the body of a lioness and the head of a beautiful woman. She is carved out of a huge monolith. She does seem a little... stoned... (Don't make her angry: her hit points are 31, and attack power 20.) (Tää on kyl aika tosi huono jo...:))
+Sphinx has the body of a lioness and the head of a beautiful woman. She is carved out of a huge monolith. She does seem a little... stoned... (However, don't make her angry: her hit points are 31, and attack power 20.) (Tää on kyl aika tosi huono jo...:))
 
 Anubis
 Anubis, the Jackal-headed God of the Dead, the Protector of Tombs, the Embalmer, the Mother of Dragons, the Guide of Souls... His strength is his jackal-like fighting, and his weakness is that he's scared of fireworks. (Hit points 50, attack power 10)
