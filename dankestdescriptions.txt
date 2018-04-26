@@ -25,10 +25,64 @@ Rooms
 
 Ehdotus: ennen pelin alkua, voisiko siihen laittaa sen nettisivun tarinan tekstin vai onko hölmä idea?
 
-It is a dark and dank night. The sky is pitch-black. A gathering sandstorm spreads across the desert, the wind howling and throwing sand on your sweaty face as you climb up the Pyramid. You cannot see further than an inch. You push on, slowly advancing. The thought of the mythical treasure hidden inside gives you the strength to reach the top. You are, after all, the greatest treasure hunter known to man. You take a crow bar out of your bag and start to pry apart the stones blocking the entrance to the Pyramid. You succeed, breaking your crow bar in the process. At last, you step down into the depths of the Pyramid…
+It is a dark and dank night. The sky is pitch-black. A gathering sandstorm spreads across the desert, the wind howling and throwing sand on my sweaty face as I climb up the Pyramid. I cannot see further than an inch. I push on, slowly advancing. The thought of the mythical treasure hidden inside gives me the strength to reach the top. I am, after all, the greatest treasure hunter known to man. I take a crow bar out of my bag and start to pry apart the stones blocking the entrance to the Pyramid. I succeed, breaking my crow bar in the process. At last, I step down into the depths of the Pyramid…
 
 Room1
-You are in the topmost room in the Pyramid. The entrance above you used before is now closed. The room is dimly-lit and the walls are covered with hieroglyphs: animals, vases, people, odd shapes, eyes watching you...  It's magnificent and creepy at the same time. (There is .... in the room.) An exit leads down. 
-
+This is the topmost room in the Pyramid. The exit above is now blocked and cannot be opened again. The room is dimly-lit and the walls are covered with hieroglyphs: animals, vases, people, odd shapes, eyes watching...  It's magnificent and creepy at the same time. There's a stairway leading down.
 
 Room2
+This room seems to be a kind of an antechamber, an entrance way to the most sacred parts of the Pyramid. Lots of hieroglyphs on the limestone walls again... There's a stairway leading up.
+
+Room3
+In this room there's a mural painting of a weighing scale and of a guy who has the head of a black scruffy dog. What's that drawn on the scales... a feather and a human heart... The stone stairs lead downwards.
+
+Room4
+This is the grand gallery. What a big room! The stone stairs lead upwards.
+
+Room5
+This must be the Queen's burial chamber. There's a huge, empty sarcophagus made of stone on the floor. And no, you can't lie in it!
+
+Room6
+Oh vow! Really nice decor here, probably the King's chamber. There's a spiral stairway going downwards.
+
+Room7
+Here is the biggest subterranean chamber. Still so many hieroglyphs everywhere... There's a spiral stariway going upwards.
+
+Room8
+This room would make a great wine cellar, maybe it's been one in the olden day. But sadly no wine here.
+
+Room9
+Yet another burial chamber, not as fancy as the others. Maybe it was for the pharaoh's distant cousin. There's a big ornamental door, where might that lead?
+
+Room10
+In this room there are just hieroglyphs, way too many hieroglyphs. Enough with the hieroglyphs already! There's a stairway going further and further down...
+
+Room11
+Oh dear! This is obviously the middle room in a ruined Mayan Temple! The walls are covered with sculpted tablets depicting totemic animals.
+
+Room12
+This hall is an ancient indoor Mesoamerican ballcourt. It was easy to get a ball back then, just use a spare head!
+
+Room13
+I'm in an altar room. The built-in altar is full of pictures of different spirit animals. 
+
+Room14
+This must be the kitchen. I'm not hungry though. There's an old wooden door. 
+
+Room15
+A room for food storage, I assume. Lots of pictures of corn painted on the walls.
+
+Room16
+Oh, a balcony! A great view over the Guatemalan rainforests! 
+
+Room17
+Lintels portraying Mayan Gods and animals are fastened on the walls of this room. I'll call this "the lintel room".
+
+Room18
+A room full of pictures of animals on the walls. Again. I'm starting to see a pattern here. There's also a hidden trap door. You cannot see it.
+
+Room19
+
+
+
+
