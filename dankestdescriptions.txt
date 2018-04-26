@@ -28,10 +28,10 @@ Ehdotus: ennen pelin alkua, voisiko siihen laittaa sen nettisivun tarinan teksti
 It is a dark and dank night. The sky is pitch-black. A gathering sandstorm spreads across the desert, the wind howling and throwing sand on my sweaty face as I climb up the Pyramid. I cannot see further than an inch. I push on, slowly advancing. The thought of the mythical treasure hidden inside gives me the strength to reach the top. I am, after all, the greatest treasure hunter known to man. I take a crow bar out of my bag and start to pry apart the stones blocking the entrance to the Pyramid. I succeed, breaking my crow bar in the process. At last, I step down into the depths of the Pyramid…
 
 Room1
-This is the topmost room in the Pyramid. (The exit above is blocked and cannot be opened again.) The room is dimly-lit and the walls are covered with hieroglyphs: animals, vases, people, odd shapes, eyes watching...  It's magnificent and creepy at the same time. There's a stairway leading down.
+This is the top most room in the Pyramid. (The exit above is blocked and cannot be opened again.) The room is dimly-lit and the walls are covered with hieroglyphs: animals, vases, people, odd shapes, eyes watching...  It's magnificent and creepy at the same time. There's a stairway leading down.
 
 Room2
-This room seems to be a kind of an antechamber, an entrance way to the most sacred parts of the Pyramid. Lots of hieroglyphs on the limestone walls again... There's a stairway leading up.
+This room is a kind of an antechamber, an entrance way to the most sacred parts of the Pyramid. Lots of hieroglyphs on the limestone walls again... There's a stairway leading up.
 
 Room3
 In this room there's a mural painting of a weighing scale and of a guy who has the head of a black scruffy dog. What's that drawn on the scales... a feather and a human heart... Eww. The stone stairs lead downwards.
@@ -64,7 +64,7 @@ Room12
 This hall is an ancient indoor Mesoamerican ballcourt. It was easy to get a ball back then, just use a spare head!
 
 Room13
-I'm in an altar room now. The built-in altar is full of pictures of different spirit animals. 
+I'm in an altar room now. The built-in altar is full of pictures of different spirit or sacrificial animals. 
 
 Room14
 This must be the kitchen. I'm not hungry though. There's an old wooden door. 
@@ -93,15 +93,20 @@ This is the obsidian room as there are "images of prismatic blades with bloody h
 Room 22
 Hold up! The walls are decorated down from the floor up to the roof with bones, human bones. This is the lobby of the Catacombs.
 
-Room 23
-They seem to be going for the same look in this dining room. I do like that collar bone, is it Scandinavian? Could I get that at Ikea?
+Room23
+They seem to be going for the same boney look in this dining room. I do like that collar bone, is it Scandinavian? Could I get that at Ikea?
 
-Room 24
+Room24
 This is the skull room. The room's walls are covered with skulls. There's a bit of brain still left in that one.
 
 Room25
 The rib room! I'm so hungry!
 
 Room26
-This room's id number is 26. 26, for crying out loud! And there has been no sign of the effing treasure in this whole game!
+There are lots of different bones in this room. Let's see: head, shoulders, knees, toes, knees, toes...
+
+Room27
+
+
+This room's id number is 26. 26, for crying out loud! And there has been no sign of the effing treasure in this whole game! Just those golden items... wonder if they're worth anything?
 
