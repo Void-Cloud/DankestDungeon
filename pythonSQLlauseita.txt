@@ -1,0 +1,3 @@
+INSERT INTO Trap VALUES(NULL, "The room seems to be bit off... Oh no sand starts to fill the room from hole. You need to do something but what?", 1, 3);
+INSERT INTO Trap VALUES(NULL, "The room seems to be bit off... Oh no sand starts to fill the room from hole. You need to do something but what?", 1, 6);
+INSERT INTO Trap VALUES(NULL, "The room seems to be bit off... Oh no sand starts to fill the room from hole. You need to do something but what?", 1, 8);
