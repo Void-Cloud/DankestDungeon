@@ -6,7 +6,7 @@ CREATE TABLE Room
 (
   RoomID INT NOT NULL,
   Encounter BOOLEAN NOT NULL, #Marks whether the room has a random encounter
-  Description VARCHAR(255) NOT NULL,
+  Description VARCHAR(1000) NOT NULL,
   Level INT NOT NULL,
   PRIMARY KEY (RoomID)
 );
@@ -14,27 +14,17 @@ CREATE TABLE Room
 CREATE TABLE EnemyType
 (
   EnemytypeID INT NOT NULL AUTO_INCREMENT,
-  Name VARCHAR(255) NOT NULL,
+  Name VARCHAR(1000) NOT NULL,
   Level INT NOT NULL,
   HitPoints INT NOT NULL,
   AttackPower INT NOT NULL,
-  Description VARCHAR(255) NOT NULL,
+  Description VARCHAR(1000) NOT NULL,
   Dialogue VARCHAR(255) NOT NULL,
-  DeathDialogue VARCHAR(255) NOT NULL,
-  Riddle VARCHAR(255) NOT NULL,
+  DeathDialogue VARCHAR(1000) NOT NULL,
+  Riddle VARCHAR(1000) NOT NULL,
   isUnique BOOLEAN NOT NULL,
   Money INT NOT NULL,
   PRIMARY KEY (EnemytypeID)
-);
-
-CREATE TABLE Magic
-(
-  MagicID INT NOT NULL AUTO_INCREMENT,
-  Name VARCHAR(255) NOT NULL,
-  Damage INT NOT NULL,
-  Target VARCHAR(255) NOT NULL,
-  Cooldown INT NOT NULL,
-  PRIMARY KEY (MagicID)
 );
 
 CREATE TABLE Enemy
@@ -51,8 +41,8 @@ CREATE TABLE Enemy
 CREATE TABLE Merchant
 (
   MerchantID INT NOT NULL AUTO_INCREMENT,
-  Name VARCHAR(255) NOT NULL,
-  Dialogue VARCHAR(255) NOT NULL,
+  Name VARCHAR(1000) NOT NULL,
+  Dialogue VARCHAR(1000) NOT NULL,
   RoomID INT NOT NULL,
   PRIMARY KEY (MerchantID),
   FOREIGN KEY (RoomID) REFERENCES Room(RoomID)
@@ -61,7 +51,7 @@ CREATE TABLE Merchant
 CREATE TABLE Trap
 (
   TrapID INT NOT NULL AUTO_INCREMENT,
-  Description VARCHAR(255) NOT NULL,
+  Description VARCHAR(1000) NOT NULL,
   Active BOOLEAN NOT NULL,
   RoomID INT NOT NULL,
   PRIMARY KEY (TrapID),
@@ -71,22 +61,34 @@ CREATE TABLE Trap
 CREATE TABLE Dialogue
 (
   ID INT NOT NULL AUTO_INCREMENT,
-  Dialogue VARCHAR(255) NOT NULL,
+  Dialogue VARCHAR(1000) NOT NULL,
   PRIMARY KEY (ID)
 );
 
 CREATE TABLE Itemtype
 (
   ItemtypeID INT NOT NULL AUTO_INCREMENT,
-  Name VARCHAR(255) NOT NULL,
-  Description VARCHAR(255) NOT NULL,
+  Name VARCHAR(1000) NOT NULL,
+  Description VARCHAR(1000) NOT NULL,
   AttackPower INT NOT NULL,
   HitPoints INT NOT NULL,
   Movable BOOLEAN NOT NULL,
-  Type VARCHAR(255) NOT NULL,
+  Type VARCHAR(1000) NOT NULL,
   Value INT NOT NULL,
   Created BOOLEAN NOT NULL,
   PRIMARY KEY (ItemtypeID)
+);
+
+CREATE TABLE Magic
+(
+  MagicID INT NOT NULL AUTO_INCREMENT,
+  Name VARCHAR(1000) NOT NULL,
+  Damage INT NOT NULL,
+  Target VARCHAR(1000) NOT NULL,
+  ItemtypeID INT,
+  Cooldown INT NOT NULL,
+  PRIMARY KEY (MagicID),
+  FOREIGN KEY (ItemtypeID) REFERENCES Itemtype(ItemtypeID)
 );
 
 CREATE TABLE Can_cast
@@ -100,7 +102,7 @@ CREATE TABLE Can_cast
 
 CREATE TABLE Leads_to
 (
-  Direction VARCHAR(255) NOT NULL,
+  Direction VARCHAR(1000) NOT NULL,
   RoomID_1 INT NOT NULL,
   Leads_toRoomID_2 INT NOT NULL,
   PRIMARY KEY (RoomID_1, Leads_toRoomID_2),
@@ -108,13 +110,13 @@ CREATE TABLE Leads_to
   FOREIGN KEY (Leads_toRoomID_2) REFERENCES Room(RoomID)
 );
 
-CREATE TABLE PlayerCharater
+CREATE TABLE PlayerCharacter
 (
   ID INT NOT NULL AUTO_INCREMENT,
   HitPoints INT NOT NULL,
   Inventorylimit INT NOT NULL,
   Money INT NOT NULL,
-  Description VARCHAR(255) NOT NULL,
+  Description VARCHAR(1000) NOT NULL,
   RoomID INT NOT NULL,
   PRIMARY KEY (ID),
   FOREIGN KEY (RoomID) REFERENCES Room(RoomID)
@@ -125,13 +127,11 @@ CREATE TABLE Item
   ItemID INT NOT NULL AUTO_INCREMENT,
   ID INT,
   RoomID INT,
-  MagicID INT,
   MerchantID INT,
   ItemtypeID INT NOT NULL,
   PRIMARY KEY (ItemID),
-  FOREIGN KEY (ID) REFERENCES PlayerCharater(ID),
+  FOREIGN KEY (ID) REFERENCES PlayerCharacter(ID),
   FOREIGN KEY (RoomID) REFERENCES Room(RoomID),
-  FOREIGN KEY (MagicID) REFERENCES Magic(MagicID),
   FOREIGN KEY (MerchantID) REFERENCES Merchant(MerchantID),
   FOREIGN KEY (ItemtypeID) REFERENCES Itemtype(ItemtypeID)
 );
@@ -276,6 +276,52 @@ INSERT INTO Room VALUES(38, 0, "Dankest boss", 4); #Dankest boss
 
 INSERT INTO Leads_to VALUES("E",37,38);
 
+INSERT INTO playercharacter VALUES(NULL, 100, 10, 15, "Me, a humble treasure hunter.", 1);
+
+INSERT INTO itemtype VALUES(NULL, "Dagger", "A basic blade to hit monsters with", 10, 0, 1, "weapon", 0, 1);
+INSERT INTO itemtype VALUES(NULL, "Short sword", "A basic sword for hitting monsters", 13, 0, 1, "weapon", 100, 0);
+INSERT INTO itemtype VALUES(NULL, "Medium sword", "Slightly better sword for hitting monsters", 18, 0, 1, "weapon", 200, 0);
+INSERT INTO itemtype VALUES(NULL, "Long sword", "Clearly better sword for hitting monsters", 25, 0, 1, "weapon", 400, 0);
+INSERT INTO itemtype VALUES(NULL, "Einhander", "Little brother of the Zweihander", 30, 0, 1, "weapon", 800, 0);
+
+INSERT INTO itemtype VALUES(NULL, "Buckler", "Smallest little shield", 0, 80, 1, "shield", 100, 0);
+INSERT INTO itemtype VALUES(NULL, "Small Shield", "Small little shield", 0, 100, 1, "shield", 150, 0);
+INSERT INTO itemtype VALUES(NULL, "Shield", "Moderately sized shield", 0, 120, 1, "shield", 300, 0);
+INSERT INTO itemtype VALUES(NULL, "Tower shield", "Using a tower as a shield, bold!", 0, 150, 1, "shield", 600, 0);
+
+INSERT INTO itemtype VALUES(NULL, "Healing potion", "Small bottle filled with dark, red liquid. Heals to full health.", 0, 0, 1, "Potion", 100, 0);
+INSERT INTO itemtype VALUES(NULL, "Damage potion", "Small bottle filled with grey liquid, Smells awful. Increases combat prowess.", 20, 0, 1, "Potion", 500, 0);
+
+INSERT INTO Itemtype VALUES(NULL, "Healing Scroll", "A Scroll containig esoteric knowledge. there is a picture of a red cross in the middle.", 0, 0, 1, "Scroll", 500, 0);
+INSERT INTO Itemtype VALUES(NULL, "Water Scroll", "A Scroll containig esoteric knowledge. there is a picture of a tsunami in the middle.", 0, 0, 1, "Scroll", 500, 0);
+INSERT INTO Itemtype VALUES(NULL, "Fire Scroll", "A Scroll containig esoteric knowledge. there is a picture of a fireball in the middle.", 0, 0, 1, "Scroll", 500, 0);
+
+INSERT INTO Itemtype VALUES(NULL, "Golden ankh", "A curious treasure, pure gold. I can't help but to feel this item is important", 0, 0, 1, "Golden", 4000, 1);
+INSERT INTO Itemtype VALUES(NULL, "Golden skull", "A curious treasure, pure gold. I can't help but to feel this item is important", 0, 0, 1, "Golden", 4000, 1);
+INSERT INTO Itemtype VALUES(NULL, "Golden monkey", "A curious treasure, pure gold. I can't help but to feel this item is important", 0, 0, 1, "Golden", 4000, 1);
+
+INSERT INTO Itemtype VALUES(NULL, "Key piece", "It seems to be a half of a key", 0, 0, 1, "key", 0, 1);
+INSERT INTO Itemtype VALUES(NULL, "Piece of a key", "It seems to be a half of a key", 0, 0, 1, "key", 0, 1);
+
+INSERT INTO Itemtype VALUES(NULL, "Snake button", "It's a button with a picture of a snake. I feel compelled to push it", 0, 0, 0, "Button", 0, 1);
+INSERT INTO Itemtype VALUES(NULL, "Jaquar button", "It's a button with a picture of a jaquar. I feel compelled to push it", 0, 0, 0, "Button", 0, 1);
+INSERT INTO Itemtype VALUES(NULL, "Quetzal button", "It's a button with a picture of a quetzal. I feel compelled to push it", 0, 0, 0, "Button", 0, 1);
+INSERT INTO Itemtype VALUES(NULL, "Butterfly button", "It's a button with a picture of a butterfly. I feel compelled to push it", 0, 0, 0, "Button", 0, 1);
+
+INSERT INTO Item VALUES(NULL, 1, NULL, NULL, 1); #Put Dagger into player's inventory
+
+INSERT INTO Item VALUES(NULL, NULL, 8, NULL, 15); #put golden items into their rooms
+INSERT INTO Item VALUES(NULL, NULL, 20, NULL, 16);
+INSERT INTO Item VALUES(NULL, NULL, 35, NULL, 17);
+
+INSERT INTO Item VALUES(NULL, NULL, 34, NULL, 18); #put key pieces into their rooms
+INSERT INTO Item VALUES(NULL, NULL, 30, NULL, 19);
+
+INSERT INTO Item VALUES(NULL, NULL, 13, NULL, 20); #put buttons into their rooms
+INSERT INTO Item VALUES(NULL, NULL, 15, NULL, 21);
+INSERT INTO Item VALUES(NULL, NULL, 17, NULL, 22);
+INSERT INTO Item VALUES(NULL, NULL, 19, NULL, 23);
+
 #Level 1 enemytypes, Pyramid
 
 INSERT INTO EnemyType VALUES(NULL, 'Scorpions', 1, 6, 1, "The black Scorpions are small, but menacing. Their grasping pedipalps open and close, and the venomous stingers at the end of their tails are curved forward, pointing straight at you... (Their hit points are 6, and attack power just 1.)", "Grrr", "Grr...rr..r","", 0, 1); #Scorpion
@@ -297,9 +343,8 @@ INSERT INTO EnemyType VAlUES(NULL, 'Mayan God', 2, 60, 15, "Mayan God Ah Puch lo
 INSERT INTO EnemyType VALUES(NULL, 'Blood Sucking Bats', 3, 22, 10, "Those bats look like they wan't blood. Don't let them suck it all or your going to be a mummy. (hit points 22 and attack power 10.)", "Brrrt brrtt..give blood.", "Brrrtt..", "", 0, 8); #Blood Sucking Bats
 INSERT INTO EnemyType VALUES(NULL, 'Skeleton Warriors', 3, 28, 15, "Skeleton Warriors make nasty sounds when they walk. Bones hitting the catacombs floor gives you chills. Let the bodies now hit the floor! (hit points  28 and attack power 15.)", "Cling clang clung", "Clung cling", "", 0, 10); #Skeleton Warriors 
 INSERT INTO EnemyType VALUES(NULL, 'Dead Warriors', 3, 45, 18, "Dead warriors, those who dare the lord where never given the peace in underworld and now they march in unreast ready to give theyr paint to others. (hit points 45 and attack power 18.)", "Kill kill more killing and maybe...no just kill.", "Nooooo...", "", 0, 14); #Dead Warriors
-INSERT INTO EnemyType VALUES(NULL, 'Priest of The Underworld', 3, 100, 18, "Priest of the Underworld Pekka menacing priest who doesn't let the death rest. Give him hes death so he learns what death really means. (hit points 100 and attack power 20.)", "Well well well....I will make you my greatest undead soldier of all time. Now die for me!", "No I don't wanna die not like this....!", "", 1, 20); #Priest of The Underworld
+INSERT INTO EnemyType VALUES(NULL, 'Priest of The Underworld', 3, 100, 20, "Priest of the Underworld Pekka menacing priest who doesn't let the death rest. Give him hes death so he learns what death really means. (hit points 100 and attack power 20.)", "Well well well....I will make you my greatest undead soldier of all time. Now die for me!", "No I don't wanna die not like this....!", "", 1, 20); #Priest of The Underworld
 
 #Level 3 enemytypes, Dankest Dungeon
 
-INSERT INTO EnemyType VALUES(NULL, 'Snoop Dogg', 4, 100, 42, "Oh my god!! It's Snoop Dogg the Greatest rapper of all time. He looks pretty chill, how can that be? (He must be really stoned or drunk...) (Hes hit points are 140 and attack power 42.)", "When the pimp's in the crib ma. Drop it like it's hot. Drop it like it's hot. Drop it like it's hot.", "Damm you beat me now have this medal.", "", 1, 420); #Snoop Dogg
-
+INSERT INTO EnemyType VALUES(NULL, 'Snoop Dogg', 4, 140, 42, "Oh my god!! It's Snoop Dogg the Greatest rapper of all time. He looks pretty chill, how can that be? (He must be really stoned or drunk...) (Hes hit points are 140 and attack power 42.)", "When the pimp's in the crib ma. Drop it like it's hot. Drop it like it's hot. Drop it like it's hot.", "Damm you beat me now have this medal.", "", 1, 420); #Snoop Dogg
