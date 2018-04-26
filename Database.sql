@@ -160,7 +160,7 @@ INSERT INTO Room VALUES(17, 1,"Lintels portraying Mayan Gods and animals are fas
 INSERT INTO Room VALUES(18, 1,"A room full of pictures of animals on the walls. Again. I'm starting to see a pattern here. Again. There's also a hidden trap door. You cannot see it.", 2); #East room
 INSERT INTO Room VALUES(19, 1,"The powder room! I've been looking for this as long as for the treasure!", 2); #North east - button
 INSERT INTO Room VALUES(20, 0,"This is the hidden room.", 2); #Golden skull room
-INSERT INTO Room VALUES(21, 0,"I'm in an altar room of the Mayan Temple now. The built-in altar is full of pictures of sacrificial animals (and sacrificial people).", 2); #Boss room
+INSERT INTO Room VALUES(21, 0,"I'm in an altar room of the Mayan Temple now. The built-in altar is full of pictures of sacrificial animals (and sacrificial humans).", 2); #Boss room
 
 INSERT INTO Leads_to VALUES("D",10,11);
 INSERT INTO Leads_to VALUES("N",11,12);
