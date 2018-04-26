@@ -336,6 +336,8 @@ INSERT INTO Merchant VALUES(NULL,'Mayan Monk', "Looks like you are lost young ma
 INSERT INTO Merchant VALUES(NULL,'Merchant', "", "", 26); #Level 3 merhcant
 INSERT INTO Merchant VALUES(NULL,'Loyal Hound Man',"Ah you have reached to the final boss. I suggest you buy some upgrades or my master is going to finnish you with one hit. Wof wof.", "You see man..no its dog no its man. Well it doesn't matter, it seems like the houndman has something he wants you to know.", 37); #Level 4 merchant
 
+#Put bosses into their rooms
+
 INSERT INTO Enemy VALUES(NULL, 31, 9, 4);
 INSERT INTO Enemy VALUES(NULL, 50, 10, 5);
 INSERT INTO Enemy VALUES(NULL, 60, 21, 10);
