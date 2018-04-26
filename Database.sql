@@ -335,3 +335,9 @@ INSERT INTO Merchant VALUES(NULL,'',"Hey you over there! Do you wanna buy some s
 INSERT INTO Merchant VALUES(NULL,'Mayan Monk', "Looks like you are lost young man do you wnna buy some sweets that I have in my monk bag?.", "You see old mayan monk in the room. He seemst to be praying. Sudently he notices you and takes bag from hes back.", 14); #Level 2 merchant
 INSERT INTO Merchant VALUES(NULL,'Merchant', "", "", 26); #Level 3 merhcant
 INSERT INTO Merchant VALUES(NULL,'Loyal Hound Man',"Ah you have reached to the final boss. I suggest you buy some upgrades or my master is going to finnish you with one hit. Wof wof.", "You see man..no its dog no its man. Well it doesn't matter, it seems like the houndman has something he wants you to know.", 37); #Level 4 merchant
+
+INSERT INTO Enemy VALUES(NULL, 31, 9, 4);
+INSERT INTO Enemy VALUES(NULL, 50, 10, 5);
+INSERT INTO Enemy VALUES(NULL, 60, 21, 10);
+INSERT INTO Enemy VALUES(NULL, 100, 36, 14);
+INSERT INTO Enemy VALUES(NULL, 140, 38, 15);
