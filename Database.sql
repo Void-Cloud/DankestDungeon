@@ -79,27 +79,6 @@ CREATE TABLE Itemtype
   PRIMARY KEY (ItemtypeID)
 );
 
-CREATE TABLE Magic
-(
-  MagicID INT NOT NULL AUTO_INCREMENT,
-  Name VARCHAR(1000) NOT NULL,
-  Damage INT NOT NULL,
-  Target VARCHAR(1000) NOT NULL,
-  ItemtypeID INT,
-  Cooldown INT NOT NULL,
-  PRIMARY KEY (MagicID),
-  FOREIGN KEY (ItemtypeID) REFERENCES Itemtype(ItemtypeID)
-);
-
-CREATE TABLE Can_cast
-(
-  EnemytypeID INT NOT NULL,
-  MagicID INT NOT NULL,
-  PRIMARY KEY (EnemytypeID, MagicID),
-  FOREIGN KEY (EnemytypeID) REFERENCES EnemyType(EnemytypeID),
-  FOREIGN KEY (MagicID) REFERENCES Magic(MagicID)
-);
-
 CREATE TABLE Leads_to
 (
   Direction VARCHAR(1000) NOT NULL,
