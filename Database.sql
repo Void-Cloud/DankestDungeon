@@ -301,5 +301,5 @@ INSERT INTO EnemyType VALUES(NULL, 'Priest of The Underworld', 3, 100, 18, 'Prie
 
 #Level 3 enemytypes, Dankest Dungeon
 
-INSERT INTO EnemyType VALUES(NULL, 'Snoop Dogg', 4, 100, 42, 'Oh my god!! It's Snoop Dogg the Greatest rapper of all time. He looks pretty chill, how can that be? (He must be really stoned or drunk...) (Hes hit points are 140 and attack power 42.)', 'When the pimp's in the crib ma. Drop it like it's hot. Drop it like it's hot. Drop it like it's hot.', 'Damm you beat me now have this medal.', '', 1, 420); Snoop Dogg
+INSERT INTO EnemyType VALUES(NULL, 'Snoop Dogg', 4, 100, 42, 'Oh my god!! It's Snoop Dogg the Greatest rapper of all time. He looks pretty chill, how can that be? (He must be really stoned or drunk...) (Hes hit points are 140 and attack power 42.)', 'When the pimp's in the crib ma. Drop it like it's hot. Drop it like it's hot. Drop it like it's hot.', 'Damm you beat me now have this medal.', '', 1, 420); #Snoop Dogg
 
