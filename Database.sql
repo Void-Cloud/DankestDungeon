@@ -271,7 +271,7 @@ INSERT INTO Leads_to VALUES("E",35,27);
 
 #Dankest dungeon
 
-INSERT INTO Room VALUES(37, 0, "Dankest start", 4) #Dankest start
-INSERT INTO Room VALUES(38, 0, "Dankest boss", 4) #Dankest boss
+INSERT INTO Room VALUES(37, 0, "Dankest start", 4); #Dankest start
+INSERT INTO Room VALUES(38, 0, "Dankest boss", 4); #Dankest boss
 
 INSERT INTO Leads_to VALUES("E",37,38);
