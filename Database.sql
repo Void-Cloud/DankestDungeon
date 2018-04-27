@@ -338,8 +338,8 @@ INSERT INTO Merchant VALUES(NULL,'Loyal Hound Man',"Ah you have reached the fina
 
 #Put bosses into their rooms
 
-INSERT INTO Enemy VALUES(NULL, 31, 9, 4);
-INSERT INTO Enemy VALUES(NULL, 50, 10, 5);
-INSERT INTO Enemy VALUES(NULL, 60, 21, 10);
-INSERT INTO Enemy VALUES(NULL, 100, 36, 14);
-INSERT INTO Enemy VALUES(NULL, 140, 38, 15);
+INSERT INTO Enemy VALUES(NULL, (SELECT HitPoints FROM Enemytype WHERE Name = "Sphinx"), 9, 4);
+INSERT INTO Enemy VALUES(NULL, (SELECT HitPoints FROM Enemytype WHERE Name = "Anubis"), 10, 5);
+INSERT INTO Enemy VALUES(NULL, (SELECT HitPoints FROM Enemytype WHERE Name = "Mayan God"), 21, 10);
+INSERT INTO Enemy VALUES(NULL, (SELECT HitPoints FROM Enemytype WHERE Name = "Priest of The Underworld"), 36, 14);
+INSERT INTO Enemy VALUES(NULL, (SELECT HitPoints FROM Enemytype WHERE Name = "Snoop Dogg"), 38, 15);
