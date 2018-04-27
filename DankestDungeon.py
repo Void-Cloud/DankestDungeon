@@ -30,5 +30,5 @@ snoopdgolives = true
 action = ""
 
 #Main
-while action!="quit" and (playerhp !=< 0 or snoopdoglives):
+while action!="quit" and (playerhp > 0 or snoopdoglives):
     
