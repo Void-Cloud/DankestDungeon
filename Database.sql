@@ -331,7 +331,7 @@ INSERT INTO EnemyType VALUES(NULL, 'Snoop Dogg', 4, 140, 42, "Oh my god!! It's S
 
 #Merchants
 
-INSERT INTO Merchant VALUES(NULL,'',"Hey you over there! Do you wanna buy some sweet weapons that I have? For a low price it's all yours.", "Old looking fellow stares at me from the corner of the room. He seems to have something in his backbag. Looks like he is waving at me to come closer.", 5); #Level 1 merchant
+INSERT INTO Merchant VALUES(NULL,'Egyptian Guy',"Hey you over there! Do you wanna buy some sweet weapons that I have? For a low price it's all yours.", "Old looking fellow stares at me from the corner of the room. He seems to have something in his backbag. Looks like he is waving at me to come closer.", 5); #Level 1 merchant
 INSERT INTO Merchant VALUES(NULL,'Mayan Monk', "Looks like you are lost young man do you wanna buy some sweets that I have in my monk bag?.", "I see an old Mayan monk in the room. He seems to be praying. Suddenly he notices me and takes a bag from his back.", 14); #Level 2 merchant
 INSERT INTO Merchant VALUES(NULL,'Merchant', "Got some rare things on sale, stranger! ", "A strange man in a black trench-coat with a huge backbag is standing behind a desk filled with items. There is also a torch that is burning with a blue flame.", 26); #Level 3 merhcant
 INSERT INTO Merchant VALUES(NULL,'Loyal Hound Man',"Ah you have reached the final boss. I suggest you buy some upgrades or my master is going to finish you with one hit. Wof wof.", "I see a man... no, it's a dog, no, it's a man. Well it doesn't matter, it seems like the houndman has something he wants me to know.", 37); #Level 4 merchant
