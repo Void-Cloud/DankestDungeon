@@ -270,7 +270,7 @@ INSERT INTO itemtype VALUES(NULL, "Shield", "Moderately sized shield", 0, 120, 1
 INSERT INTO itemtype VALUES(NULL, "Tower shield", "Using a tower as a shield, bold!", 0, 150, 1, "shield", 600, 0);
 
 INSERT INTO itemtype VALUES(NULL, "Healing potion", "Small bottle filled with dark, red liquid. Heals to full health.", 0, 0, 1, "Potion", 100, 0);
-INSERT INTO itemtype VALUES(NULL, "Damage potion", "Small bottle filled with grey liquid, Smells awful. Increases combat prowess.", 20, 0, 1, "Potion", 500, 0);
+INSERT INTO itemtype VALUES(NULL, "Damage potion", "Small bottle filled with grey liquid, smells awful. Increases combat prowess.", 20, 0, 1, "Potion", 500, 0);
 
 INSERT INTO Itemtype VALUES(NULL, "Healing Scroll", "A Scroll containig esoteric knowledge. There is a picture of a red cross in the middle.", 0, 0, 1, "Scroll", 500, 0);
 INSERT INTO Itemtype VALUES(NULL, "Water Scroll", "A Scroll containig esoteric knowledge. There is a picture of a tsunami in the middle.", 0, 0, 1, "Scroll", 500, 0);
@@ -322,8 +322,8 @@ INSERT INTO EnemyType VAlUES(NULL, 'Mayan God', 2, 60, 15, "Mayan God Ah Puch lo
 
 INSERT INTO EnemyType VALUES(NULL, 'Blood Sucking Bats', 3, 22, 10, "Those bats look like they want blood. Don't let them suck it all or your going to be a mummy. (hit points 22 and attack power 10.)", "Brrrt brrtt..give blood.", "Brrrtt..", "", 0, 8); #Blood Sucking Bats
 INSERT INTO EnemyType VALUES(NULL, 'Skeleton Warriors', 3, 28, 15, "Skeleton Warriors make nasty sounds when they walk. Bones hitting the catacombs floor gives me chills. Let the bodies now hit the floor! (hit points  28 and attack power 15.)", "Cling clang clung", "Clung cling", "", 0, 10); #Skeleton Warriors 
-INSERT INTO EnemyType VALUES(NULL, 'Dead Warriors', 3, 45, 18, "Dead warriors, those who dare the lord where never given the peace in underworld and now they march in unrest ready to give their pain to others. (hit points 45 and attack power 18.)", "Kill kill more killing and maybe...no just kill.", "Nooooo...", "", 0, 14); #Dead Warriors
-INSERT INTO EnemyType VALUES(NULL, 'Priest of The Underworld', 3, 100, 20, "Priest of the Underworld Pekka menacing priest who doesn't let the death rest. Give him his death so he learns what death really means. (hit points 100 and attack power 20.)", "Well well well....I will make you my greatest undead soldier of all time. Now die for me!", "No I don't wanna die not like this....!", "", 1, 20); #Priest of The Underworld
+INSERT INTO EnemyType VALUES(NULL, 'Dead Warriors', 3, 45, 18, "Dead warriors, those who dare the lord were never given the peace in underworld and now they march in unrest ready to give their pain to others. (hit points 45 and attack power 18.)", "Kill kill more killing and maybe...no just kill.", "Nooooo...", "", 0, 14); #Dead Warriors
+INSERT INTO EnemyType VALUES(NULL, 'Priest of The Underworld', 3, 100, 20, "Priest of the Underworld Pekka menacing priest who doesn't let the dead rest. Give him his death so he learns what death really means. (hit points 100 and attack power 20.)", "Well well well....I will make you my greatest undead soldier of all time. Now die for me!", "No I don't wanna die not like this....!", "", 1, 20); #Priest of The Underworld
 
 #Level 3 enemytypes, Dankest Dungeon
 
