@@ -1,0 +1,135 @@
+body {
+  font: 16px/1.5 Arial, Helvetica, sans-serif;
+   padding: 0;
+   margin: 0;
+   background-color: black;
+   /*background-image: url(../images/bg6.jpg);*/
+   background-repeat: no-repeat;
+}
+
+.grid_container {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr); /*six times one frame*/
+  grid-template-rows: auto;
+  overflow: hidden;
+}
+
+#logo {
+  position: relative;
+
+}
+/*DANKEST DUNGEON TEXT*/
+.dankest {
+  font-size: 45px;
+  opacity: 0.3;
+  font-family: "8BITWONDERNominal";
+  position: absolute;
+  color: red;
+  bottom: 75px;
+  left: 20px;
+}
+.dungeon {
+  font-size: 45px;
+  opacity: 0.4;
+  font-family: "8BITWONDERNominal";
+  position: absolute;
+  color: #af111c;
+  bottom: 20px;
+  left: 85px;
+}
+img {
+  opacity: 0.8;
+  width: 100%;
+  height: auto;
+}
+
+/* NAVIGATION */
+.nav {
+  padding-top: 20px;
+  padding-right: 20px;
+  min-height: 50px;
+}
+.nav ul {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+  overflow: hidden;
+}
+.nav li {
+  float: right;
+  bottom: 20px;
+  margin-right: 2px;
+  display: inline-block;
+  padding: 20px;
+}
+.nav a {
+  display: block;
+  text-decoration: none;
+  text-align: center;
+  color: white;
+  font-size: 15px;
+  padding-right: 10px;
+  font-family: "8BITWONDERNominal";
+  opacity: 0.5;
+}
+.nav ul li a:hover {
+  color: #af111c;
+}
+.current .highlight_home a {
+  color: white;
+}
+.current a {
+  color: #af111c;
+}
+
+/* MAIN eli SIVUN PÄÄOSA */
+.main {
+  width: 75%;
+  padding: 50px;
+  margin: 35px;
+}
+.main h1 {
+  color: #af111c;
+  opacity: 0.8;
+  text-transform: capitalize;
+  text-align: center;
+}
+.main h3 {
+  color: white;
+  text-align: justify;
+}
+.main p {
+  color: white;
+  text-align: justify;
+}
+/* FOOTER ELI COPYRIGHT */
+.footer {
+  border-top: 1px solid #af111c;
+}
+.footer p {
+  text-align: center;
+  color: #f4f4f4;
+}
+.highlight_footer {
+  font-family: "8BITWONDERNominal";
+}
+
+/* TEAM IMAGES */
+
+#team_images img {
+  margin: 10px;
+  border-radius: 50%;
+  display: grid;
+  border: 2px solid #af111c;
+  padding: 2px;
+  max-width: 200px;
+  max-height: 200px;
+}
+#team_images .juho:hover {
+  display: block;
+  border-top-left-radius: 10%;
+  border-bottom-left-radius: 10%;
+  background-color: white;
+  max-width: 100%;
+  max-height: 200px;
+}
