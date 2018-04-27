@@ -272,13 +272,13 @@ INSERT INTO itemtype VALUES(NULL, "Tower shield", "Using a tower as a shield, bo
 INSERT INTO itemtype VALUES(NULL, "Healing potion", "Small bottle filled with dark, red liquid. Heals to full health.", 0, 0, 1, "Potion", 100, 0);
 INSERT INTO itemtype VALUES(NULL, "Damage potion", "Small bottle filled with grey liquid, Smells awful. Increases combat prowess.", 20, 0, 1, "Potion", 500, 0);
 
-INSERT INTO Itemtype VALUES(NULL, "Healing Scroll", "A Scroll containig esoteric knowledge. there is a picture of a red cross in the middle.", 0, 0, 1, "Scroll", 500, 0);
-INSERT INTO Itemtype VALUES(NULL, "Water Scroll", "A Scroll containig esoteric knowledge. there is a picture of a tsunami in the middle.", 0, 0, 1, "Scroll", 500, 0);
-INSERT INTO Itemtype VALUES(NULL, "Fire Scroll", "A Scroll containig esoteric knowledge. there is a picture of a fireball in the middle.", 0, 0, 1, "Scroll", 500, 0);
+INSERT INTO Itemtype VALUES(NULL, "Healing Scroll", "A Scroll containig esoteric knowledge. There is a picture of a red cross in the middle.", 0, 0, 1, "Scroll", 500, 0);
+INSERT INTO Itemtype VALUES(NULL, "Water Scroll", "A Scroll containig esoteric knowledge. There is a picture of a tsunami in the middle.", 0, 0, 1, "Scroll", 500, 0);
+INSERT INTO Itemtype VALUES(NULL, "Fire Scroll", "A Scroll containig esoteric knowledge. There is a picture of a fireball in the middle.", 0, 0, 1, "Scroll", 500, 0);
 
-INSERT INTO Itemtype VALUES(NULL, "Golden ankh", "A curious treasure, pure gold. I can't help but to feel this item is important", 0, 0, 1, "Golden", 4000, 1);
-INSERT INTO Itemtype VALUES(NULL, "Golden skull", "A curious treasure, pure gold. I can't help but to feel this item is important", 0, 0, 1, "Golden", 4000, 1);
-INSERT INTO Itemtype VALUES(NULL, "Golden monkey", "A curious treasure, pure gold. I can't help but to feel this item is important", 0, 0, 1, "Golden", 4000, 1);
+INSERT INTO Itemtype VALUES(NULL, "Golden ankh", "A curious treasure, pure gold. I can't help but feel this item is important", 0, 0, 1, "Golden", 4000, 1);
+INSERT INTO Itemtype VALUES(NULL, "Golden skull", "A curious treasure, pure gold. I can't help but feel this item is important", 0, 0, 1, "Golden", 4000, 1);
+INSERT INTO Itemtype VALUES(NULL, "Golden monkey", "A curious treasure, pure gold. I can't help but feel this item is important", 0, 0, 1, "Golden", 4000, 1);
 
 INSERT INTO Itemtype VALUES(NULL, "Key piece", "It seems to be a half of a key", 0, 0, 1, "key", 0, 1);
 INSERT INTO Itemtype VALUES(NULL, "Piece of a key", "It seems to be a half of a key", 0, 0, 1, "key", 0, 1);
@@ -304,7 +304,7 @@ INSERT INTO Item VALUES(NULL, NULL, 19, NULL, 23);
 
 #Level 1 enemytypes, Pyramid
 
-INSERT INTO EnemyType VALUES(NULL, 'Scorpions', 1, 6, 1, "The black Scorpions are small, but menacing. Their grasping pedipalps open and close, and the venomous stingers at the end of their tails are curved forward, pointing straight at you... (Their hit points are 6, and attack power just 1.)", "Grrr", "Grr...rr..r","", 0, 1); #Scorpion
+INSERT INTO EnemyType VALUES(NULL, 'Scorpions', 1, 6, 1, "The black Scorpions are small, but menacing. Their grasping pedipalps open and close, and the venomous stingers at the end of their tails are curved forward, pointing straight at me... (Their hit points are 6, and attack power just 1.)", "Grrr", "Grr...rr..r","", 0, 1); #Scorpion
 INSERT INTO EnemyType VALUES(NULL, 'Mummy Cat', 1, 14, 2, "Mummy Cat is licking its mummified, linen-wrapped paw, purring peacefully. Such a lovely cat! (Appearances can be deceiving, though: its hit points are 14 and attack power 2.)", "Meouw", "Meouuwww","",0, 2); #Mummy Cat
 INSERT INTO EnemyType VALUES(NULL, 'Mummy', 1, 21, 5, "Mummy stands still in the corner. His hideous disfigured and odd-coloured corps is visible between the linen shreds wrapped around him. It is hard to understand that once he's been a human, too. But hey, looks aren't everything! (Hit points 21, attack power 5)", "Brainss....", "Too much sanddd..","", 0, 3); #Mummy
 INSERT INTO EnemyType VALUES(NULL, 'Sphinx', 1, 31, 20, "Sphinx has the body of a lioness and the head of a beautiful woman. She is carved out of a huge monolith. She does seem a little... stoned... (However, don't make her angry: her hit points are 31, and attack power 20.)", "Hmmm what we have here...well answer my riddle correctly or die pathethic death.", "This wasen't supposed to happen...", "Who is the greatest rapper of all time?", 1, 5); #Sphinx
@@ -312,29 +312,29 @@ INSERT INTO EnemyType VALUES(NULL, 'Anubis', 1, 50, 10, "Anubis, the Jackal-head
 
 #Level 2 enemytypes, Mayan Temple
 
-INSERT INTO EnemyType VALUES(NULL, 'Satanic Monkeys', 2, 14, 5, "The Satanic Monkeys make hideorous noise, it annoys you. You wan't to silence them. (hit points 14 and attack power 5.)", "Oooh oooh ahh ahh", "ahh ahh oohh....", "", 0, 3); #Satanic Monkeys
-INSERT INTO EnemyType VALUES(NULL, 'Fire Ant Colony', 2, 18, 7, "Oh no Fire Ant Colony is in head of you. They look very nasty, don't let them bite you or it will hurt like a lot. (hit points 18 and attack power 7.)", "skrttttt it's lit bois", "skrt...skr..t", "", 0, 4); #Fire Ant Colony
-INSERT INTO EnemyType VALUES(NULL, 'Tiger', 2, 25, 10, "Tiger looks very angry. It looks like it's going to bite you. Watch out! (hit points 25 and attack power 10.)", "Rawwrr..", "Gr..rr","", 0, 5); #Tiger
-INSERT INTO EnemyType VALUES(NULL, 'Cursed Mayan Soldiers', 2, 35, 12, "Cursed Mayan Soldies march in head of you. They appear to be in serious pain, screaming like hell it self. (hit points 35 and attack power 12.)", "Aaaaah make it stop, the voices they don't stop...", "Thank you...oh thank you good adventurer.", "", 0, 6); #Cursed Mayan Soldiers
-INSERT INTO EnemyType VAlUES(NULL, 'Mayan God', 2, 60, 15, "Mayan God Ah Puch looks at you. He smiles and starts to laugh. (I think he's impressed on you.. hes hit points are 60 and attack power 15.)", "Haha..haa you litle ant destroyed all my minions. Well am I impressed, this is going to be fun fight. I am going to add you to my collection.", "Ha..ha..haa might I say, I am really impressed.", "", 1, 13); #Mayan God
+INSERT INTO EnemyType VALUES(NULL, 'Satanic Monkeys', 2, 14, 5, "The Satanic Monkeys make hideous noise, it annoys me. I want to silence them. (hit points 14 and attack power 5.)", "Oooh oooh ahh ahh", "ahh ahh oohh....", "", 0, 3); #Satanic Monkeys
+INSERT INTO EnemyType VALUES(NULL, 'Fire Ant Colony', 2, 18, 7, "Oh no Fire Ant Colony is ahead of me. They look very nasty, don't let them bite you or it will hurt like a lot. (hit points 18 and attack power 7.)", "skrttttt it's lit bois", "skrt...skr..t", "", 0, 4); #Fire Ant Colony
+INSERT INTO EnemyType VALUES(NULL, 'Tiger', 2, 25, 10, "Tiger looks very angry. It looks like it's going to bite me. Watch out! (hit points 25 and attack power 10.)", "Rawwrr..", "Gr..rr","", 0, 5); #Tiger
+INSERT INTO EnemyType VALUES(NULL, 'Cursed Mayan Soldiers', 2, 35, 12, "Cursed Mayan Soldies march ahead of me. They appear to be in serious pain, screaming like hell itself. (hit points 35 and attack power 12.)", "Aaaaah make it stop, the voices they don't stop...", "Thank you...oh thank you good adventurer.", "", 0, 6); #Cursed Mayan Soldiers
+INSERT INTO EnemyType VAlUES(NULL, 'Mayan God', 2, 60, 15, "Mayan God Ah Puch looks at me. He smiles and starts to laugh. (I think he's impressed by me.. his hit points are 60 and attack power 15.)", "Haha..haa you litle ant destroyed all my minions. Well am I impressed, this is going to be fun fight. I am going to add you to my collection.", "Ha..ha..haa might I say, I am really impressed.", "", 1, 13); #Mayan God
 
 #Level 3 enemytypes, Catacomb
 
-INSERT INTO EnemyType VALUES(NULL, 'Blood Sucking Bats', 3, 22, 10, "Those bats look like they wan't blood. Don't let them suck it all or your going to be a mummy. (hit points 22 and attack power 10.)", "Brrrt brrtt..give blood.", "Brrrtt..", "", 0, 8); #Blood Sucking Bats
-INSERT INTO EnemyType VALUES(NULL, 'Skeleton Warriors', 3, 28, 15, "Skeleton Warriors make nasty sounds when they walk. Bones hitting the catacombs floor gives you chills. Let the bodies now hit the floor! (hit points  28 and attack power 15.)", "Cling clang clung", "Clung cling", "", 0, 10); #Skeleton Warriors 
-INSERT INTO EnemyType VALUES(NULL, 'Dead Warriors', 3, 45, 18, "Dead warriors, those who dare the lord where never given the peace in underworld and now they march in unreast ready to give theyr paint to others. (hit points 45 and attack power 18.)", "Kill kill more killing and maybe...no just kill.", "Nooooo...", "", 0, 14); #Dead Warriors
-INSERT INTO EnemyType VALUES(NULL, 'Priest of The Underworld', 3, 100, 20, "Priest of the Underworld Pekka menacing priest who doesn't let the death rest. Give him hes death so he learns what death really means. (hit points 100 and attack power 20.)", "Well well well....I will make you my greatest undead soldier of all time. Now die for me!", "No I don't wanna die not like this....!", "", 1, 20); #Priest of The Underworld
+INSERT INTO EnemyType VALUES(NULL, 'Blood Sucking Bats', 3, 22, 10, "Those bats look like they want blood. Don't let them suck it all or your going to be a mummy. (hit points 22 and attack power 10.)", "Brrrt brrtt..give blood.", "Brrrtt..", "", 0, 8); #Blood Sucking Bats
+INSERT INTO EnemyType VALUES(NULL, 'Skeleton Warriors', 3, 28, 15, "Skeleton Warriors make nasty sounds when they walk. Bones hitting the catacombs floor gives me chills. Let the bodies now hit the floor! (hit points  28 and attack power 15.)", "Cling clang clung", "Clung cling", "", 0, 10); #Skeleton Warriors 
+INSERT INTO EnemyType VALUES(NULL, 'Dead Warriors', 3, 45, 18, "Dead warriors, those who dare the lord where never given the peace in underworld and now they march in unrest ready to give their pain to others. (hit points 45 and attack power 18.)", "Kill kill more killing and maybe...no just kill.", "Nooooo...", "", 0, 14); #Dead Warriors
+INSERT INTO EnemyType VALUES(NULL, 'Priest of The Underworld', 3, 100, 20, "Priest of the Underworld Pekka menacing priest who doesn't let the death rest. Give him his death so he learns what death really means. (hit points 100 and attack power 20.)", "Well well well....I will make you my greatest undead soldier of all time. Now die for me!", "No I don't wanna die not like this....!", "", 1, 20); #Priest of The Underworld
 
 #Level 3 enemytypes, Dankest Dungeon
 
-INSERT INTO EnemyType VALUES(NULL, 'Snoop Dogg', 4, 140, 42, "Oh my god!! It's Snoop Dogg the Greatest rapper of all time. He looks pretty chill, how can that be? (He must be really stoned or drunk...) (Hes hit points are 140 and attack power 42.)", "When the pimp's in the crib ma. Drop it like it's hot. Drop it like it's hot. Drop it like it's hot.", "Damm you beat me now have this medal.", "", 1, 420); #Snoop Dogg
+INSERT INTO EnemyType VALUES(NULL, 'Snoop Dogg', 4, 140, 42, "Oh my god!! It's Snoop Dogg the Greatest rapper of all time. He looks pretty chill, how can that be? (He must be really stoned or drunk...) (His hit points are 140 and attack power 42.)", "When the pimp's in the crib ma. Drop it like it's hot. Drop it like it's hot. Drop it like it's hot.", "Damm you beat me now have this medal.", "", 1, 420); #Snoop Dogg
 
 #Merchants
 
-INSERT INTO Merchant VALUES(NULL,'',"Hey you over there! Do you wanna buy some sweet weapons that I have? For a low price it's all yours.", "Old looking fellow stares at you from the corner of the room. He seems to have something in his backbag. Looks like that he is waving at you to come closer.", 5); #Level 1 merchant
-INSERT INTO Merchant VALUES(NULL,'Mayan Monk', "Looks like you are lost young man do you wanna buy some sweets that I have in my monk bag?.", "You see old mayan monk in the room. He seemst to be praying. Sudently he notices you and takes a bag from his back.", 14); #Level 2 merchant
+INSERT INTO Merchant VALUES(NULL,'',"Hey you over there! Do you wanna buy some sweet weapons that I have? For a low price it's all yours.", "Old looking fellow stares at me from the corner of the room. He seems to have something in his backbag. Looks like that he is waving at me to come closer.", 5); #Level 1 merchant
+INSERT INTO Merchant VALUES(NULL,'Mayan Monk', "Looks like you are lost young man do you wanna buy some sweets that I have in my monk bag?.", "I see an old Mayan monk in the room. He seems to be praying. Suddenly he notices me and takes a bag from his back.", 14); #Level 2 merchant
 INSERT INTO Merchant VALUES(NULL,'Merchant', "Got some rare things on sale, stranger! ", "A strange man in a black trench-coat with a huge backbag is standing behind a desk filled with items. There is also a torch that is burning with a blue flame.", 26); #Level 3 merhcant
-INSERT INTO Merchant VALUES(NULL,'Loyal Hound Man',"Ah you have reached to the final boss. I suggest you buy some upgrades or my master is going to finnish you with one hit. Wof wof.", "You see man... no, its dog, no, its man. Well it doesn't matter, it seems like the houndman has something he wants you to know.", 37); #Level 4 merchant
+INSERT INTO Merchant VALUES(NULL,'Loyal Hound Man',"Ah you have reached the final boss. I suggest you buy some upgrades or my master is going to finish you with one hit. Wof wof.", "I see a man... no, it's a dog, no, it's a man. Well it doesn't matter, it seems like the houndman has something he wants me to know.", 37); #Level 4 merchant
 
 #Put bosses into their rooms
 
