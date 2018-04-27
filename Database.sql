@@ -123,7 +123,7 @@ INSERT INTO Room VALUES(2, 1,"This room is a kind of an antechamber, an entrance
 INSERT INTO Room VALUES(3, 1,"In this room there's a mural painting of a weighing scale and of a guy who has the head of a black scruffy dog. What's that drawn on the scales... a feather and a human heart... Eww. The stone stairs lead downwards.", 1); #Second row right - trap
 INSERT INTO Room VALUES(4, 1,"This is the grand gallery. What a big room! The stone stairs lead upwards.", 1); #Third row middle
 INSERT INTO Room VALUES(5, 1,"This must be the Queen's burial chamber. There's a huge, empty sarcophagus made of stone on the floor. And no, I shouldn't lie in it!", 1); #Third row right
-INSERT INTO Room VALUES(6, 1,"Oh vow! Really nice decor here, probably the King's chamber. There's a spiral stairway going downwards.", 1); #Third row left - trap
+INSERT INTO Room VALUES(6, 1,"Oh vow! Really nice decor here, probably the King's burial chamber. There's a spiral stairway going downwards.", 1); #Third row left - trap
 INSERT INTO Room VALUES(7, 1,"Here is the biggest subterranean chamber. Still so many hieroglyphs everywhere... There's a spiral stairway going upwards.", 1); #Fourth row middle left
 INSERT INTO Room VALUES(8, 1,"This room would make a great wine cellar, maybe it's been one in the olden day. But sadly no wine here.", 1); #Fourth row further left - trap
 INSERT INTO Room VALUES(9, 0,"Yet another burial chamber, not as fancy as the others. Maybe it was for the pharaoh's distant cousin or something. There's a big ornamental door, where might that lead?", 1); #Fourth row middle right - sphinx
@@ -160,7 +160,7 @@ INSERT INTO Room VALUES(17, 1,"Lintels portraying Mayan Gods and animals are fas
 INSERT INTO Room VALUES(18, 1,"A room full of pictures of animals on the walls. Again. I'm starting to see a pattern here. Again. There's also a hidden trap door. You cannot see it.", 2); #East room
 INSERT INTO Room VALUES(19, 1,"The powder room! I've been looking for this as long as for the treasure!", 2); #North east - button
 INSERT INTO Room VALUES(20, 0,"This is the hidden room.", 2); #Golden skull room
-INSERT INTO Room VALUES(21, 0,"I'm in an altar room of the Mayan Temple now. The built-in altar is full of pictures of sacrificial animals (and sacrificial humans).", 2); #Boss room
+INSERT INTO Room VALUES(21, 0,"I'm in the altar room of the Mayan Temple now. The built-in altar is full of pictures of sacrificial animals (and sacrificial humans).", 2); #Boss room
 
 INSERT INTO Leads_to VALUES("D",10,11);
 INSERT INTO Leads_to VALUES("N",11,12);
@@ -206,9 +206,9 @@ INSERT INTO Room VALUES(30, 1,"The stapes room. The stapes is the smallest and l
 INSERT INTO Room VALUES(31, 1,"This room's id number is 31. 31, for crying out loud! And there has been no sign of the effing treasure in this whole game! Just those golden items... wonder if they're worth anything?", 3); #Squre room west
 INSERT INTO Room VALUES(32, 1,"The Room. Tommy Wiseau's 2003 film The Room has been repeatedly mentioned as one of the worst films ever made. Its main character is a banker called Johnny, played by Wiseau himself, who...", 3); #Squre room south west
 INSERT INTO Room VALUES(33, 1,"The operating theatre. Unfortunately all the nice stuff like bone cutters and amputation saws have been taken away.", 3); #Squre room south
-INSERT INTO Room VALUES(34, 1,"The bones-for-sale room. There's a sign on the wall saying: 'Come and get all the best calf bones on the market! Half price, used only once, hardly any bite marks. Call 02-718 28 18 now!'", 3); #Squre room south east - key piece
+INSERT INTO Room VALUES(34, 1,"The bones-for-sale room. There's a sign on the wall saying: 'Come and get the best calf bones on the market! Half price, used only once, hardly any bite marks. Call 02-718 28 18 now!'", 3); #Squre room south east - key piece
 INSERT INTO Room VALUES(35, 0,"The living room. Well, how many wannabe jokes is one supposed to be able to make about rooms and bones? Not that many, I agree.", 3); #Squre room middle - Golden Monkey
-INSERT INTO Room VALUES(36, 0,"The ticket office. A large sign advertises that the Catacombs are open for tourists from 10 am to 6 pm and ticket prices range from 10 to 20 euros.", 3); #Boss room
+INSERT INTO Room VALUES(36, 0,"The ticket office. A large sign advertises that the Catacombs are open for public from 10 am to 6 pm and ticket prices range from 10 to 20 euros.", 3); #Boss room
 
 INSERT INTO Leads_to VALUES("D",21,22);
 INSERT INTO Leads_to VALUES("N",22,23);
@@ -251,7 +251,7 @@ INSERT INTO Leads_to VALUES("E",35,27);
 
 #Dankest dungeon
 
-INSERT INTO Room VALUES(37, 0, "...An eery whisper, almost like a bark, echoes in the ominous dungeon... The smell of something sweet, rotten even, lingers in the stuffy air... There are cobwebs on the broken chains...  Something is moving in the next room... I have been teleported away from the Catacombs to the Dankest Dungeon... There's an enormous black door.", 4); #Dankest start
+INSERT INTO Room VALUES(37, 0, "An eery whisper, almost like a bark, echoes in the ominous dungeon... The smell of something sweet, rotten even, lingers in the stuffy air... There are cobwebs on the broken chains on the floor...  Something is moving in the next room... I have been teleported away from the Catacombs to the Dankest Dungeon... There's an enormous black door towering in front of me.", 4); #Dankest start
 INSERT INTO Room VALUES(38, 0, "Wooow! Dang dude, da crib is phat yo!", 4); #Dankest boss
 
 INSERT INTO Leads_to VALUES("E",37,38);
@@ -306,9 +306,9 @@ INSERT INTO Item VALUES(NULL, NULL, 19, NULL, 23);
 
 INSERT INTO EnemyType VALUES(NULL, 'Scorpions', 1, 6, 1, "The black Scorpions are small, but menacing. Their grasping pedipalps open and close, and the venomous stingers at the end of their tails are curved forward, pointing straight at you... (Their hit points are 6, and attack power just 1.)", "Grrr", "Grr...rr..r","", 0, 1); #Scorpion
 INSERT INTO EnemyType VALUES(NULL, 'Mummy Cat', 1, 14, 2, "Mummy Cat is licking its mummified, linen-wrapped paw, purring peacefully. Such a lovely cat! (Appearances can be deceiving, though: its hit points are 14 and attack power 2.)", "Meouw", "Meouuwww","",0, 2); #Mummy Cat
-INSERT INTO EnemyType VALUES(NULL, 'Mummy', 1, 21, 5, "The Mummy stands still in the corner. His hideous disfigured and odd-coloured corps is visible between the linen shreds wrapped around him. It is hard to understand that once he's been a human, too. But hey, looks aren't everything! (Hit points 21, attack power 5)", "Brainss....", "Too much sanddd..","", 0, 3); #Mummy
+INSERT INTO EnemyType VALUES(NULL, 'Mummy', 1, 21, 5, "Mummy stands still in the corner. His hideous disfigured and odd-coloured corps is visible between the linen shreds wrapped around him. It is hard to understand that once he's been a human, too. But hey, looks aren't everything! (Hit points 21, attack power 5)", "Brainss....", "Too much sanddd..","", 0, 3); #Mummy
 INSERT INTO EnemyType VALUES(NULL, 'Sphinx', 1, 31, 20, "Sphinx has the body of a lioness and the head of a beautiful woman. She is carved out of a huge monolith. She does seem a little... stoned... (However, don't make her angry: her hit points are 31, and attack power 20.)", "Hmmm what we have here...well answer my riddle correctly or die pathethic death.", "This wasen't supposed to happen...", "Who is the greatest rapper of all time?", 1, 5); #Sphinx
-INSERT INTO EnemyType VALUES(NULL, 'Anubis', 1, 50, 10, "Anubis, the Jackal-headed God of the Dead, the Protector of Tombs, the Embalmer, the Mother of Dragons, the Guide of Souls... His strength is his jackal-like fighting, and his weakness is that he's scared of fireworks. (Hit points 50, attack power 10)", "You dare to challenge me...a mere mortal. Die you pathethic fool.", "What? How can you be so strong??? No mortal has ever defeated me.","", 1, 10); #Anubis
+INSERT INTO EnemyType VALUES(NULL, 'Anubis', 1, 50, 10, "Anubis, the Jackal-headed God of the Dead, the Protector of Tombs, the Embalmer, the Guide of Souls, the Mother of Dragons, the Boss of the Pyramid... His strength is his jackal-like fighting, and his weakness is that he's scared of fireworks. (Hit points 50, attack power 10)", "You dare to challenge me...a mere mortal. Die you pathethic fool.", "What? How can you be so strong??? No mortal has ever defeated me.","", 1, 10); #Anubis
 
 #Level 2 enemytypes, Mayan Temple
 
