@@ -134,5 +134,5 @@ randomize_all()
 
 #randomize_merchants()
 
-db.commit()
+db.rollback()
 db.close()
