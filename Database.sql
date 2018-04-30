@@ -199,7 +199,7 @@ INSERT INTO Room VALUES(23, 1,"They seem to be going for the same boney look in 
 INSERT INTO Room VALUES(24, 1,"This is the skull room. The room's walls are covered with skulls. There's a bit of brain still left in that one.", 3); #Start room west
 INSERT INTO Room VALUES(25, 1,"The rib room! I'm so hungry!", 3); #Start Room north west
 INSERT INTO Room VALUES(26, 0,"There are lots of different bones in this room. Let's see: head, shoulders, knees, toes, knees, toes...", 3); #Middle room
-INSERT INTO Room VALUES(27, 0,"The tooth room. They really should have been using fluoride toothpaste.", 3); #Squre room east
+INSERT INTO Room VALUES(27, 1,"The tooth room. They really should have been using fluoride toothpaste.", 3); #Squre room east
 INSERT INTO Room VALUES(28, 1,"The phalange room. Phalange is a really weird word.", 3); #Squre room north east - anvil
 INSERT INTO Room VALUES(29, 1,"The intermediate cuneiform bone room. Need I say more? There's also a door made of - surprise, surprise - bones.", 3); #Squre room north
 INSERT INTO Room VALUES(30, 1,"The stapes room. The stapes is the smallest and lightest bone in the human body, I just looked it up on Wikipedia.", 3); #Squre room north west - key piece
