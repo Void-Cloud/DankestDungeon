@@ -122,7 +122,7 @@ INSERT INTO Room VALUES(1, 0,"This is the top most room in the Pyramid. The wall
 INSERT INTO Room VALUES(2, 1,"This room is a kind of an antechamber, an entrance way to the most sacred parts of the Pyramid. Lots of hieroglyphs on the limestone walls again... There's a stairway leading up.", 1); #Second row left
 INSERT INTO Room VALUES(3, 1,"In this room there's a mural painting of a weighing scale and of a guy who has the head of a black scruffy dog. What's that drawn on the scales... a feather and a human heart... Eww. The stone stairs lead downwards.", 1); #Second row right - trap
 INSERT INTO Room VALUES(4, 1,"This is the grand gallery. What a big room! The stone stairs lead upwards.", 1); #Third row middle
-INSERT INTO Room VALUES(5, 1,"This must be the Queen's burial chamber. There's a huge, empty sarcophagus made of stone on the floor. And no, I shouldn't lie in it!", 1); #Third row right
+INSERT INTO Room VALUES(5, 0,"This must be the Queen's burial chamber. There's a huge, empty sarcophagus made of stone on the floor. And no, I shouldn't lie in it!", 1); #Third row right
 INSERT INTO Room VALUES(6, 1,"Oh vow! Really nice decor here, probably the King's burial chamber. There's a spiral stairway going downwards.", 1); #Third row left - trap
 INSERT INTO Room VALUES(7, 1,"Here is the biggest subterranean chamber. Still so many hieroglyphs everywhere... There's a spiral stairway going upwards.", 1); #Fourth row middle left
 INSERT INTO Room VALUES(8, 1,"This room would make a great wine cellar, maybe it's been one in the olden day. But sadly no wine here.", 1); #Fourth row further left - trap
@@ -153,7 +153,7 @@ INSERT INTO Leads_to VALUES("W",10,9);
 INSERT INTO Room VALUES(11, 0,"Oh dear! This is obviously the middle room in a ruined Mayan Temple! The walls are covered with sculpted tablets depicting totemic animals. Maybe the treasure is in this room... Nope.", 2); #Middle room
 INSERT INTO Room VALUES(12, 1,"This hall is an ancient indoor Mesoamerican ballcourt. It was easy to get a ball back then, just use a spare head!", 2); #North room
 INSERT INTO Room VALUES(13, 1,"This is the obsidian room, the walls are decorated with blades of volcanic glass used by the Mayan people... wait, what? That's a real thing? I thought GRRM made that up!", 2); #North west room - button
-INSERT INTO Room VALUES(14, 1,"This must be the Mayan kitchen. I'm not hungry though. There's an old wooden door. ", 2); #West room
+INSERT INTO Room VALUES(14, 0,"This must be the Mayan kitchen. I'm not hungry though. There's an old wooden door. ", 2); #West room
 INSERT INTO Room VALUES(15, 1,"A room for food storage, I assume. Lots of pictures of corn painted on the walls.", 2); #South west room - button
 INSERT INTO Room VALUES(16, 1,"Oh, a balcony! A great view over the Guatemalan rainforests! ", 2); #South room
 INSERT INTO Room VALUES(17, 1,"Lintels portraying Mayan Gods and animals are fastened on the walls of this room. I'll call this 'the lintel room'", 2); #South east room - button
@@ -198,7 +198,7 @@ INSERT INTO Room VALUES(22, 0,"Hold up! The walls are decorated from the floor u
 INSERT INTO Room VALUES(23, 1,"They seem to be going for the same boney look in this dining room. I do like that collar bone, is it Scandinavian? Could I get that at Ikea?", 3); #Start room north
 INSERT INTO Room VALUES(24, 1,"This is the skull room. The room's walls are covered with skulls. There's a bit of brain still left in that one.", 3); #Start room west
 INSERT INTO Room VALUES(25, 1,"The rib room! I'm so hungry!", 3); #Start Room north west
-INSERT INTO Room VALUES(26, 1,"There are lots of different bones in this room. Let's see: head, shoulders, knees, toes, knees, toes...", 3); #Middle room
+INSERT INTO Room VALUES(26, 0,"There are lots of different bones in this room. Let's see: head, shoulders, knees, toes, knees, toes...", 3); #Middle room
 INSERT INTO Room VALUES(27, 0,"The tooth room. They really should have been using fluoride toothpaste.", 3); #Squre room east
 INSERT INTO Room VALUES(28, 1,"The phalange room. Phalange is a really weird word.", 3); #Squre room north east - anvil
 INSERT INTO Room VALUES(29, 1,"The intermediate cuneiform bone room. Need I say more? There's also a door made of - surprise, surprise - bones.", 3); #Squre room north
