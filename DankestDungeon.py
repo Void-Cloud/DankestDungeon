@@ -46,16 +46,43 @@ def look_around(loc):
 def move(loc, dire):
     destination=loc
     cur = db.cursor()
-    sql = "SELECT Leads_toRoomID_2 FROM leads_to WHERE Direction='" + dire + "' AND RoomID_1 = " + str(loc)
+    sql = "SELECT Leads_toRoomID_2, Locked FROM leads_to WHERE Direction='" + dire + "' AND RoomID_1 = " + str(loc)
     cur.execute(sql)
     if cur.rowcount>=1:
         for row in cur.fetchall():
-            destination = row[0]
+            if row[1] == 1:
+                print("It's locked!")
+            else:
+                destination = row[0]
         sql = "UPDATE playercharacter SET RoomID = "+str(destination)
     else:
         destination = loc; # movement not possible
     return destination
 
+def check_inventory():
+    cur = db.cursor()
+    sql = "SELECT Name, Type, Equipped FROM itemtype INNER JOIN item ON item.itemtypeID = itemtype.ItemtypeID AND item.ID = 1"
+    cur.execute(sql)
+    print("I have the following items in my inventory:")
+    for row in cur.fetchall():
+        print("#",row[0]+"("+row[1]+")", end='')
+        if row[2] == 1:
+            print("(Equipped)")
+    return
+
+def take_item(item):
+    cur = db.cursor()
+    sql = "SELECT Name FROM itemtype WHERE Name = "+item
+
+def check_items(name):
+    cur = db.cursor()
+    sql = "SELECT Name FROM itemtype WHERE Name = '"+name+"'"
+    cur.execute(sql)
+    if cur.rowcount == 1:
+        return True
+    else:
+        return False
+    
 #Database connection
 db = mysql.connector.connect(host="localhost",
                       user="dbuser",
@@ -91,17 +118,25 @@ while action!="quit" and (playerhp > 0 or snoopdoglives):
         action = input_string[0].lower()
     else:
         action = ""
-    if len(input_string)>=2:
+    if len(input_string)==2:
         target = input_string[len(input_string)-1].lower()
+    elif len(input_string) >= 3:
+        check = input_string[len(input_string)-2].lower() + " " + input_string[len(input_string)-1].lower()
+        if check_items(check):
+            target = check
+        else:
+            target = input_string[len(input_string)-1].lower()
     else:
         target = ""
-    print("Parsed action: " + action)
-    print("Parsed target: " + target)
+        
+    #print("Parsed action: " + action)
+    #print("Parsed target: " + target)
 
     #Look
-    if action == "look":
+    if action == "look" or action == "examine":
         if target == "":
             look_around(loc)
+        else
 
     #Moving
     elif action=="e" or action=="w" or action=="n" or action=="s" or action=="d" or action=="u" or action=="east" or action=="west" or action=="north" or action=="south" or action=="down" or action=="up":
@@ -113,6 +148,12 @@ while action!="quit" and (playerhp > 0 or snoopdoglives):
             loc = newloc
             look_around(loc)
 
+    elif action=="i" or action == "inventory":
+        check_inventory()
+
+    elif action == "take" or action == "pick":
+        take_item(target)
+        
     #Easter egg commands :3
     elif action == "breath":
         print("I know how to breath without help, thank you")
