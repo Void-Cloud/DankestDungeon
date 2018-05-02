@@ -85,6 +85,7 @@ CREATE TABLE Leads_to
   Direction VARCHAR(1000) NOT NULL,
   RoomID_1 INT NOT NULL,
   Leads_toRoomID_2 INT NOT NULL,
+  Locked BOOLEAN NOT NULL,
   PRIMARY KEY (RoomID_1, Leads_toRoomID_2),
   FOREIGN KEY (RoomID_1) REFERENCES Room(RoomID),
   FOREIGN KEY (Leads_toRoomID_2) REFERENCES Room(RoomID)
@@ -109,6 +110,7 @@ CREATE TABLE Item
   RoomID INT,
   MerchantID INT,
   ItemtypeID INT NOT NULL,
+  Equiped BOOLEAN NOT NULL,
   PRIMARY KEY (ItemID),
   FOREIGN KEY (ID) REFERENCES PlayerCharacter(ID),
   FOREIGN KEY (RoomID) REFERENCES Room(RoomID),
@@ -129,24 +131,24 @@ INSERT INTO Room VALUES(8, 1,"This room would make a great wine cellar, maybe it
 INSERT INTO Room VALUES(9, 0,"Yet another burial chamber, not as fancy as the others. Maybe it was for the pharaoh's distant cousin or something. There's a big ornamental door, where might that lead?", 1); #Fourth row middle right - sphinx
 INSERT INTO Room VALUES(10, 0,"In this room there are just way too many hieroglyphs. Enough with the hieroglyphs already! There's a stairway going further and further down...", 1); #Fourth row further right - BOSS ROOM
 
-INSERT INTO Leads_to VALUES("D",1,2); #Top Room -> Second row left
-INSERT INTO Leads_to VALUES("U",2,1); #Second row left -> Top Room
-INSERT INTO Leads_to VALUES("E",2,3); #Second row left -> Second row right
-INSERT INTO Leads_to VALUES("W",3,2); #Second row right -> Second row left
-INSERT INTO Leads_to VALUES("D",3,4); #Second row right -> Third row middle
-INSERT INTO Leads_to VALUES("U",4,3);
-INSERT INTO Leads_to VALUES("E",4,5);
-INSERT INTO Leads_to VALUES("W",4,6);
-INSERT INTO Leads_to VALUES("W",5,4);
-INSERT INTO Leads_to VALUES("E",6,4);
-INSERT INTO Leads_to VALUES("D",6,7);
-INSERT INTO Leads_to VALUES("U",7,6);
-INSERT INTO Leads_to VALUES("W",7,8);
-INSERT INTO Leads_to VALUES("E",7,9);
-INSERT INTO Leads_to VALUES("E",8,7);
-INSERT INTO Leads_to VALUES("W",9,7);
-INSERT INTO Leads_to VALUES("E",9,10);
-INSERT INTO Leads_to VALUES("W",10,9);
+INSERT INTO Leads_to VALUES("D",1,2,0); #Top Room -> Second row left
+INSERT INTO Leads_to VALUES("U",2,1,0); #Second row left -> Top Room
+INSERT INTO Leads_to VALUES("E",2,3,0); #Second row left -> Second row right
+INSERT INTO Leads_to VALUES("W",3,2,0); #Second row right -> Second row left
+INSERT INTO Leads_to VALUES("D",3,4,0); #Second row right -> Third row middle
+INSERT INTO Leads_to VALUES("U",4,3,0);
+INSERT INTO Leads_to VALUES("E",4,5,0);
+INSERT INTO Leads_to VALUES("W",4,6,0);
+INSERT INTO Leads_to VALUES("W",5,4,0);
+INSERT INTO Leads_to VALUES("E",6,4,0);
+INSERT INTO Leads_to VALUES("D",6,7,0);
+INSERT INTO Leads_to VALUES("U",7,6,0);
+INSERT INTO Leads_to VALUES("W",7,8,0);
+INSERT INTO Leads_to VALUES("E",7,9,0);
+INSERT INTO Leads_to VALUES("E",8,7,0);
+INSERT INTO Leads_to VALUES("W",9,7,0);
+INSERT INTO Leads_to VALUES("E",9,10,0);
+INSERT INTO Leads_to VALUES("W",10,9,0);
 
 #Second level rooms and connections
 
@@ -162,35 +164,35 @@ INSERT INTO Room VALUES(19, 1,"The powder room! I've been looking for this as lo
 INSERT INTO Room VALUES(20, 0,"This is the hidden room.", 2); #Golden skull room
 INSERT INTO Room VALUES(21, 0,"I'm in the altar room of the Mayan Temple now. The built-in altar is full of pictures of sacrificial animals (and sacrificial humans).", 2); #Boss room
 
-INSERT INTO Leads_to VALUES("D",10,11);
-INSERT INTO Leads_to VALUES("N",11,12);
-INSERT INTO Leads_to VALUES("W",11,14);
-INSERT INTO Leads_to VALUES("S",11,16);
-INSERT INTO Leads_to VALUES("E",11,18);
-INSERT INTO Leads_to VALUES("S",12,11);
-INSERT INTO Leads_to VALUES("W",12,13);
-INSERT INTO Leads_to VALUES("E",12,19);
-INSERT INTO Leads_to VALUES("E",13,12);
-INSERT INTO Leads_to VALUES("S",13,14);
-INSERT INTO Leads_to VALUES("E",14,11);
-INSERT INTO Leads_to VALUES("N",14,13);
-INSERT INTO Leads_to VALUES("W",14,21); #locked
-INSERT INTO Leads_to VALUES("S",14,15);
-INSERT INTO Leads_to VALUES("N",15,14);
-INSERT INTO Leads_to VALUES("E",15,16);
-INSERT INTO Leads_to VALUES("W",16,15);
-INSERT INTO Leads_to VALUES("N",16,11);
-INSERT INTO Leads_to VALUES("E",16,17);
-INSERT INTO Leads_to VALUES("W",17,16);
-INSERT INTO Leads_to VALUES("N",17,18);
-INSERT INTO Leads_to VALUES("W",18,11);
-INSERT INTO Leads_to VALUES("S",18,17);
-INSERT INTO Leads_to VALUES("E",18,20); #locked
-INSERT INTO Leads_to VALUES("N",18,19);
-INSERT INTO Leads_to VALUES("S",19,18);
-INSERT INTO Leads_to VALUES("W",19,12);
-INSERT INTO Leads_to VALUES("W",20,18);
-INSERT INTO Leads_to VALUES("E",21,14);
+INSERT INTO Leads_to VALUES("D",10,11,0);
+INSERT INTO Leads_to VALUES("N",11,12,0);
+INSERT INTO Leads_to VALUES("W",11,14,0);
+INSERT INTO Leads_to VALUES("S",11,16,0);
+INSERT INTO Leads_to VALUES("E",11,18,0);
+INSERT INTO Leads_to VALUES("S",12,11,0);
+INSERT INTO Leads_to VALUES("W",12,13,0);
+INSERT INTO Leads_to VALUES("E",12,19,0);
+INSERT INTO Leads_to VALUES("E",13,12,0);
+INSERT INTO Leads_to VALUES("S",13,14,0);
+INSERT INTO Leads_to VALUES("E",14,11,0);
+INSERT INTO Leads_to VALUES("N",14,13,0);
+INSERT INTO Leads_to VALUES("W",14,21,1); #locked
+INSERT INTO Leads_to VALUES("S",14,15,0);
+INSERT INTO Leads_to VALUES("N",15,14,0);
+INSERT INTO Leads_to VALUES("E",15,16,0);
+INSERT INTO Leads_to VALUES("W",16,15,0);
+INSERT INTO Leads_to VALUES("N",16,11,0);
+INSERT INTO Leads_to VALUES("E",16,17,0);
+INSERT INTO Leads_to VALUES("W",17,16,0);
+INSERT INTO Leads_to VALUES("N",17,18,0);
+INSERT INTO Leads_to VALUES("W",18,11,0);
+INSERT INTO Leads_to VALUES("S",18,17,0);
+INSERT INTO Leads_to VALUES("E",18,20,1); #locked
+INSERT INTO Leads_to VALUES("N",18,19,0);
+INSERT INTO Leads_to VALUES("S",19,18,0);
+INSERT INTO Leads_to VALUES("W",19,12,0);
+INSERT INTO Leads_to VALUES("W",20,18,0);
+INSERT INTO Leads_to VALUES("E",21,14,0);
 
 #third level rooms and connections
 
@@ -210,51 +212,51 @@ INSERT INTO Room VALUES(34, 1,"The bones-for-sale room. There's a sign on the wa
 INSERT INTO Room VALUES(35, 0,"The living room. Well, how many wannabe jokes is one supposed to be able to make about rooms and bones? Not that many, I agree.", 3); #Squre room middle - Golden Monkey
 INSERT INTO Room VALUES(36, 0,"The ticket office. A large sign advertises that the Catacombs are open for public from 10 am to 6 pm and ticket prices range from 10 to 20 euros.", 3); #Boss room
 
-INSERT INTO Leads_to VALUES("D",21,22);
-INSERT INTO Leads_to VALUES("N",22,23);
-INSERT INTO Leads_to VALUES("W",22,24);
-INSERT INTO Leads_to VALUES("S",23,22);
-INSERT INTO Leads_to VALUES("W",23,25);
-INSERT INTO Leads_to VALUES("E",24,22);
-INSERT INTO Leads_to VALUES("N",24,25);
-INSERT INTO Leads_to VALUES("E",25,23);
-INSERT INTO Leads_to VALUES("S",25,24);
-INSERT INTO Leads_to VALUES("W",25,26);
-INSERT INTO Leads_to VALUES("E",26,25);
-INSERT INTO Leads_to VALUES("W",26,27);
-INSERT INTO Leads_to VALUES("E",27,26);
-INSERT INTO Leads_to VALUES("W",27,35);
-INSERT INTO Leads_to VALUES("S",27,34);
-INSERT INTO Leads_to VALUES("N",27,28);
-INSERT INTO Leads_to VALUES("S",28,27);
-INSERT INTO Leads_to VALUES("W",28,29);
-INSERT INTO Leads_to VALUES("E",29,28);
-INSERT INTO Leads_to VALUES("N",29,36); #locked
-INSERT INTO Leads_to VALUES("S",29,35);
-INSERT INTO Leads_to VALUES("W",29,30);
-INSERT INTO Leads_to VALUES("E",30,29);
-INSERT INTO Leads_to VALUES("S",30,31);
-INSERT INTO Leads_to VALUES("N",31,30);
-INSERT INTO Leads_to VALUES("E",31,35);
-INSERT INTO Leads_to VALUES("S",31,32);
-INSERT INTO Leads_to VALUES("N",32,31);
-INSERT INTO Leads_to VALUES("E",32,33);
-INSERT INTO Leads_to VALUES("W",33,32);
-INSERT INTO Leads_to VALUES("N",33,35);
-INSERT INTO Leads_to VALUES("E",33,34);
-INSERT INTO Leads_to VALUES("W",34,33);
-INSERT INTO Leads_to VALUES("N",34,27);
-INSERT INTO Leads_to VALUES("N",35,29);
-INSERT INTO Leads_to VALUES("W",35,31);
-INSERT INTO Leads_to VALUES("S",35,33);
-INSERT INTO Leads_to VALUES("E",35,27);
+INSERT INTO Leads_to VALUES("D",21,22,0);
+INSERT INTO Leads_to VALUES("N",22,23,0);
+INSERT INTO Leads_to VALUES("W",22,24,0);
+INSERT INTO Leads_to VALUES("S",23,22,0);
+INSERT INTO Leads_to VALUES("W",23,25,0);
+INSERT INTO Leads_to VALUES("E",24,22,0);
+INSERT INTO Leads_to VALUES("N",24,25,0);
+INSERT INTO Leads_to VALUES("E",25,23,0);
+INSERT INTO Leads_to VALUES("S",25,24,0);
+INSERT INTO Leads_to VALUES("W",25,26,0);
+INSERT INTO Leads_to VALUES("E",26,25,0);
+INSERT INTO Leads_to VALUES("W",26,27,0);
+INSERT INTO Leads_to VALUES("E",27,26,0);
+INSERT INTO Leads_to VALUES("W",27,35,0);
+INSERT INTO Leads_to VALUES("S",27,34,0);
+INSERT INTO Leads_to VALUES("N",27,28,0);
+INSERT INTO Leads_to VALUES("S",28,27,0);
+INSERT INTO Leads_to VALUES("W",28,29,0);
+INSERT INTO Leads_to VALUES("E",29,28,0);
+INSERT INTO Leads_to VALUES("N",29,36,1); #locked
+INSERT INTO Leads_to VALUES("S",29,35,0);
+INSERT INTO Leads_to VALUES("W",29,30,0);
+INSERT INTO Leads_to VALUES("E",30,29,0);
+INSERT INTO Leads_to VALUES("S",30,31,0);
+INSERT INTO Leads_to VALUES("N",31,30,0);
+INSERT INTO Leads_to VALUES("E",31,35,0);
+INSERT INTO Leads_to VALUES("S",31,32,0);
+INSERT INTO Leads_to VALUES("N",32,31,0);
+INSERT INTO Leads_to VALUES("E",32,33,0);
+INSERT INTO Leads_to VALUES("W",33,32,0);
+INSERT INTO Leads_to VALUES("N",33,35,0);
+INSERT INTO Leads_to VALUES("E",33,34,0);
+INSERT INTO Leads_to VALUES("W",34,33,0);
+INSERT INTO Leads_to VALUES("N",34,27,0);
+INSERT INTO Leads_to VALUES("N",35,29,0);
+INSERT INTO Leads_to VALUES("W",35,31,0);
+INSERT INTO Leads_to VALUES("S",35,33,0);
+INSERT INTO Leads_to VALUES("E",35,27,0);
 
 #Dankest dungeon
 
 INSERT INTO Room VALUES(37, 0, "An eery whisper, almost like a bark, echoes in the ominous dungeon... The smell of something sweet, rotten even, lingers in the stuffy air... There are cobwebs on the broken chains on the floor...  Something is moving in the next room... I have been teleported away from the Catacombs to the Dankest Dungeon... There's an enormous black door towering in front of me.", 4); #Dankest start
 INSERT INTO Room VALUES(38, 0, "Wooow! Dang dude, da crib is phat yo!", 4); #Dankest boss
 
-INSERT INTO Leads_to VALUES("E",37,38);
+INSERT INTO Leads_to VALUES("E",37,38,1);
 
 INSERT INTO playercharacter VALUES(NULL, 100, 10, 15, "Me, a humble treasure hunter.", 1);
 
@@ -288,19 +290,19 @@ INSERT INTO Itemtype VALUES(NULL, "Jaquar button", "It's a button with a picture
 INSERT INTO Itemtype VALUES(NULL, "Quetzal button", "It's a button with a picture of a quetzal. I feel compelled to push it", 0, 0, 0, "Button", 0, 1);
 INSERT INTO Itemtype VALUES(NULL, "Butterfly button", "It's a button with a picture of a butterfly. I feel compelled to push it", 0, 0, 0, "Button", 0, 1);
 
-INSERT INTO Item VALUES(NULL, 1, NULL, NULL, 1); #Put Dagger into player's inventory
+INSERT INTO Item VALUES(NULL, 1, NULL, NULL, 1, 1); #Put Dagger into player's inventory
 
-INSERT INTO Item VALUES(NULL, NULL, 8, NULL, 15); #put golden items into their rooms
-INSERT INTO Item VALUES(NULL, NULL, 20, NULL, 16);
-INSERT INTO Item VALUES(NULL, NULL, 35, NULL, 17);
+INSERT INTO Item VALUES(NULL, NULL, 8, NULL, 15, 0); #put golden items into their rooms
+INSERT INTO Item VALUES(NULL, NULL, 20, NULL, 16, 0);
+INSERT INTO Item VALUES(NULL, NULL, 35, NULL, 17, 0);
 
-INSERT INTO Item VALUES(NULL, NULL, 34, NULL, 18); #put key pieces into their rooms
-INSERT INTO Item VALUES(NULL, NULL, 30, NULL, 19);
+INSERT INTO Item VALUES(NULL, NULL, 34, NULL, 18, 0); #put key pieces into their rooms
+INSERT INTO Item VALUES(NULL, NULL, 30, NULL, 19, 0);
 
-INSERT INTO Item VALUES(NULL, NULL, 13, NULL, 20); #put buttons into their rooms
-INSERT INTO Item VALUES(NULL, NULL, 15, NULL, 21);
-INSERT INTO Item VALUES(NULL, NULL, 17, NULL, 22);
-INSERT INTO Item VALUES(NULL, NULL, 19, NULL, 23);
+INSERT INTO Item VALUES(NULL, NULL, 13, NULL, 20, 0); #put buttons into their rooms
+INSERT INTO Item VALUES(NULL, NULL, 15, NULL, 21, 0);
+INSERT INTO Item VALUES(NULL, NULL, 17, NULL, 22, 0);
+INSERT INTO Item VALUES(NULL, NULL, 19, NULL, 23, 0);
 
 #Level 1 enemytypes, Pyramid
 
