@@ -46,6 +46,14 @@ def check_enemyattack():
         enemydmg = row[0]
     return enemydmg
 
+def check_enemyunique():
+    cur = db.cursor()
+    sql = "SELECT enemytype.isUnique FROM enemytype, playercharacter, enemy WHERE playercharacter.RoomID = enemy.RoomID AND enemy.EnemytypeID = enemytype.EnemytypeID;"
+    cur.execute(sql)
+    for row in cur:
+        enemyunique = row[0]
+    return enemyunique
+
 def check_playerhp():
     cur = db.cursor()
     sql = "SELECT playercharacter.HitPoints FROM playercharacter;"
@@ -53,6 +61,14 @@ def check_playerhp():
     for row in cur:
         playerhp = row[0]
     return playerhp
+
+def check_playerdmg():
+    cur = db.cursor()
+    sql = "SELECT itemtype.AttackPower FROM itemtype INNER JOIN item ON item.ItemtypeID = itemtype.ItemtypeID WHERE item.ID = 1;"
+    cur.execute(sql)
+    for row in cur:
+        playerdmg = row[0]
+    return playerdmg
 
 def delete_deathenemy():
     cur = db.cursor()
@@ -69,6 +85,7 @@ def fight_enemy():
         playerdmg = row[0]
     enemyhp = check_enemyhp()
     enemydmg = check_enemyattack()
+    enemyunique = check_enemyunique()
     print("I can use scrolls, light attack, normal attack and hard attack.")
     
     #täytyy lisätä inventory commandit myös tänne koska muuten ei voi taistellussa katsoa inventorya!
@@ -91,59 +108,225 @@ def fight_enemy():
 
         #normal attack 
         if action == "normal" and target == "attack":
-            print("I hit "+enemyname+" with normal attack.")
-            sql = "UPDATE enemy SET enemy.Hitpoints = enemy.Hitpoints - "+str(playerdmg)+" WHERE enemy.RoomID IN (SELECT playercharacter.RoomID FROM playercharacter);"
-            cur.execute(sql)
-            enemyhp = check_enemyhp()
-            print("I hit enemy with my normal attack it does "+str(playerdmg)+"DMG.")
-            if enemyhp > 0:
-                sql = "UPDATE playercharacter SET playercharacter.HitPoints = playercharacter.HitPoints - "+str(enemydmg)
+            if enemyunique == 0:
+                print("I hit "+enemyname+" with normal attack.")
+                sql = "UPDATE enemy SET enemy.Hitpoints = enemy.Hitpoints - "+str(playerdmg)+" WHERE enemy.RoomID IN (SELECT playercharacter.RoomID FROM playercharacter);"
                 cur.execute(sql)
-                playerhp = check_playerhp()
-                print(enemyname+" health is now "+str(enemyhp))
-                print(enemyname+" hits you. You lose "+str(enemydmg)+" health. My health is now "+str(playerhp)+" HP")
+                enemyhp = check_enemyhp()
+                print("I hit enemy with my normal attack it does "+str(playerdmg)+"DMG")
+                if enemyhp > 0:
+                    sql = "UPDATE playercharacter SET playercharacter.HitPoints = playercharacter.HitPoints - "+str(enemydmg)
+                    cur.execute(sql)
+                    playerhp = check_playerhp()
+                    print(enemyname+" health is now "+str(enemyhp))
+                    print(enemyname+" hits you. You lose "+str(enemydmg)+" health. My health is now "+str(playerhp)+" HP")
+                else :
+                    print("I killed the enemy")
+            elif enemyunique ==1:
+                randomattack = random.randint(1,3)
+                print(randomattack)
+                print("I hit "+enemyname+" with normal attack.")
+                if randomattack == 1:
+                    sql = "UPDATE enemy SET enemy.Hitpoints = enemy.Hitpoints - "+str(playerdmg)+" WHERE enemy.RoomID IN (SELECT playercharacter.RoomID FROM playercharacter);"
+                    cur.execute(sql)
+                    enemyhp = check_enemyhp()
+                    print("I hit "+enemyname+" with my normal attack it does "+str(playerdmg)+"DMG")
                     
-            else :
-                print("I killed the enemy!")
+                    #IF randomattack = 1 enemy whos unique(boss) hits normal attack
+                    if enemyhp > 0:
+                        print(enemyname+" uses normal attack.")
+                        sql = "UPDATE playercharacter SET playercharacter.HitPoints = playercharacter.HitPoints - "+str(enemydmg)
+                        cur.execute(sql)
+                        playerhp = check_playerhp()
+                        print(enemyname+" health is now "+str(enemyhp))
+                        print(enemyname+" hits you. You lose "+str(enemydmg)+" health. My health is now "+str(playerhp)+" HP")
+                    else:
+                        print("I killed the Boss. That was easy.")   
+                elif randomattack == 2:
+                    sql = "UPDATE enemy SET enemy.Hitpoints = enemy.Hitpoints - "+str(playerdmg)+"*0.5 WHERE enemy.RoomID IN (SELECT playercharacter.RoomID FROM playercharacter);"
+                    cur.execute(sql)
+                    enemyhp = check_enemyhp()
+                    print("I hit enemy with my normal attack it does "+str(playerdmg*0.5)+"DMG")
+
+                    #If randomattack = 2 enemy who's unique(boss) hits light attack
+                    if enemyhp > 0:
+                        print(enemyname+" uses light attack.")
+                        sql = "UPDATE playercharacter SET playercharacter.HitPoints = playercharacter.HitPoints - "+str(enemydmg)+"*0.5;"
+                        cur.execute(sql)
+                        playerhp = check_playerhp()
+                        print(enemyname+" health is now "+str(enemyhp))
+                        print(enemyname+" hits you. You lose "+str(enemydmg*0.5)+" health. My health is now "+str(float(playerhp))+" HP")
+                    else :
+                        print("I killed the enemy.I killed the Boss. That was easy.")
+                elif randomattack == 3:
+                    sql = "UPDATE enemy SET enemy.Hitpoints = enemy.Hitpoints - "+str(playerdmg)+"*1.5 WHERE enemy.RoomID IN (SELECT playercharacter.RoomID FROM playercharacter);"
+                    cur.execute(sql)
+                    enemyhp = check_enemyhp()
+                    print("I hit enemy with my normal attack it does "+str(playerdmg*1.5)+"DMG")
+
+                    #IF randomattack = 3 enemy who's unique(boss) hits hevy attack
+                    if enemyhp > 0:
+                        print(enemyname+" uses hevy attack.")
+                        sql = "UPDATE playercharacter SET playercharacter.HitPoints = playercharacter.HitPoints - "+str(enemydmg)+"*1.5"
+                        cur.execute(sql)
+                        playerhp = check_playerhp()
+                        print(enemyname+"health is now "+str(enemyhp))
+                        print(enemyname+" hits me. I lose "+str(enemydmg*1.5)+" health. My health is now "+str(playerhp)+" HP")
+                    else :
+                        print("I killed the enemy. I killed the Boss. That was easy.")
+                                
+                    
 
         #light attack
         elif action == "light" and target == "attack":
-            print("I hit "+enemyname+" with light attack.")
-            sql = "UPDATE enemy SET enemy.Hitpoints = enemy.Hitpoints - "+str(playerdmg)+"*0.5 WHERE enemy.RoomID IN (SELECT playercharacter.RoomID FROM playercharacter);"
-            cur.execute(sql)
-            enemyhp = check_enemyhp()
-            print("I hit enemy with my light attack it does "+str(playerdmg*0.5)+"DMG.")
 
-            #vihu lyö
-            if enemyhp > 0:
-                sql = "UPDATE playercharacter SET playercharacter.HitPoints = playercharacter.HitPoints - "+str(enemydmg)+"*0.5;"
-                cur.execute(sql)
-                playerhp = check_playerhp()
-                print(enemyname+" health is now "+str(enemyhp))
-                print(enemyname+" hits you. You lose "+str(enemydmg*0.5)+" health. My health is now "+str(float(playerhp))+" HP")
+            if enemyunique == 0:
                 
-            else :
-                print("I killed the enemy!")
+                print("I hit "+enemyname+" with light attack.")
+                sql = "UPDATE enemy SET enemy.Hitpoints = enemy.Hitpoints - "+str(playerdmg)+"*0.5 WHERE enemy.RoomID IN (SELECT playercharacter.RoomID FROM playercharacter);"
+                cur.execute(sql)
+                enemyhp = check_enemyhp()
+                print("I hit enemy with my light attack it does "+str(playerdmg*0.5)+"DMG.")
 
+                #vihu lyö
+                if enemyhp > 0:
+                    sql = "UPDATE playercharacter SET playercharacter.HitPoints = playercharacter.HitPoints - "+str(enemydmg)+"*0.5;"
+                    cur.execute(sql)
+                    playerhp = check_playerhp()
+                    print(enemyname+" health is now "+str(enemyhp))
+                    print(enemyname+" hits you. You lose "+str(enemydmg*0.5)+" health. My health is now "+str(float(playerhp))+" HP")
+                
+                else :
+                    print("I killed the enemy!")
+                    
+            elif enemyunique == 1:
+                randomattack = random.randint(1,3)
+                print(randomattack)
+                print("I hit "+enemyname+" with light attack.")
+                #enemy normal attack 
+                if randomattack == 1:
+                    sql = "UPDATE enemy SET enemy.Hitpoints = enemy.Hitpoints - "+str(playerdmg)+"*0.5 WHERE enemy.RoomID IN (SELECT playercharacter.RoomID FROM playercharacter);"
+                    cur.execute(sql)
+                    enemyhp = check_enemyhp()
+                    print("I hit "+enemyname+" with my light attack it does "+str(playerdmg)+" DMG.")
+                    if enemyhp > 0:
+                        print(enemyname+" uses normal attack.")
+                        sql = "UPDATE playercharacter SET playercharacter.HitPoints = playercharacter.HitPoints - "+str(enemydmg)+"*0.5"
+                        cur.execute(sql)
+                        playerhp = check_playerhp()
+                        print(enemyname+" health is now "+str(enemyhp))
+                        print(enemyname+" hits you. You lose "+str(enemydmg*0.5)+" health. My health is now "+str(playerhp)+" HP")
+                    else:
+                        print("I killed the Boss. That was easy.")
+                #enemy light attack
+                elif randomattack == 2:
+                    sql = "UPDATE enemy SET enemy.Hitpoints = enemy.Hitpoints - "+str(playerdmg)+"*0.25 WHERE enemy.RoomID IN (SELECT playercharacter.RoomID FROM playercharacter);"
+                    cur.execute(sql)
+                    enemyhp = check_enemyhp()
+                    print("I hit "+enemyname+" with my light attack it does "+str(playerdmg*0.25)+" DMG.")
+                    if enemyhp > 0:
+                        print(enemyname+" uses light attack.")
+                        sql = "UPDATE playercharacter SET playercharacter.HitPoints = playercharacter.HitPoints - "+str(enemydmg)+"*0.25"
+                        cur.execute(sql)
+                        playerhp = check_playerhp()
+                        print(enemyname+" health is now "+str(enemyhp))
+                        print(enemyname+" hits you. You lose "+str(enemydmg*0.25)+" health. My health is now "+str(playerhp)+" HP")
+                    else:
+                        print("I killed the Boss. That was easy.")
+                #enemy hevy attack
+                elif randomattack == 3:
+                    sql = "UPDATE enemy SET enemy.Hitpoints = enemy.Hitpoints - "+str(playerdmg)+"*0.75 WHERE enemy.RoomID IN (SELECT playercharacter.RoomID FROM playercharacter);"
+                    cur.execute(sql)
+                    enemyhp = check_enemyhp()
+                    print("I hit "+enemyname+" with my light attack it does "+str(playerdmg)+" DMG.")
+                    if enemyhp > 0:
+                        print(enemyname+" uses hevy attack.")
+                        sql = "UPDATE playercharacter SET playercharacter.HitPoints = playercharacter.HitPoints - "+str(enemydmg)+"*0.75"
+                        cur.execute(sql)
+                        playerhp = check_playerhp()
+                        print(enemyname+" health is now "+str(enemyhp))
+                        print(enemyname+" hits you. You lose "+str(enemydmg*0.75)+" health. My health is now "+str(playerhp)+" HP")
+                    else:
+                        print("I killed the Boss. That was easy.")
+                    
+    
         #hevy attack        
         elif action == "hevy" and target == "attack":
-            print("I hit "+enemyname+" with hevy attack.")
-            sql = "UPDATE enemy SET enemy.Hitpoints = enemy.Hitpoints - "+str(playerdmg)+"*1.5 WHERE enemy.RoomID IN (SELECT playercharacter.RoomID FROM playercharacter);"
-            cur.execute(sql)
-            enemyhp = check_enemyhp()
-            print("I hit enemy with my hevy attack it does "+str(playerdmg*1.5)+"DMG.")
 
-            #vihu lyö
-            if enemyhp > 0:
-                sql = "UPDATE playercharacter SET playercharacter.HitPoints = playercharacter.HitPoints - "+str(enemydmg)
+            if enemyunique == 0:
+                print("I hit "+enemyname+" with hevy attack.")
+                sql = "UPDATE enemy SET enemy.Hitpoints = enemy.Hitpoints - "+str(playerdmg)+"*1.5 WHERE enemy.RoomID IN (SELECT playercharacter.RoomID FROM playercharacter);"
                 cur.execute(sql)
-                playerhp = check_playerhp()
-                print(enemyname+"health is now "+str(enemyhp))
-                print(enemyname+" hits me. I lose "+str(enemydmg*1.5)+" health. My health is now "+str(playerhp)+" HP")
-                
-            else :
-                print("I killed the enemy!")
+                enemyhp = check_enemyhp()
+                print("I hit enemy with my hevy attack it does "+str(playerdmg*1.5)+"DMG.")
 
+                #vihu lyö
+                if enemyhp > 0:
+                    sql = "UPDATE playercharacter SET playercharacter.HitPoints = playercharacter.HitPoints - "+str(enemydmg)+"*1.5"
+                    cur.execute(sql)
+                    playerhp = check_playerhp()
+                    print(enemyname+"health is now "+str(enemyhp))
+                    print(enemyname+" hits me. I lose "+str(enemydmg*1.5)+" health. My health is now "+str(playerhp)+" HP")
+                
+                else :
+                    print("I killed the enemy!")
+            elif enemyunique == 1:
+                randomattack = random.randint(1,3)
+                print(randomattack)
+                print("I hit "+enemyname+" with hevy attack.")
+                #enemy normal attack 
+                if randomattack == 1:
+                    sql = "UPDATE enemy SET enemy.Hitpoints = enemy.Hitpoints - "+str(playerdmg)+"*1.5 WHERE enemy.RoomID IN (SELECT playercharacter.RoomID FROM playercharacter);"
+                    cur.execute(sql)
+                    enemyhp = check_enemyhp()
+                    print("I hit "+enemyname+" with my hevy attack it does "+str(playerdmg*1.5)+" DMG.")
+                    if enemyhp > 0:
+                        print(enemyname+" uses normal attack.")
+                        sql = "UPDATE playercharacter SET playercharacter.HitPoints = playercharacter.HitPoints - "+str(enemydmg)+"*1.5"
+                        cur.execute(sql)
+                        playerhp = check_playerhp()
+                        print(enemyname+" health is now "+str(enemyhp))
+                        print(enemyname+" hits you. You lose "+str(enemydmg*1.5)+" health. My health is now "+str(playerhp)+" HP")
+                    else:
+                        print("I killed the Boss. That was easy.")
+                #enemy light attack
+                elif randomattack == 2:
+                    sql = "UPDATE enemy SET enemy.Hitpoints = enemy.Hitpoints - "+str(playerdmg)+"*1.5*0.5 WHERE enemy.RoomID IN (SELECT playercharacter.RoomID FROM playercharacter);"
+                    cur.execute(sql)
+                    enemyhp = check_enemyhp()
+                    print("I hit "+enemyname+" with my hevy attack it does "+str(playerdmg*1.5*0.5)+" DMG.")
+                    if enemyhp > 0:
+                        print(enemyname+" uses light attack.")
+                        sql = "UPDATE playercharacter SET playercharacter.HitPoints = playercharacter.HitPoints - "+str(enemydmg)+"*1.5*0.5"
+                        cur.execute(sql)
+                        playerhp = check_playerhp()
+                        print(enemyname+"health is now "+str(enemyhp))
+                        print(enemyname+" hits me. I lose "+str(enemydmg*1.5*0.5)+" health. My health is now "+str(playerhp)+" HP")
+                    else:
+                        print("I killed the Boss. That was easy.")
+                #enemy hevy attack
+                elif randomattack == 3:
+                    sql = "UPDATE enemy SET enemy.Hitpoints = enemy.Hitpoints - "+str(playerdmg)+"*1.5*1.5 WHERE enemy.RoomID IN (SELECT playercharacter.RoomID FROM playercharacter);"
+                    cur.execute(sql)
+                    enemyhp = check_enemyhp()
+                    print("I hit "+enemyname+" with my hevy attack it does "+str(playerdmg*1.5*1.5)+" DMG.")
+                    if enemyhp > 0:
+                        print(enemyname+" uses hevy attack.")
+                        sql = "UPDATE playercharacter SET playercharacter.HitPoints = playercharacter.HitPoints - "+str(enemydmg)+"*1.5*1.5"
+                        cur.execute(sql)
+                        playerhp = check_playerhp()
+                        print(enemyname+"health is now "+str(enemyhp))
+                        print(enemyname+" hits me. I lose "+str(enemydmg*1.5)+" health. My health is now "+str(playerhp)+" HP")
+                    else:
+                        print("I killed the Boss. That was easy.")
+
+                              
+        elif action == "examine" and target == enemyname.lower() or target == "enemy":
+            sql = "SELECT enemytype.Description FROM enemytype,enemy,playercharacter WHERE enemy.roomid ="+str(loc)+" AND enemytype.EnemytypeID = enemy.EnemytypeID;"
+            cur.execute(sql)
+            for row in cur:
+                print(row[0])
+        
         #scroll magic attack    
         elif action == "use" and target == "scroll" or target == "spell":
             print("I used magic scroll to "+enemyname)
@@ -155,6 +338,10 @@ def fight_enemy():
             enemyhp = check_enemyhp()
 
         enemyhp = check_enemyhp()
+        
+        playerhp = check_playerhp()
+    if playerhp == 0:
+        print("You died")
         
     return
             
