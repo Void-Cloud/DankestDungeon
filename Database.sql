@@ -261,22 +261,22 @@ INSERT INTO Leads_to VALUES("E",37,38,1);
 INSERT INTO playercharacter VALUES(NULL, 100, 10, 15, "Me, a humble treasure hunter.", 1);
 
 INSERT INTO itemtype VALUES(NULL, "Dagger", "A basic blade to hit monsters with", 10, 0, 1, "weapon", 0, 1);
-INSERT INTO itemtype VALUES(NULL, "Short-sword", "A basic sword for hitting monsters", 13, 0, 1, "weapon", 100, 0);
-INSERT INTO itemtype VALUES(NULL, "Medium-sword", "Slightly better sword for hitting monsters", 18, 0, 1, "weapon", 200, 0);
-INSERT INTO itemtype VALUES(NULL, "Long-sword", "Clearly better sword for hitting monsters", 25, 0, 1, "weapon", 400, 0);
+INSERT INTO itemtype VALUES(NULL, "Short sword", "A basic sword for hitting monsters", 13, 0, 1, "weapon", 100, 0);
+INSERT INTO itemtype VALUES(NULL, "Medium sword", "Slightly better sword for hitting monsters", 18, 0, 1, "weapon", 200, 0);
+INSERT INTO itemtype VALUES(NULL, "Long sword", "Clearly better sword for hitting monsters", 25, 0, 1, "weapon", 400, 0);
 INSERT INTO itemtype VALUES(NULL, "Einhander", "Little brother of the Zweihander", 30, 0, 1, "weapon", 800, 0);
 
 INSERT INTO itemtype VALUES(NULL, "Buckler", "Smallest little shield", 0, 80, 1, "shield", 100, 0);
-INSERT INTO itemtype VALUES(NULL, "Small-Shield", "Small little shield", 0, 100, 1, "shield", 150, 0);
+INSERT INTO itemtype VALUES(NULL, "Small Shield", "Small little shield", 0, 100, 1, "shield", 150, 0);
 INSERT INTO itemtype VALUES(NULL, "Shield", "Moderately sized shield", 0, 120, 1, "shield", 300, 0);
-INSERT INTO itemtype VALUES(NULL, "Tower-shield", "Using a tower as a shield, bold!", 0, 150, 1, "shield", 600, 0);
+INSERT INTO itemtype VALUES(NULL, "Tower shield", "Using a tower as a shield, bold!", 0, 150, 1, "shield", 600, 0);
 
-INSERT INTO itemtype VALUES(NULL, "Healing-potion", "Small bottle filled with dark, red liquid. Heals to full health.", 0, 0, 1, "Potion", 100, 0);
-INSERT INTO itemtype VALUES(NULL, "Damage-potion", "Small bottle filled with grey liquid, smells awful. Increases combat prowess.", 20, 0, 1, "Potion", 500, 0);
+INSERT INTO itemtype VALUES(NULL, "Healing potion", "Small bottle filled with dark, red liquid. Heals to full health.", 0, 0, 1, "Potion", 100, 0);
+INSERT INTO itemtype VALUES(NULL, "Damage potion", "Small bottle filled with grey liquid, smells awful. Increases combat prowess.", 20, 0, 1, "Potion", 500, 0);
 
-INSERT INTO Itemtype VALUES(NULL, "Healing-Scroll", "A Scroll containig esoteric knowledge. There is a picture of a red cross in the middle.", 0, 0, 1, "Scroll", 500, 0);
-INSERT INTO Itemtype VALUES(NULL, "Water-Scroll", "A Scroll containig esoteric knowledge. There is a picture of a tsunami in the middle.", 0, 0, 1, "Scroll", 500, 0);
-INSERT INTO Itemtype VALUES(NULL, "Fire-Scroll", "A Scroll containig esoteric knowledge. There is a picture of a fireball in the middle.", 0, 0, 1, "Scroll", 500, 0);
+INSERT INTO Itemtype VALUES(NULL, "Healing Scroll", "A Scroll containig esoteric knowledge. There is a picture of a red cross in the middle.", 0, 0, 1, "Scroll", 500, 0);
+INSERT INTO Itemtype VALUES(NULL, "Water Scroll", "A Scroll containig esoteric knowledge. There is a picture of a tsunami in the middle.", 0, 0, 1, "Scroll", 500, 0);
+INSERT INTO Itemtype VALUES(NULL, "Fire Scroll", "A Scroll containig esoteric knowledge. There is a picture of a fireball in the middle.", 0, 0, 1, "Scroll", 500, 0);
 
 INSERT INTO Itemtype VALUES(NULL, "Golden ankh", "A curious treasure, pure gold. I can't help but feel this item is important", 0, 0, 1, "Golden", 4000, 1);
 INSERT INTO Itemtype VALUES(NULL, "Golden skull", "A curious treasure, pure gold. I can't help but feel this item is important", 0, 0, 1, "Golden", 4000, 1);
