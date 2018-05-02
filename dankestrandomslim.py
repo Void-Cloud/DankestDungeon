@@ -28,24 +28,26 @@ def randomize_all():
         cur.execute(sql)
         return
 
-    def set_item():
-        itemtypeind = random.randint((0),(len(itemtypes)-1))
-        itemtypeid = itemtypes[itemtypeind]
+    #def set_item():
+        #itemtypeind = random.randint((0),(len(itemtypes)-1))
+        #itemtypeid = itemtypes[itemtypeind]
 
         #luodaan esine ja asetetaan se huoneeseen
         #(ItemID, ID(pelaaja), RoomID, MerchantID, ItemtypeID)
-        sql = "INSERT INTO item VALUES (NULL, NULL, " + str(rooms[-1]) + ", NULL, " + str(itemtypeid) + ", 0);"
-        cur.execute(sql)
-        return
+        #sql = "INSERT INTO item VALUES (NULL, NULL, " + str(rooms[-1]) + ", NULL, " + str(itemtypeid) + ", 0);"
+        #cur.execute(sql)
+        #return
     
     #muuttujia ja listoja
     rooms = []
     itemtypes = []
     enemytypes = []
+    #tämä vielä toimimaan!!!!!!!!
+    healthitemtypes = []
     level = 1
     cur = db.cursor()
 
-    while level <= 3:
+    while level <= 4:
 
         #hae kentän huoneet, joissa encounter = 1
         sql = "SELECT room.RoomId FROM room WHERE room.Level = " + str(level) + " AND room.Encounter = 1;"
@@ -64,15 +66,8 @@ def randomize_all():
         #muodosta vihollistyyppien id-numeroista oma lista
         for row in tempenemytypes:
             enemytypes.append(row[0])
-
-        #muodosta tavaratyyppien id-numeroista oma lista, jos tavaratyypit samat kaikissa kentissä
-        #hae tavaratyyppien id, joissa created = 0
-        sql = "SELECT itemtype.ItemtypeID FROM itemtype WHERE created = 0;"
-        cur.execute(sql)
-        tempitemtypes = cur.fetchall()
-        for row in tempitemtypes:
-            itemtypes.append(row[0])
-
+        print(enemytypes)
+       
         #asetetaan ykköskentän trap
 
         if level == 1:
@@ -89,8 +84,171 @@ def randomize_all():
 
             else:
                 set_traproom(8)
+
+        #muodosta tavaratyyppien id-numeroista lista, joka ensin ekassa kentässä tietynlainen ja siitä poistetaan ja lisätään!!!
+        #hae tavaratyyppien id, joissa created = 0 ja value joku tietty ja muuta tarvittavaa hössäkkää
+        if level == 1:
+            sql = "SELECT itemtype.ItemtypeID FROM itemtype WHERE created = 0 AND (value <= 150 OR value = 500);"
+            cur.execute(sql)
+            tempitemtypes = cur.fetchall()
+            for row in tempitemtypes:
+                itemtypes.append(row[0])
+            print(itemtypes)
+
+            #arvotaan 2 huonetta, joihin tavaraa tulee
+            itemroomind = random.randint(0, len(rooms)-1)
+            itemroomid = rooms[itemroomind]
+            print("tämä on tärkeä: " + str(itemroomid))
+            itemroomind2 = itemroomind
+            while itemroomind == itemroomind2:
+                itemroomind2 = random.randint(0, len(rooms)-1)
+            itemroomid2 = rooms[itemroomind2]
+            
+            itemtypeind = random.randint((0),(len(itemtypes)-1))
+            itemtypeid = itemtypes[itemtypeind]
+
+            #luodaan esine ja asetetaan se huoneeseen (aseita on aina vain yksi: jos arvotaan ase, poistetaan se listalta)
+            #(ItemID, ID(pelaaja), RoomID, MerchantID, ItemtypeID)
+            sql = "INSERT INTO item VALUES (NULL, NULL, " + str(itemroomid) + ", NULL, " + str(itemtypeid) + ", 0);"
+            cur.execute(sql)
+
+            if itemtypeid <= 9:
+                itemtypes.remove(itemtypeid)
+
+            itemtypeind = random.randint((0),(len(itemtypes)-1))
+            itemtypeid = itemtypes[itemtypeind]
+            sql = "INSERT INTO item VALUES (NULL, NULL, " + str(itemroomid2) + ", NULL, " + str(itemtypeid) + ", 0);"
+            cur.execute(sql)
+
+            if itemtypeid <= 9:
+                itemtypes.remove(itemtypeid)
+
+            #merchantin tavaroiden arpominen
+            
+            for i in range(0,2):
+                itemtypeind = random.randint((0),(len(itemtypes)-1))
+                itemtypeid = itemtypes[itemtypeind]
+                sql = "INSERT INTO item VALUES (NULL, NULL, NULL, " + str(level) + ", " + str(itemtypeid) +", 0);"
+                cur.execute(sql)
+                
+                if itemtypeid <= 9:
+                    itemtypes.remove(itemtypeid)
+          
+        elif level == 2:
+            #lisää vain ne jutut listalle, joita siellä ei vielä ole
+            sql = "SELECT itemtype.ItemtypeID FROM itemtype WHERE created = 0 AND ((value >= 100 AND value <= 300 AND NOT itemtypeID = 6) OR value = 500);"
+            cur.execute(sql)
+            tempitemtypes = cur.fetchall()
+            #käydään lista läpi
+            for row in tempitemtypes:
+                #jos listassa ei esiinny kyseistä esinetyyppiid:tä, niin se lisätään listaan
+                ifnot = itemtypes.count(row[0])
+                if ifnot == 0:
+                    itemtypes.append(row[0])
+            print(itemtypes)
+            #arvotaan 2 huonetta, joihin tavaraa tulee
+            itemroomind = random.randint(0, len(rooms)-1)
+            itemroomid = rooms[itemroomind]
+            print("tämä on tärkeä: " + str(itemroomid))
+            itemroomind2 = itemroomind
+            while itemroomind == itemroomind2:
+                itemroomind2 = random.randint(0, len(rooms)-1)
+            itemroomid2 = rooms[itemroomind2]
+            
+            itemtypeind = random.randint((0),(len(itemtypes)-1))
+            itemtypeid = itemtypes[itemtypeind]
+
+            #luodaan esine ja asetetaan se huoneeseen (aseita on aina vain yksi: jos arvotaan ase, poistetaan se listalta)
+            #(ItemID, ID(pelaaja), RoomID, MerchantID, ItemtypeID)
+            sql = "INSERT INTO item VALUES (NULL, NULL, " + str(itemroomid) + ", NULL, " + str(itemtypeid) + ", 0);"
+            cur.execute(sql)
+
+            if itemtypeid <= 9:
+                itemtypes.remove(itemtypeid)
+
+            itemtypeind = random.randint((0),(len(itemtypes)-1))
+            itemtypeid = itemtypes[itemtypeind]
+            sql = "INSERT INTO item VALUES (NULL, NULL, " + str(itemroomid2) + ", NULL, " + str(itemtypeid) + ", 0);"
+            cur.execute(sql)
+
+            if itemtypeid <= 9:
+                itemtypes.remove(itemtypeid)
+
+            #merchantin tavaroiden arpominen
+            
+            for i in range(0,2):
+                itemtypeind = random.randint((0),(len(itemtypes)-1))
+                itemtypeid = itemtypes[itemtypeind]
+                sql = "INSERT INTO item VALUES (NULL, NULL, NULL, " + str(level) + ", " + str(itemtypeid) +", 0);"
+                cur.execute(sql)
+                
+                if itemtypeid <= 9:
+                    itemtypes.remove(itemtypeid)
+            
+            
+        elif level == 3:
+            sql = "SELECT itemtype.ItemtypeID FROM itemtype WHERE created = 0 AND ((value >= 200 AND value <= 600) OR value = 600);"
+            cur.execute(sql)
+            tempitemtypes = cur.fetchall()
+            for row in tempitemtypes:
+                #jos listassa ei esiinny kyseistä esinetyyppiid:tä, niin se lisätään listaan
+                ifnot = itemtypes.count(row[0])
+                if ifnot == 0:
+                    itemtypes.append(row[0])
+            print(itemtypes)
+
+            #arvotaan 2 huonetta, joihin tavaraa tulee
+            itemroomind = random.randint(0, len(rooms)-1)
+            itemroomid = rooms[itemroomind]
+            print("tämä on tärkeä: " + str(itemroomid))
+            itemroomind2 = itemroomind
+            while itemroomind == itemroomind2:
+                itemroomind2 = random.randint(0, len(rooms)-1)
+            itemroomid2 = rooms[itemroomind2]
+            
+            itemtypeind = random.randint((0),(len(itemtypes)-1))
+            itemtypeid = itemtypes[itemtypeind]
+
+            #luodaan esine ja asetetaan se huoneeseen (aseita on aina vain yksi: jos arvotaan ase, poistetaan se listalta)
+            #(ItemID, ID(pelaaja), RoomID, MerchantID, ItemtypeID)
+            sql = "INSERT INTO item VALUES (NULL, NULL, " + str(itemroomid) + ", NULL, " + str(itemtypeid) + ", 0);"
+            cur.execute(sql)
+
+            if itemtypeid <= 9:
+                itemtypes.remove(itemtypeid)
+
+            itemtypeind = random.randint((0),(len(itemtypes)-1))
+            itemtypeid = itemtypes[itemtypeind]
+            sql = "INSERT INTO item VALUES (NULL, NULL, " + str(itemroomid2) + ", NULL, " + str(itemtypeid) + ", 0);"
+            cur.execute(sql)
+
+            if itemtypeid <= 9:
+                itemtypes.remove(itemtypeid)
+
+            #merchantin tavaroiden arpominen
+            
+            for i in range(0,2):
+                itemtypeind = random.randint((0),(len(itemtypes)-1))
+                itemtypeid = itemtypes[itemtypeind]
+                sql = "INSERT INTO item VALUES (NULL, NULL, NULL, " + str(level) + ", " + str(itemtypeid) +", 0);"
+                cur.execute(sql)
+                
+                if itemtypeid <= 9:
+                    itemtypes.remove(itemtypeid)
+        else:
+            #tarvitaanko näitä ylärivejä???
+            #sql = "SELECT itemtype.ItemtypeID FROM itemtype WHERE itemtypeID = 5 OR itemtypeID = 12;"
+            #cur.execute(sql)
+            #tempitemtypes = cur.fetchall()
+            #for row in tempitemtypes:
+                #itemtypes.append(row[0])
+            sql = "INSERT INTO item VALUES (NULL, NULL, NULL, " + str(level) + ", 5, 0);"
+            cur.execute(sql)
+            sql = "INSERT INTO item VALUES (NULL, NULL, NULL, " + str(level) + ", 12, 0);"
+            cur.execute(sql)
+            print(itemtypes)
         
-        #sitten arvotaan, mitä muissa huoneissa on
+        #sitten arvotaan viholliset
         #ensin otetaan huone järjestyksessä, aloitetaan listan lopusta
         #sitten arvotaan, onko siinä huoneessa esine vai vihollinen vai molemmat
 
@@ -98,14 +256,14 @@ def randomize_all():
 
             set_enemy()
 
-            #40 prosenttiin huoneista tulee item!
-            ifitem = random.randint(1,10)
-            if ifitem <= 4:
-                set_item()
+            #30 prosenttiin huoneista tulee item!
+            #ifitem = random.randint(1,10)
+            #if ifitem <= 3:
+                #set_item()
 
             del rooms[-1]
 
-        itemtypes.clear()
+        #itemtypes.clear()
         enemytypes.clear()
         level = level + 1
 
@@ -124,8 +282,6 @@ db = mysql.connector.connect(host="localhost",
 print("Tietokantaan saatiin yhteys, jee!")
 
 randomize_all()
-
-#randomize_merchants()
 
 db.rollback()
 db.close()
