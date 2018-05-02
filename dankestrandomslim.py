@@ -7,8 +7,8 @@ import random
 def randomize_all():
 
     def set_traproom(roomid):
-        sql3 = "INSERT INTO Trap VALUES(NULL, 'The room seems to be bit off... Oh no sand starts to fill the room from a hole. You need to do something but what?', 1, " + str(roomid) +");"
-        cur.execute(sql3)
+        sql = "INSERT INTO Trap VALUES(NULL, 'The room seems to be bit off... Oh no sand starts to fill the room from a hole. You need to do something but what?', 1, " + str(roomid) +");"
+        cur.execute(sql)
         rooms.remove(roomid)
         return
 
@@ -17,15 +17,15 @@ def randomize_all():
         enemytypeid = enemytypes[enemytypeind]
 
         #haetaan tarvittavat tiedot, hitpointsit, tietokannasta, jotta voidaan luoda vihollinen
-        sql4 = "SELECT enemytype.HitPoints FROM enemytype WHERE enemytype.EnemytypeID = " + str(enemytypeid) + ";"
-        cur.execute(sql4)
+        sql = "SELECT enemytype.HitPoints FROM enemytype WHERE enemytype.EnemytypeID = " + str(enemytypeid) + ";"
+        cur.execute(sql)
         temphitpoints = cur.fetchall()
         for row in temphitpoints:
             hitpoints = row[0]
                 
         #luodaan  vihollinen ja asetetaan se huoneeseen
-        sql5 = "INSERT INTO enemy VALUES (NULL, " + str(hitpoints) + ", " + str(rooms[-1]) + ", " + str(enemytypeid) + ");"
-        cur.execute(sql5)
+        sql = "INSERT INTO enemy VALUES (NULL, " + str(hitpoints) + ", " + str(rooms[-1]) + ", " + str(enemytypeid) + ");"
+        cur.execute(sql)
         return
 
     def set_item():
@@ -34,8 +34,8 @@ def randomize_all():
 
         #luodaan esine ja asetetaan se huoneeseen
         #(ItemID, ID(pelaaja), RoomID, MerchantID, ItemtypeID)
-        sql5 = "INSERT INTO item VALUES (NULL, NULL, " + str(rooms[-1]) + ", NULL, " + str(itemtypeid) + ");"
-        cur.execute(sql5)
+        sql = "INSERT INTO item VALUES (NULL, NULL, " + str(rooms[-1]) + ", NULL, " + str(itemtypeid) + ", 0);"
+        cur.execute(sql)
         return
     
     #muuttujia ja listoja
@@ -44,14 +44,6 @@ def randomize_all():
     enemytypes = []
     level = 1
     cur = db.cursor()
-
-    #muodosta tavaratyyppien id-numeroista oma lista, jos tavaratyypit samat kaikissa kentissä
-    #hae tavaratyyppien id, joissa created = 0
-    sql1 = "SELECT itemtype.ItemtypeID FROM itemtype WHERE created = 0"
-    cur.execute(sql1)
-    tempitemtypes = cur.fetchall()
-    for row in tempitemtypes:
-        itemtypes.append(row[0])
 
     while level <= 3:
 
@@ -72,6 +64,14 @@ def randomize_all():
         #muodosta vihollistyyppien id-numeroista oma lista
         for row in tempenemytypes:
             enemytypes.append(row[0])
+
+        #muodosta tavaratyyppien id-numeroista oma lista, jos tavaratyypit samat kaikissa kentissä
+        #hae tavaratyyppien id, joissa created = 0
+        sql = "SELECT itemtype.ItemtypeID FROM itemtype WHERE created = 0;"
+        cur.execute(sql)
+        tempitemtypes = cur.fetchall()
+        for row in tempitemtypes:
+            itemtypes.append(row[0])
 
         #asetetaan ykköskentän trap
 
@@ -96,23 +96,16 @@ def randomize_all():
 
         while len(rooms) != 0:
 
-            #muuttuja, johon tallennetaan kummasta listasta, esinetyypeistä, vihollistyypeistä vai molemmista arvotaan encounter
-            which = random.randint(1,3) 
+            set_enemy()
 
-            #jos which == 1, valitaan vihollislistalta; jos 2, valitaan esinelistalta; jos 3, molemmista tulee
-            if which == 1:
-                set_enemy()
-                del rooms[-1]
-
-            elif which == 2:
+            #40 prosenttiin huoneista tulee item!
+            ifitem = random.randint(1,10)
+            if ifitem <= 4:
                 set_item()
-                del rooms[-1]
 
-            else:
-                set_enemy()
-                set_item()
-                del rooms[-1]
-        
+            del rooms[-1]
+
+        itemtypes.clear()
         enemytypes.clear()
         level = level + 1
 
@@ -136,3 +129,4 @@ randomize_all()
 
 db.rollback()
 db.close()
+
