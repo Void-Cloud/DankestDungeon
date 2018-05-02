@@ -110,7 +110,7 @@ CREATE TABLE Item
   RoomID INT,
   MerchantID INT,
   ItemtypeID INT NOT NULL,
-  Equiped BOOLEAN NOT NULL,
+  Equipped BOOLEAN NOT NULL,
   PRIMARY KEY (ItemID),
   FOREIGN KEY (ID) REFERENCES PlayerCharacter(ID),
   FOREIGN KEY (RoomID) REFERENCES Room(RoomID),
