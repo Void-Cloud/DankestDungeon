@@ -308,9 +308,6 @@ INSERT INTO Item VALUES(NULL, NULL, 15, NULL, 21, 0);
 INSERT INTO Item VALUES(NULL, NULL, 17, NULL, 22, 0);
 INSERT INTO Item VALUES(NULL, NULL, 19, NULL, 23, 0);
 
-INSERT INTO Item VALUES(NULL, NULL, NULL, 4, 12, 0); #health scroll for the final merchant
-INSERT INTO Item VALUES(NULL, NULL, NULL, 4, 5, 0); #einhander for the final merchant
-
 #Level 1 enemytypes, Pyramid
 
 INSERT INTO EnemyType VALUES(NULL, 'Scorpions', 1, 6, 1, "The black Scorpions are small, but menacing. Their grasping pedipalps open and close, and the venomous stingers at the end of their tails are curved forward, pointing straight at me... (Their hit points are 6, and attack power just 1.)", "Grrr", "Grr...rr..r","", 0, 1); #Scorpion
@@ -345,6 +342,10 @@ INSERT INTO Merchant VALUES(NULL,'Mayan Monk', "Looks like you are lost young ma
 INSERT INTO Merchant VALUES(NULL,'Merchant', "Got some rare things on sale, stranger! ", "A strange man in a black trench-coat with a huge backbag is standing behind a desk filled with items. There is also a torch that is burning with a blue flame.", 26); #Level 3 merhcant
 INSERT INTO Merchant VALUES(NULL,'Loyal Hound Man',"Ah you have reached the final boss. I suggest you buy some upgrades or my master is going to finish you with one hit. Wof wof.", "I see a man... no, it's a dog, no, it's a man. Well it doesn't matter, it seems like the houndman has something he wants me to know.", 37); #Level 4 merchant
 
+#Put items into Merchant 4                                                                                                                            
+INSERT INTO Item VALUES(NULL, NULL, NULL, 4, 12, 0); #health scroll to the fourth merchant
+INSERT INTO Item VALUES(NULL, NULL, NULL, 4, 5, 0); #einhander to the fourth merchant                                                                                                                          
+                                                                                                                           
 #Put bosses into their rooms
 
 INSERT INTO Enemy VALUES(NULL, (SELECT HitPoints FROM Enemytype WHERE Name = "Sphinx"), 9, 4);
