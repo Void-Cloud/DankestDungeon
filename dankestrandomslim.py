@@ -121,9 +121,6 @@ def set_enemy(rooms, enemytypes):
 
 def randomize_all():
 
-    #tämä vielä toimimaan!!!!!!!!
-    healthitemtypes = []
-
     for level in range(1,4):
 
         rooms = make_room_list(level)
