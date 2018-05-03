@@ -291,6 +291,8 @@ INSERT INTO Itemtype VALUES(NULL, "Jaquar button", "It's a button with a picture
 INSERT INTO Itemtype VALUES(NULL, "Quetzal button", "It's a button with a picture of a quetzal. I feel compelled to push it", 0, 0, 0, "Button", 0, 1, 2);
 INSERT INTO Itemtype VALUES(NULL, "Butterfly button", "It's a button with a picture of a butterfly. I feel compelled to push it", 0, 0, 0, "Button", 0, 1, 2);
 
+INSERT INTO Itemtype VALUES(NULL, "Anvil", "It's an iron anvil, there is a picture of two key pieces carved to its side.", 0, 0, 0, "Anvil", 0, 0, 3);
+
 INSERT INTO Item VALUES(NULL, 1, NULL, NULL, 1, 1); #Put Dagger into player's inventory
 
 INSERT INTO Item VALUES(NULL, NULL, 8, NULL, 15, 0); #put golden items into their rooms
@@ -299,6 +301,7 @@ INSERT INTO Item VALUES(NULL, NULL, 35, NULL, 17, 0);
 
 INSERT INTO Item VALUES(NULL, NULL, 34, NULL, 18, 0); #put key pieces into their rooms
 INSERT INTO Item VALUES(NULL, NULL, 30, NULL, 19, 0);
+INSERT INTO Item VALUES(NULL, NULL, 28, NULL, 24, 0); #put anvil into its room
 
 INSERT INTO Item VALUES(NULL, NULL, 13, NULL, 20, 0); #put buttons into their rooms
 INSERT INTO Item VALUES(NULL, NULL, 15, NULL, 21, 0);
