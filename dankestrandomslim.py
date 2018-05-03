@@ -1,7 +1,7 @@
 import mysql.connector
 import random
 
-#@spaghetti by Essi
+#by Essi :)
 
 def make_enemytype_list(level):
     cur = db.cursor()
@@ -144,7 +144,7 @@ def randomize_all():
                 rooms = set_traproom(rooms, 8)
 
         #muodosta tavaratyyppien id-numeroista lista, joka ensin ekassa kentässä tietynlainen
-        #jos randomissa tulee ase tai kilpi, se poistetaan listalta ja päivitetään tietokantaan, että sellainen on olemassa
+        #jos randomissa tulee ase tai kilpi, se poistetaan listalta ja päivitetään tietokantaan, että sellainen item on luotu
         #hae tavaratyyppien id, joissa created = 0 ja kentän mukaan
         
         itemtypes = make_itemtype_list(level)
@@ -170,12 +170,7 @@ def randomize_all():
         itemtypes = set_merchant_items(level, itemtypes)
 
         set_health_items(level)
-        
-            #sql = "INSERT INTO item VALUES (NULL, NULL, NULL, 4, 5, 0);"
-
-            #sql = "INSERT INTO item VALUES (NULL, NULL, NULL, 4, 12, 0);"
-
-        
+           
         #sitten kaikkiin encounter = 1 huoneisiin arvotaan viholliset
         #ensin otetaan huone järjestyksessä, aloitetaan listan lopusta
         #sitten arvotaan, mikä vihollistyyppi huoneessa on
