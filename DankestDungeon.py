@@ -170,6 +170,24 @@ def delete_deathenemy():
     sql = "DELETE FROM enemy WHERE enemy.Hitpoints <= 0;"
     cur.execute(sql)
 
+def enemy_dialogue(enemyname):
+    enemydialogue = ""
+    cur = db.cursor()
+    sql = "SELECT enemytype.Dialogue FROM enemytype WHERE enemytype.Name ='"+enemyname+"'"
+    cur.execute(sql)
+    for row in cur:
+        enemydialogue = row[0]
+    return enemydialogue
+
+def enemy_death_dialogua(enemyname):
+    enemydeathdialogue = ""
+    cur = db.cursor()
+    sql = "SELECT enemytype.DeathDialogue FROM enemytype WHERE enemytype.Name ='"+enemyname+"'"
+    cur.execute(sql)
+    for row in cur:
+        enemydeathdialogue = row[0]
+    return enemydeathdialogue
+
 def fight_enemy(loc):
     playerdmg = 0
     #playerdmg
@@ -179,10 +197,13 @@ def fight_enemy(loc):
     for row in cur:
         playerdmg = row[0]
     enemyname = check_enemyname(loc)
+    enemyd = enemy_dialogue(enemyname)
+    enemydd = enemy_death_dialogua(enemyname)
     enemyhp = check_enemyhp(loc)
     enemydmg = check_enemyattack(loc)
     enemyunique = check_enemyunique(loc)
-    print("I can use scrolls, light attack, normal attack and hard attack.")
+    print("OH NO! "+enemyname+" attacks me. \nI can use scrolls, light attack, normal attack and hard attack.")
+    print(enemyname+":"+str(enemyd))
     
     #täytyy lisätä inventory commandit myös tänne koska muuten ei voi taistellussa katsoa inventorya!
     #osioon voi myös lisätä erinlaisia komentoja vielä jos tahtoo laajentaa. esim (examine ei toimi tässä) 
@@ -436,7 +457,8 @@ def fight_enemy(loc):
             enemyhp = check_enemyhp(loc)
 
         enemyhp = check_enemyhp(loc)
-        
+        if enemyhp <= 0:
+            print(enemyname+": "+enemydd)
         playerhp = check_playerhp()
     if playerhp == 0:
         print("You died")
