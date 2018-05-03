@@ -15,21 +15,21 @@ def Dirtransform(dire):
     elif dire == "U":
         return "Up"
     else:
-        return "Someone dun goofed"
+        return "Someone dun goofed."
 
 def look_around(loc):
     cur = db.cursor()
     sql = "SELECT Description FROM room WHERE RoomID = "+ str(loc)
     cur.execute(sql)
     for row in cur.fetchall():
-        print(row[0])
-    print("-"*80)
+        print(row[0]+'\n')
     sql = "SELECT Name FROM itemtype INNER JOIN item ON item.itemtypeID = itemtype.ItemtypeID AND item.RoomID = "+ str(loc)
     cur.execute(sql)
     if cur.rowcount > 0:
         print("I see following items around the room")
     for row in cur.fetchall():
         print("<>", row[0])
+    print("")
     sql = "SELECT Direction FROM leads_to WHERE RoomID_1 = "+ str(loc)
     cur.execute(sql)
     print("Exits are to:")
@@ -41,6 +41,7 @@ def look_around(loc):
             print(",", end=' ')
         elif i == cur.rowcount -1 and cur.rowcount > 1:
             print(" and ", end='')
+    print("")
     return
 
 def move(loc, dire):
@@ -70,9 +71,19 @@ def check_inventory():
             print("(Equipped)")
     return
 
-def take_item(item):
+def take_item(item, loc):
     cur = db.cursor()
-    sql = "SELECT Name FROM itemtype WHERE Name = "+item
+    sql = "SELECT Name, Movable FROM itemtype INNER JOIN item ON item.itemtypeID = itemtype.ItemtypeID AND item.RoomID ="+str(loc)+" AND itemtype.Name = '"+item+"'"
+    cur.execute(sql)
+    for row in cur.fetchall():
+        if row[1] == 1:
+            sql = "UPDATE item, itemtype SET RoomID = NULL, ID = 1 WHERE item.itemtypeID = itemtype.ItemtypeID AND itemtype.Name = '"+item+"'"
+            cur.execute(sql)
+        else:
+            print("I can't move that")
+        return
+    print("There is no such item here.")
+    return
 
 def check_items(name):
     cur = db.cursor()
@@ -82,7 +93,26 @@ def check_items(name):
         return True
     else:
         return False
-    
+
+def item_desc(item, loc):
+    cur = db.cursor()
+    sql = "SELECT Name, Description FROM itemtype INNER JOIN item ON item.itemtypeID = itemtype.ItemtypeID AND (item.RoomID ="+str(loc)+" OR item.ID = 1) AND itemtype.Name = '"+item+"'"
+    cur.execute(sql)
+    if cur.rowcount == 0:
+        print("There is no such item here.")
+    else:
+        for row in cur.fetchall():
+            print(row[0] + '\n' + row[1])
+    return
+
+def me_desc():
+    cur = db.cursor()
+    sql = "SELECT Description FROM playercharacter WHERE ID = 1"
+    cur.execute(sql)
+    for row in cur.fetchall():
+        print(row[0])
+    return
+
 #Database connection
 db = mysql.connector.connect(host="localhost",
                       user="dbuser",
@@ -98,7 +128,6 @@ for row in cur.fetchall():
     loc = row[0]
 
 #Fetch player max health
-cur = db.cursor()
 sql = "SELECT HitPoints FROM playercharacter"
 cur.execute(sql)
 for row in cur.fetchall():
@@ -136,7 +165,10 @@ while action!="quit" and (playerhp > 0 or snoopdoglives):
     if action == "look" or action == "examine":
         if target == "":
             look_around(loc)
-        else
+        elif check_items(target):
+            item_desc(target, loc)
+        elif target == "me" or target == "myself":
+            me_desc()
 
     #Moving
     elif action=="e" or action=="w" or action=="n" or action=="s" or action=="d" or action=="u" or action=="east" or action=="west" or action=="north" or action=="south" or action=="down" or action=="up":
@@ -151,9 +183,16 @@ while action!="quit" and (playerhp > 0 or snoopdoglives):
     elif action=="i" or action == "inventory":
         check_inventory()
 
-    elif action == "take" or action == "pick":
-        take_item(target)
+    elif action == "take" or action == "pick" and check_items(target):
+        take_item(target, loc)
         
     #Easter egg commands :3
     elif action == "breath":
         print("I know how to breath without help, thank you")
+
+    else:
+        print("I don't know how to "+action+".")
+if not snoopdoglives:
+    print("congratz you is winner")
+else:
+    print("The secrets of the dankest dungeon shall forever stay in the shadows")
