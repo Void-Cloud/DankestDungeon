@@ -308,6 +308,9 @@ INSERT INTO Item VALUES(NULL, NULL, 15, NULL, 21, 0);
 INSERT INTO Item VALUES(NULL, NULL, 17, NULL, 22, 0);
 INSERT INTO Item VALUES(NULL, NULL, 19, NULL, 23, 0);
 
+INSERT INTO Item VALUES(NULL, NULL, NULL, 4, 12, 0); #health scroll for the final merchant
+INSERT INTO Item VALUES(NULL, NULL, NULL, 4, 5, 0); #einhander for the final merchant
+
 #Level 1 enemytypes, Pyramid
 
 INSERT INTO EnemyType VALUES(NULL, 'Scorpions', 1, 6, 1, "The black Scorpions are small, but menacing. Their grasping pedipalps open and close, and the venomous stingers at the end of their tails are curved forward, pointing straight at me... (Their hit points are 6, and attack power just 1.)", "Grrr", "Grr...rr..r","", 0, 1); #Scorpion
