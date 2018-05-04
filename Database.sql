@@ -128,7 +128,7 @@ INSERT INTO Room VALUES(4, 1,"This is the grand gallery. What a big room! The st
 INSERT INTO Room VALUES(5, 0,"This must be the Queen's burial chamber. There's a huge, empty sarcophagus made of stone on the floor. And no, I shouldn't lie in it!", 1); #Third row right
 INSERT INTO Room VALUES(6, 1,"Oh vow! Really nice decor here, probably the King's burial chamber. There's a spiral stairway going downwards.", 1); #Third row left - trap
 INSERT INTO Room VALUES(7, 1,"Here is the biggest subterranean chamber. Still so many hieroglyphs everywhere... There's a spiral stairway going upwards.", 1); #Fourth row middle left
-INSERT INTO Room VALUES(8, 1,"This room would make a great wine cellar, maybe it's been one in the olden day. But sadly no wine here.", 1); #Fourth row further left - trap
+INSERT INTO Room VALUES(8, 1,"This room would make a great wine cellar, maybe it's been one in the olden day. But sadly no wine here. There is a beautiful golden ankh recessed into the wall.", 1); #Fourth row further left - trap
 INSERT INTO Room VALUES(9, 0,"Yet another burial chamber, not as fancy as the others. Maybe it was for the pharaoh's distant cousin or something. There's a big ornamental door, where might that lead?", 1); #Fourth row middle right - sphinx
 INSERT INTO Room VALUES(10, 0,"In this room there are just way too many hieroglyphs. Enough with the hieroglyphs already! There's a stairway going further and further down...", 1); #Fourth row further right - BOSS ROOM
 
@@ -153,7 +153,7 @@ INSERT INTO Leads_to VALUES("W",10,9,0);
 
 #Second level rooms and connections
 
-INSERT INTO Room VALUES(11, 0,"Oh dear! This is obviously the middle room in a ruined Mayan Temple! The walls are covered with sculpted tablets depicting totemic animals. Maybe the treasure is in this room... Nope.", 2); #Middle room
+INSERT INTO Room VALUES(11, 0,"Oh dear! This is obviously the middle room in a ruined Mayan Temple! The walls are covered with sculpted tablets covered with rot. Thirteen of them say 'fhzzba ure'. Maybe the treasure is in this room... Nope.", 2); #Middle room
 INSERT INTO Room VALUES(12, 1,"This hall is an ancient indoor Mesoamerican ballcourt. It was easy to get a ball back then, just use a spare head!", 2); #North room
 INSERT INTO Room VALUES(13, 1,"This is the obsidian room, the walls are decorated with blades of volcanic glass used by the Mayan people... wait, what? That's a real thing? I thought GRRM made that up!", 2); #North west room - button
 INSERT INTO Room VALUES(14, 0,"This must be the Mayan kitchen. I'm not hungry though. There's an old wooden door. ", 2); #West room
@@ -162,7 +162,7 @@ INSERT INTO Room VALUES(16, 1,"Oh, a balcony! A great view over the Guatemalan r
 INSERT INTO Room VALUES(17, 1,"Lintels portraying Mayan Gods and animals are fastened on the walls of this room. I'll call this 'the lintel room'", 2); #South east room - button
 INSERT INTO Room VALUES(18, 1,"A room full of pictures of animals on the walls. Again. I'm starting to see a pattern here. Again. There's also a hidden trap door. You cannot see it.", 2); #East room
 INSERT INTO Room VALUES(19, 1,"The powder room! I've been looking for this as long as for the treasure!", 2); #North east - button
-INSERT INTO Room VALUES(20, 0,"This is the hidden room.", 2); #Golden skull room
+INSERT INTO Room VALUES(20, 0,"Petals of white cover fields flowing in grieving tears. There is a skeleton in the middle. the skeleton has a golden skull.", 2); #Golden skull room
 INSERT INTO Room VALUES(21, 0,"I'm in the altar room of the Mayan Temple now. The built-in altar is full of pictures of sacrificial animals (and sacrificial humans).", 2); #Boss room
 
 INSERT INTO Leads_to VALUES("D",10,11,0);
@@ -210,7 +210,7 @@ INSERT INTO Room VALUES(31, 1,"This room's id number is 31. 31, for crying out l
 INSERT INTO Room VALUES(32, 1,"The Room. Tommy Wiseau's 2003 film The Room has been repeatedly mentioned as one of the worst films ever made. Its main character is a banker called Johnny, played by Wiseau himself, who...", 3); #Squre room south west
 INSERT INTO Room VALUES(33, 1,"The operating theatre. Unfortunately all the nice stuff like bone cutters and amputation saws have been taken away.", 3); #Squre room south
 INSERT INTO Room VALUES(34, 1,"The bones-for-sale room. There's a sign on the wall saying: 'Come and get the best calf bones on the market! Half price, used only once, hardly any bite marks. Call 02-718 28 18 now!'", 3); #Squre room south east - key piece
-INSERT INTO Room VALUES(35, 0,"The living room. Well, how many wannabe jokes is one supposed to be able to make about rooms and bones? Not that many, I agree.", 3); #Squre room middle - Golden Monkey
+INSERT INTO Room VALUES(35, 0,"The living room. Well, how many wannabe jokes is one supposed to be able to make about rooms and bones? Not that many, I agree. There is a small, golden figurine of a monkey on the table.", 3); #Squre room middle - Golden Monkey
 INSERT INTO Room VALUES(36, 0,"The ticket office. A large sign advertises that the Catacombs are open for public from 10 am to 6 pm and ticket prices range from 10 to 20 euros.", 3); #Boss room
 
 INSERT INTO Leads_to VALUES("D",21,22,0);
@@ -272,26 +272,26 @@ INSERT INTO itemtype VALUES(NULL, "Small Shield", "Small little shield", 0, 100,
 INSERT INTO itemtype VALUES(NULL, "Shield", "Moderately sized shield", 0, 120, 1, "shield", 300, 0, 3);
 INSERT INTO itemtype VALUES(NULL, "Tower shield", "Using a tower as a shield, bold!", 0, 150, 1, "shield", 600, 0, 4);
 
-INSERT INTO itemtype VALUES(NULL, "Healing potion", "Small bottle filled with dark, red liquid. Heals to full health.", 0, 0, 1, "Potion", 100, 0, 5);
-INSERT INTO itemtype VALUES(NULL, "Damage potion", "Small bottle filled with grey liquid, smells awful. Increases combat prowess.", 20, 0, 1, "Potion", 500, 0, 5);
+INSERT INTO itemtype VALUES(NULL, "Healing potion", "Small bottle filled with dark, red liquid. Heals to full health.", 0, 0, 1, "potion", 100, 0, 5);
+INSERT INTO itemtype VALUES(NULL, "Damage potion", "Small bottle filled with grey liquid, smells awful. Increases combat prowess.", 20, 0, 1, "potion", 500, 0, 5);
 
-INSERT INTO Itemtype VALUES(NULL, "Healing Scroll", "A Scroll containig esoteric knowledge. There is a picture of a red cross in the middle.", 0, 0, 1, "Scroll", 500, 0, 5);
-INSERT INTO Itemtype VALUES(NULL, "Water Scroll", "A Scroll containig esoteric knowledge. There is a picture of a tsunami in the middle.", 0, 0, 1, "Scroll", 500, 0, 5);
-INSERT INTO Itemtype VALUES(NULL, "Fire Scroll", "A Scroll containig esoteric knowledge. There is a picture of a fireball in the middle.", 0, 0, 1, "Scroll", 500, 0, 5);
+INSERT INTO Itemtype VALUES(NULL, "Healing Scroll", "A Scroll containig esoteric knowledge. There is a picture of a red cross in the middle.", 0, 0, 1, "scroll", 500, 0, 5);
+INSERT INTO Itemtype VALUES(NULL, "Water Scroll", "A Scroll containig esoteric knowledge. There is a picture of a tsunami in the middle.", 0, 0, 1, "scroll", 500, 0, 5);
+INSERT INTO Itemtype VALUES(NULL, "Fire Scroll", "A Scroll containig esoteric knowledge. There is a picture of a fireball in the middle.", 0, 0, 1, "scroll", 500, 0, 5);
 
-INSERT INTO Itemtype VALUES(NULL, "Golden ankh", "A curious treasure, pure gold. I can't help but feel this item is important", 0, 0, 1, "Golden", 4000, 1, 1);
-INSERT INTO Itemtype VALUES(NULL, "Golden skull", "A curious treasure, pure gold. I can't help but feel this item is important", 0, 0, 1, "Golden", 4000, 1, 2);
-INSERT INTO Itemtype VALUES(NULL, "Golden monkey", "A curious treasure, pure gold. I can't help but feel this item is important", 0, 0, 1, "Golden", 4000, 1, 3);
+INSERT INTO Itemtype VALUES(NULL, "Golden ankh", "A curious treasure, pure gold. I can't help but feel this item is important", 0, 0, 1, "golden", 4000, 1, 1);
+INSERT INTO Itemtype VALUES(NULL, "Golden skull", "A curious treasure, pure gold. I can't help but feel this item is important", 0, 0, 1, "golden", 4000, 1, 2);
+INSERT INTO Itemtype VALUES(NULL, "Golden monkey", "A curious treasure, pure gold. I can't help but feel this item is important", 0, 0, 1, "golden", 4000, 1, 3);
 
 INSERT INTO Itemtype VALUES(NULL, "Key piece", "It seems to be a half of a key", 0, 0, 1, "key", 0, 1, 3);
-INSERT INTO Itemtype VALUES(NULL, "Piece of a key", "It seems to be a half of a key", 0, 0, 1, "key", 0, 1, 3);
+INSERT INTO Itemtype VALUES(NULL, "key fragment", "It seems to be a half of a key", 0, 0, 1, "key", 0, 1, 3);
 
-INSERT INTO Itemtype VALUES(NULL, "Snake button", "It's a button with a picture of a snake. I feel compelled to push it", 0, 0, 0, "Button", 0, 1, 2);
-INSERT INTO Itemtype VALUES(NULL, "Jaquar button", "It's a button with a picture of a jaquar. I feel compelled to push it", 0, 0, 0, "Button", 0, 1, 2);
-INSERT INTO Itemtype VALUES(NULL, "Quetzal button", "It's a button with a picture of a quetzal. I feel compelled to push it", 0, 0, 0, "Button", 0, 1, 2);
-INSERT INTO Itemtype VALUES(NULL, "Butterfly button", "It's a button with a picture of a butterfly. I feel compelled to push it", 0, 0, 0, "Button", 0, 1, 2);
+INSERT INTO Itemtype VALUES(NULL, "Snake button", "It's a button with a picture of a snake. I feel compelled to push it", 0, 0, 0, "button", 0, 1, 2);
+INSERT INTO Itemtype VALUES(NULL, "Jaquar button", "It's a button with a picture of a jaquar. I feel compelled to push it", 0, 0, 0, "button", 0, 1, 2);
+INSERT INTO Itemtype VALUES(NULL, "Quetzal button", "It's a button with a picture of a quetzal. I feel compelled to push it", 0, 0, 0, "button", 0, 1, 2);
+INSERT INTO Itemtype VALUES(NULL, "Butterfly button", "It's a button with a picture of a butterfly. I feel compelled to push it", 0, 0, 0, "button", 0, 1, 2);
 
-INSERT INTO Itemtype VALUES(NULL, "Anvil", "It's an iron anvil, there is a picture of two key pieces carved to its side.", 0, 0, 0, "Anvil", 0, 0, 3);
+INSERT INTO Itemtype VALUES(NULL, "Anvil", "It's an iron anvil, there is a picture of two key pieces carved to its side.", 0, 0, 0, "anvil", 0, 0, 3);
 
 INSERT INTO Item VALUES(NULL, 1, NULL, NULL, 1, 1); #Put Dagger into player's inventory
 
@@ -344,8 +344,8 @@ INSERT INTO Merchant VALUES(NULL,'Loyal Hound Man',"Ah you have reached the fina
 
 #Put items into Merchant 4                                                                                                                            
 INSERT INTO Item VALUES(NULL, NULL, NULL, 4, 12, 0); #health scroll to the fourth merchant
-INSERT INTO Item VALUES(NULL, NULL, NULL, 4, 5, 0); #einhander to the fourth merchant                                                                                                                          
-                                                                                                                           
+INSERT INTO Item VALUES(NULL, NULL, NULL, 4, 5, 0); #einhander to the fourth merchant   
+
 #Put bosses into their rooms
 
 INSERT INTO Enemy VALUES(NULL, (SELECT HitPoints FROM Enemytype WHERE Name = "Sphinx"), 9, 4);
