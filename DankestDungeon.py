@@ -192,7 +192,7 @@ def check_playerhp():
 
 def check_playerdmg():
     cur = db.cursor()
-    sql = "SELECT itemtype.AttackPower FROM itemtype INNER JOIN item ON item.ItemtypeID = itemtype.ItemtypeID WHERE item.ID = 1;"
+    sql = "SELECT itemtype.AttackPower FROM itemtype INNER JOIN item ON item.ItemtypeID = itemtype.ItemtypeID WHERE item.Equipped = 1 AND itemtype.`Type` = 'weapon'"
     cur.execute(sql)
     for row in cur:
         playerdmg = row[0]
