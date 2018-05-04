@@ -48,7 +48,7 @@ def set_traproom(rooms, roomid):
     sql = "INSERT INTO Trap VALUES(NULL, 'The room seems to be bit off... Oh no sand starts to fill the room from a hole. You need to do something but what?', 1, " + str(roomid) +");"
     cur.execute(sql)
     rooms.remove(roomid)
-    return rooms
+    return
 
 def set_room(rooms):
     itemroomind = random.randint(0, len(rooms)-1)
@@ -69,7 +69,7 @@ def remove_if_weapon(itemtypeid, itemtypes):
         sql = "UPDATE ITEMTYPE SET Created=1 WHERE ItemtypeID = " + str(itemtypeid) + ";"
         cur.execute(sql)
         itemtypes.remove(itemtypeid)
-    return itemtypes
+    return 
 
 def set_merchant_items(level, itemtypes):
     cur =db.cursor()
@@ -79,8 +79,8 @@ def set_merchant_items(level, itemtypes):
         sql = "INSERT INTO item VALUES (NULL, NULL, NULL, " + str(level) + ", " + str(itemtypeid) +", 0);"
         cur.execute(sql)
 
-        itemtypes = remove_if_weapon(itemtypeid, itemtypes)
-    return itemtypes
+        remove_if_weapon(itemtypeid, itemtypes)
+    return 
 
 def set_health_items(level):
     cur = db.cursor()
@@ -135,13 +135,13 @@ def randomize_all():
             
             #tallennetaan indeksiä vastaava huone muuttujaan ja poistetaan indeksiä vastaava huone rooms-listalta
             if whichtraproom == 1:
-                rooms = set_traproom(rooms, 3)
+                set_traproom(rooms, 3)
                      
             elif whichtraproom == 2:
-                rooms = set_traproom(rooms, 6)
+                set_traproom(rooms, 6)
 
             else:
-                rooms = set_traproom(rooms, 8)
+                set_traproom(rooms, 8)
 
         #muodosta tavaratyyppien id-numeroista lista, joka ensin ekassa kentässä tietynlainen
         #jos randomissa tulee ase tai kilpi, se poistetaan listalta ja päivitetään tietokantaan, että sellainen item on luotu
@@ -160,14 +160,14 @@ def randomize_all():
         itemtypeid = set_item(itemroomid, itemtypes)
 
         #jos arvotaan ase tai kilpi, updatetaan created tietokantaan ja poistetaan se huoneiden arvontalistalta
-        itemtypes = remove_if_weapon(itemtypeid, itemtypes)
+        remove_if_weapon(itemtypeid, itemtypes)
 
         itemtypeid = set_item(itemroomid2, itemtypes)
 
-        itemtypes = remove_if_weapon(itemtypeid, itemtypes)
+        remove_if_weapon(itemtypeid, itemtypes)
 
         #merchantin tavaroiden arpominen
-        itemtypes = set_merchant_items(level, itemtypes)
+        set_merchant_items(level, itemtypes)
 
         set_health_items(level)
            
