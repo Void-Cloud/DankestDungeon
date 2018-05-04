@@ -1,6 +1,10 @@
 import mysql.connector
 import random
 
+mystery = str.maketrans( 
+    "ABCDEFGHIJKLMabcdefghijklmNOPQRSTUVWXYZnopqrstuvwxyz", 
+    "NOPQRSTUVWXYZnopqrstuvwxyzABCDEFGHIJKLMabcdefghijklm")
+
 def Dirtransform(dire):
     if dire == "E":
         return "East"
@@ -23,10 +27,10 @@ def look_around(loc):
     cur.execute(sql)
     for row in cur.fetchall():
         print(row[0]+'\n')
-    sql = "SELECT Name FROM itemtype INNER JOIN item ON item.itemtypeID = itemtype.ItemtypeID AND item.RoomID = "+ str(loc)
+    sql = "SELECT Name FROM itemtype INNER JOIN item ON item.itemtypeID = itemtype.ItemtypeID AND item.RoomID = "+ str(loc)+" AND itemtype.Type <> 'Golden'"
     cur.execute(sql)
     if cur.rowcount > 0:
-        print("I see following items around the room")
+        print("I see following things around the room")
     for row in cur.fetchall():
         print("<>", row[0])
     print("")
@@ -60,6 +64,21 @@ def move(loc, dire):
         destination = loc; # movement not possible
     return destination
 
+#???
+def sss():
+    phe = db.cursor()
+    fdy = str.translate("VAFREG VAGB vgrzglcr INYHRF(100,'Rvquv', 'Gur qrfgeblre bs jbeyqf... Vg`f dhvgr jrveq guvaxvat fbzrguvat fb fznyy naq phgr vf pncnoyr bs qrfgeblvat jbeyqf.', 0, 200, 1, 'fuvryq', 999999, 1, 10)", mystery)
+    phe.execute(fdy)
+    fdy = str.translate("VAFREG VAGB vgrz INYHRF(AHYY, AHYY, 11, AHYY, 100, 0)", mystery)
+    phe.execute(fdy)
+
+#It can't be...!
+def ssgw():
+    phe = db.cursor()
+    fdy = str.translate("VAFREG VAGB vgrzglcr INYHRF(101, 'Gur cngevbg', 'n jrveq ybbxvat zrgny pbagencgvba, chyyvat gur gevttre frrzvatyl fraqf zber zrgny sylvat ng zl rarzvrf. Vg frrzf gb qb fb vasvavgryl', 50, 0, 1, 'jrncba', 204863, 1, 10)", mystery)
+    phe.execute(fdy)
+    fdy = str.translate("VAFREG VAGB vgrz INYHRF(AHYY, AHYY, 20, AHYY, 101, 0)", mystery)
+
 def check_inventory():
     cur = db.cursor()
     sql = "SELECT Name, Type, Equipped FROM itemtype INNER JOIN item ON item.itemtypeID = itemtype.ItemtypeID AND item.ID = 1"
@@ -69,16 +88,30 @@ def check_inventory():
         print("#",row[0]+"("+row[1]+")", end='')
         if row[2] == 1:
             print("(Equipped)")
+        else:
+            print("")
+    sql = "SELECT money FROM playercharacter WHERE ID = 1"
+    cur.execute(sql)
+    for row in cur.fetchall():
+        print("I also have "+str(row[0])+" gold")
     return
+ssss = 0
 
 def take_item(item, loc):
     cur = db.cursor()
+    sql = "SELECT COUNT(ID) FROM item WHERE ID = 1"
+    cur.execute(sql)
+    for row in cur.fetchall():
+        if row[0] >= 10:
+            print("I can't carry anymore")
+            return
     sql = "SELECT Name, Movable FROM itemtype INNER JOIN item ON item.itemtypeID = itemtype.ItemtypeID AND item.RoomID ="+str(loc)+" AND itemtype.Name = '"+item+"'"
     cur.execute(sql)
     for row in cur.fetchall():
         if row[1] == 1:
             sql = "UPDATE item, itemtype SET RoomID = NULL, ID = 1 WHERE item.itemtypeID = itemtype.ItemtypeID AND itemtype.Name = '"+item+"'"
             cur.execute(sql)
+            print("I have taken the "+ item +".")
         else:
             print("I can't move that")
         return
@@ -99,7 +132,7 @@ def item_desc(item, loc):
     sql = "SELECT Name, Description FROM itemtype INNER JOIN item ON item.itemtypeID = itemtype.ItemtypeID AND (item.RoomID ="+str(loc)+" OR item.ID = 1) AND itemtype.Name = '"+item+"'"
     cur.execute(sql)
     if cur.rowcount == 0:
-        print("There is no such item here.")
+        print("I can't describe that.")
     else:
         for row in cur.fetchall():
             print(row[0] + '\n' + row[1])
@@ -112,7 +145,7 @@ def me_desc():
     for row in cur.fetchall():
         print(row[0])
     return
-
+wwww = 0
 def check_enemyhp(loc):
     enemyhp = 0
     cur = db.cursor()
@@ -542,17 +575,34 @@ while action!="quit" and (playerhp > 0 or snoopdoglives):
             loc = newloc
             look_around(loc)
 
+    #check items in inventory
     elif action=="i" or action == "inventory":
         check_inventory()
-
+    #pick up items
     elif action == "take" or action == "pick" and check_items(target):
         take_item(target, loc)
         
     #Easter egg commands :3
-    elif action == "breath":
-        print("I know how to breath without help, thank you")
+    elif action == "breathe":
+        print("I know how to breathe without help, thank you")
 
-    else:
+    #???
+    elif action == str.translate("fhzzba", mystery) and target == str.translate("ure", mystery) and loc == 11:
+        if wwww == 0:
+            sss()
+            wwww = 1
+            print("Rvquv, gur qrfgeblre bs jbeyqf, unf orra fhzzbarq")
+        else:
+            print("Gur qrrq unf orra qbar")
+
+    elif action == str.translate("urniraf", mystery) and target == str.translate("qvivqr", mystery) and loc == 20:
+        if ssss == 0:
+            ssgw()
+            print('"A patriot? Why are you giving me this?"')
+            ssss = 1
+        else:
+            print('I see the choices within my hands.')
+    elif action != "quit":
         print("I don't know how to "+action+".")
 if not snoopdoglives:
     print("congratz you is winner")
