@@ -99,23 +99,39 @@ ssss = 0
 
 def take_item(item, loc):
     cur = db.cursor()
+    sql = "SELECT Inventorylimit FROM playercharacter WHERE ID = 1"
+    cur.execute(sql)
+    for row in cur.fetchall():
+        invlim = row[0]
     sql = "SELECT COUNT(ID) FROM item WHERE ID = 1"
     cur.execute(sql)
     for row in cur.fetchall():
-        if row[0] >= 10:
+        if row[0] >= invlim:
             print("I can't carry anymore")
             return
-    sql = "SELECT Name, Movable FROM itemtype INNER JOIN item ON item.itemtypeID = itemtype.ItemtypeID AND item.RoomID ="+str(loc)+" AND itemtype.Name = '"+item+"'"
+    sql = "SELECT Movable FROM itemtype INNER JOIN item ON item.itemtypeID = itemtype.ItemtypeID AND item.RoomID ="+str(loc)+" AND itemtype.Name = '"+item+"'"
     cur.execute(sql)
     for row in cur.fetchall():
-        if row[1] == 1:
-            sql = "UPDATE item, itemtype SET RoomID = NULL, ID = 1 WHERE item.itemtypeID = itemtype.ItemtypeID AND itemtype.Name = '"+item+"'"
+        if row[0] == 1:
+            sql = "UPDATE item, itemtype SET RoomID = NULL, ID = 1 WHERE item.itemtypeID = itemtype.ItemtypeID AND itemtype.Name = '"+item+"' AND item.RoomID = "+str(loc)
             cur.execute(sql)
-            print("I have taken the "+ item +".")
+            print("I have taken the "+ item +".")   
         else:
             print("I can't move that")
         return
     print("There is no such item here.")
+    return
+
+def drop_item(item, loc):
+    cur = db.cursor()
+    sql = "SELECT ItemID FROM item INNER JOIN itemtype ON item.itemtypeID = itemtype.ItemtypeID AND item.ID = 1 AND itemtype.Name = '"+item+"'"
+    cur.execute(sql)
+    for row in cur.fetchall():
+        sql = "UPDATE item, itemtype SET RoomID = "+str(loc)+", ID = NULL, Equipped = 0 WHERE item.itemtypeID = itemtype.ItemtypeID AND ItemID = "+str(row[0])
+        cur.execute(sql)
+        print("I have dropped the "+item+".")
+        return
+    print("I can't drop what I don't have.")
     return
 
 def check_items(name):
@@ -146,6 +162,45 @@ def me_desc():
         print(row[0])
     return
 wwww = 0
+def equip(item, loc, maxhp, curhp):
+    cur = db.cursor()
+    sql = "SELECT item.Equipped, item.RoomID, itemtype.Type, item.ItemID \
+           FROM item, itemtype WHERE itemtype.ItemtypeID = item.ItemtypeID \
+           AND (itemtype.Type = 'weapon' OR itemtype.Type = 'shield')AND (item.ID = 1 OR item.RoomID = %s) AND itemtype.Name = %s"
+    cur.execute(sql, (str(loc), item))
+    if cur.rowcount == 0:
+        print("I don't have that item")
+        return
+    for row in cur.fetchall():
+        if row[0] == 1:
+            print("I have that equipped already.")
+            return
+        roomid = row[1]
+        itemtype = row[2]
+        itemid = row[3]
+    if roomid == loc:
+        take_item(item, loc)
+    sql = "UPDATE item, itemtype SET Equipped = 0 WHERE itemtype.ItemtypeID = item.ItemtypeID AND itemtype.Type = '"+itemtype+"' AND item.ID = 1 AND Equipped = 1"
+    cur.execute(sql)
+    sql = "UPDATE item SET Equipped = 1 WHERE ItemID = "+str(itemid)
+    cur.execute(sql)
+    if itemtype == 'shield':
+        sql = "SELECT Hitpoints FROM item, itemtype WHERE itemtype.ItemtypeID = item.ItemtypeID AND itemtype.Type = 'shield' AND Equipped = 1"
+        cur.execute(sql)
+        shieldhp = 0
+        for row in cur.fetchall():
+            shieldhp = row[0]
+        sql = "SELECT HitPoints FROM itemtype WHERE Name = '"+item+"'"
+        cur.execute(sql)
+        for row in cur.fetchall():
+            maxhp = maxhp - shieldhp
+            curhp = curhp - shieldhp
+            maxhp = maxhp + row[0]
+            curhp = curhp + row[0]
+            sql = "UPDATE playercharacter SET HitPoints ="+str(curhp)+" WHERE ID = 1"
+            cur.execute(sql)
+    print("I have equipped the "+item+".")
+    return (curhp, maxhp)
 def check_enemyhp(loc):
     enemyhp = 0
     cur = db.cursor()
@@ -576,9 +631,20 @@ while action!="quit" and (playerhp > 0 or snoopdoglives):
     #check items in inventory
     elif action=="i" or action == "inventory":
         check_inventory()
+        
     #pick up items
     elif action == "take" or action == "pick" and check_items(target):
         take_item(target, loc)
+        
+    #drop item
+    elif action == "drop":
+        drop_item(target, loc)
+        
+    #equip item
+    elif action == "equip":
+        hp = equip(target, loc, playermaxhp, playerhp)
+        playerhp = hp[0]
+        playermaxhp = hp[1]
         
     #Easter egg commands :3
     elif action == "breathe":
