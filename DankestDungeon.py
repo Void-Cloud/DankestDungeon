@@ -904,6 +904,66 @@ def fight_enemy(loc):
         
     return
 
+#trap
+def check_traproom(loc):
+    #jos ansa on tässä huoneessa ja aktiivinen, palauta arvo 1
+    cur = db.cursor()
+    lista=[]
+    listb = []
+    listf = []
+    
+    sql = "SELECT trap.RoomID FROM trap"
+    cur.execute(sql)
+
+    lista = cur.fetchall()
+    if len(lista) < 1:
+        return 0
+    
+    roomid = lista[0][0]
+    
+    sql = "SELECT trap.active FROM trap"
+    cur.execute(sql)
+    liste = cur.fetchall()
+
+    active = liste[0][0]
+
+    if roomid == loc and active == 1:
+            
+        return active
+    else:
+        return 0
+
+def in_trap(loc, trap):
+
+    listd =[]
+    action = ""
+    target = ""
+    cur = db.cursor()
+    sql = "SELECT trap.description FROM trap WHERE trap.active = 1"
+    cur.execute(sql)
+    listc = cur.fetchall()
+    for row in listc:
+        listd.append(row[0])
+    d = listd[0]
+    
+    while action != "fill" or target != "hole":
+        print("I don't want to be buried alive. How could I fill hole?")
+        input_string=input("Your action? ").split()
+        if len(input_string)>=1:
+            action = input_string[0].lower()
+        else:
+            action = ""
+        if len(input_string)==2:
+            target = input_string[len(input_string)-1].lower()
+
+        else:
+            target = ""
+
+    sql = "UPDATE trap SET active = 0 WHERE active = 1;"
+    cur.execute(sql)
+    print("I managed to fill the hole! Yeah, I escaped the trap!")
+    trap = 0
+    return  trap
     
             
 #while action!="quit" and (playerhp > 0 or snoopdoglives):
@@ -968,6 +1028,10 @@ while action!="quit" and (playerhp > 0 or snoopdoglives):
         fight_enemy(loc)
         vihuhp = check_enemyhp(loc)
         delete_deathenemy()
+    
+    trap = check_traproom(loc)
+    if trap == 1:
+        in_trap(loc, trap)
     
     print("")
     input_string=input("Your action? ").split()
@@ -1038,7 +1102,7 @@ while action!="quit" and (playerhp > 0 or snoopdoglives):
     
     #help
     elif action == "help":
-        print("The commands I can write are:\n e/east \n n/north \n s/south \n w/west \n d/down \n u/up \n i/inventory \n look/examine \n take/pick \n use \n press \n fill hole \n equip \n unequip \n normal attack \n light attack \n heavy attack \n quit")
+        print("The commands I can write are:\n e/east \n n/north \n s/south \n w/west \n d/down \n u/up \n i/inventory \n look/examine \n take/pick \n drop \n use \n press/touch/push \n fill hole \n equip \n unequip \n normal attack \n light attack \n heavy attack \n quit")
     
     #Easter egg commands :3
     elif action == "breathe":
