@@ -945,6 +945,7 @@ def in_trap(loc, trap):
     for row in listc:
         listd.append(row[0])
     d = listd[0]
+    print(d)
     
     while action != "fill" or target != "hole":
         print("I don't want to be buried alive. How could I fill hole?")
