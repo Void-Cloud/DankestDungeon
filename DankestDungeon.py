@@ -438,8 +438,10 @@ def riddle(enemyname,loc):
     sql = "SELECT enemytype.riddle FROM enemytype,enemy WHERE enemytype.Name = '"+enemyname+"' AND enemy.RoomID ="+str(loc)
     cur.execute(sql)
     for row in cur:
-        print(row[0])
-    return 
+        if len(row[0]) > 0:
+            return True
+        else:
+            return False
     
 def check_riddle(enemyname,loc):
     cur = db.cursor()
