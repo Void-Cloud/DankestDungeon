@@ -5,6 +5,23 @@ mystery = str.maketrans(
     "ABCDEFGHIJKLMabcdefghijklmNOPQRSTUVWXYZnopqrstuvwxyz", 
     "NOPQRSTUVWXYZnopqrstuvwxyzABCDEFGHIJKLMabcdefghijklm")
 
+def myprint(mjono):
+    rivin_pituus = 60
+    lista = mjono.split()
+    kaytetty = 0
+    for sana in lista:
+        if kaytetty +len(sana) <= rivin_pituus:
+            if kaytetty>0:
+                print("", end=' ')
+                kaytetty = kaytetty + 1
+            print(sana, end=' ')
+        else:
+            print("")
+            kaytetty = 0
+            print(sana, end=' ' )
+        kaytetty = kaytetty + len(sana)
+    print("")
+
 def Dirtransform(dire):
     if dire == "E":
         return "East"
@@ -562,6 +579,33 @@ db = mysql.connector.connect(host="localhost",
                       db="dankestdungeon",
                       buffered=True)
 
+#alkutekstit
+print("\
+     DDDDD   AAAAA  NN   N  KK  KK  EEEEE   SSS  TTTTTT\n \
+    DD  DD  AA  A  NNN  N  KK KK   EE     SS      TT\n \
+    DD   D  AAAAA  N NN N  KKKK    EEEE   SSSSS   TT\n \
+    DD  DD  AA  A  N  NNN  KK KK   EE        SS   TT\n \
+    DDDD    AA  A  N   NN  KK  KK  EEEEE  SSSS    TT\n\n \
+    DDDDD   UU  U  N    N   GGGG   EEEEE   OOO  NN   N\n \
+    DD  DD  UU  U  NNN  N  GG      EE     OO  O NNN  N\n \
+    DD   D  UU  U  N NN N  GG GGG  EEEE   OO  O N NN N\n \
+    DD  DD  UU  U  N  NNN  GG  GG  EE     OO  O N  NNN\n \
+    DDDD     UUU   N   NN   GGGG   EEEEE   OOO  N   NN\n\n\n\
+                           D\n\
+                     D    DDD    D\n\
+                    DDD  DDDDD  DDD\n\
+                   DDDDDDDDDDDDDDDDD\n\
+                   DDDDDDDDDDDDDDDDD\n\
+                  DDDDDDDDDDDDDDDDDDD\n\
+                DDDDDDDDDDDDDDDDDDDDDDD\n\
+                  DDDDDDDDDDDDDDDDDDD\n\
+                   DDDDDDDDDDDDDDDDD\n\
+                        DDDDDDDD\n\n")
+
+text = "It is a dark and dank night. The sky is pitch-black. A gathering sandstorm spreads across the desert, the wind howling and throwing sand on my sweaty face as I climb up the Pyramid. I cannot see further than an inch. I push on, slowly advancing. The thought of the mythical treasure hidden inside gives me the strength to reach the top. I am, after all, the greatest treasure hunter known to man. I take a crow bar out of my bag and start to pry apart the stones blocking the entrance to the Pyramid. I succeed, breaking my crow bar in the process. At last, I step down into the depths of the Pyramid…"
+
+myprint(text)
+
 #Find player start position
 cur = db.cursor()
 sql = "SELECT RoomID FROM playercharacter"
@@ -645,7 +689,11 @@ while action!="quit" and (playerhp > 0 or snoopdoglives):
         hp = equip(target, loc, playermaxhp, playerhp)
         playerhp = hp[0]
         playermaxhp = hp[1]
-        
+    
+    #help
+    elif action == "help":
+        print("The commands I can write are:\n e/east \n n/north \n s/south \n w/west \n d/down \n u/up \n i/inventory \n look/examine \n take/pick \n use \n press \n fill hole \n equip \n unequip \n normal attack \n light attack \n heavy attack \n quit")
+    
     #Easter egg commands :3
     elif action == "breathe":
         print("I know how to breathe without help, thank you")
