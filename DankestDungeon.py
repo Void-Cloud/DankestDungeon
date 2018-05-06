@@ -38,6 +38,52 @@ def Dirtransform(dire):
     else:
         return "Someone dun goofed."
 
+def isequipped(item):
+    cur = db.cursor()
+    sql = "SELECT Equipped FROM item INNER JOIN itemtype ON itemtype.ItemtypeID = item.ItemtypeID AND itemtype.Name = '"+item+"'"
+    cur.execute(sql)
+    isit = cur.fetchone()
+    if isit[0] == 0:
+        return False
+    elif isit[0] == 1:
+        return True
+    
+def unequip(item, maxhp, curhp):
+    cur = db.cursor()
+    sql = "SELECT Type FROM itemtype INNER JOIN item ON itemtype.ItemtypeID = item.ItemtypeID AND itemtype.Name = '"+item+"' AND item.Equipped = 1"
+    cur.execute(sql)
+    for row in cur.fetchall():
+        if row[0] == 'shield':
+            sql = "SELECT HitPoints FROM itemtype WHERE Name = '"+item+"'"
+            cur.execute(sql)
+            shieldhp = cur.fetchone()
+            maxhp = maxhp - shieldhp[0]
+            curhp = curhp - shieldhp[0]
+            sql = "UPDATE Item, itemtype SET item.Equipped = 0 WHERE itemtype.ItemtypeID = item.ItemtypeID AND itemtype.Name = '"+item+"' AND Equipped = 1"
+            cur.execute(sql)
+            sql = "UPDATE playercharacter SET HitPoints = "+str(curhp)+" WHERE ID = 1"
+            cur.execute(sql)
+            return (maxhp, curhp, 1)
+        elif row[0] == 'weapon':
+            sql = "SELECT COUNT(*) FROM item INNER JOIN itemtype ON itemtype.ItemtypeID = item.ItemtypeID AND itemtype.Type = 'weapon' AND item.ID = 1"
+            cur.execute(sql)
+            weapons = cur.fetchone()
+            if weapons[0] == 1:
+                print("I probably should hold on to my only weapon")
+                return(maxhp, curhp, 0)
+            else:
+                sql = "SELECT ItemID FROM item INNER JOIN itemtype ON itemtype.ItemtypeID = item.ItemtypeID AND itemtype.Type = 'weapon' AND item.ID = 1 AND itemtype.Name <> '"+item+"'"
+                cur.execute(sql)
+                for row2 in cur.fetchall():
+                    bestweaponid = row2[0]
+                sql = "UPDATE item, itemtype SET equipped = 0 WHERE itemtype.ItemtypeID = item.ItemtypeID AND item.ID = 1 AND itemtype.Name = '"+item+"'"
+                cur.execute(sql)
+                sql = "UPDATE item SET equipped = 1 WHERE ItemID = "+str(bestweaponid)
+                cur.execute(sql)
+                return(maxhp, curhp, 1)
+    print("I can't unequip that.")
+    return(maxhp, curhp, 0)
+                
 def look_around(loc):
     cur = db.cursor()
     sql = "SELECT Description FROM room WHERE RoomID = "+ str(loc)
@@ -47,10 +93,15 @@ def look_around(loc):
     sql = "SELECT Name FROM itemtype INNER JOIN item ON item.itemtypeID = itemtype.ItemtypeID AND item.RoomID = "+ str(loc)+" AND itemtype.Type <> 'Golden'"
     cur.execute(sql)
     if cur.rowcount > 0:
+        print("")
         print("I see following things around the room")
     for row in cur.fetchall():
         print("<>", row[0])
-    print("")
+    sql = "SELECT RoomID FROM merchant WHERE RoomID = "+ str(loc)
+    cur.execute(sql)
+    for row in cur.fetchall():
+        print("I see a merchant in the room")
+        print("")
     sql = "SELECT Direction FROM leads_to WHERE RoomID_1 = "+ str(loc)
     cur.execute(sql)
     print("Exits are to:")
@@ -98,13 +149,13 @@ def ssgw():
 
 def check_inventory():
     cur = db.cursor()
-    sql = "SELECT Name, Type, Equipped FROM itemtype INNER JOIN item ON item.itemtypeID = itemtype.ItemtypeID AND item.ID = 1"
+    sql = "SELECT Name, Type, Equipped, Value FROM itemtype INNER JOIN item ON item.itemtypeID = itemtype.ItemtypeID AND item.ID = 1"
     cur.execute(sql)
     print("I have the following items in my inventory:")
     for row in cur.fetchall():
-        print("#",row[0]+"("+row[1]+")", end='')
+        print("#",row[0]+" | ("+row[1]+") | ("+str(row[3])+" gold)", end='')
         if row[2] == 1:
-            print("(Equipped)")
+            print(" | (Equipped)")
         else:
             print("")
     sql = "SELECT money FROM playercharacter WHERE ID = 1"
@@ -112,7 +163,6 @@ def check_inventory():
     for row in cur.fetchall():
         print("I also have "+str(row[0])+" gold")
     return
-ssss = 0
 
 def take_item(item, loc):
     cur = db.cursor()
@@ -139,17 +189,21 @@ def take_item(item, loc):
     print("There is no such item here.")
     return
 
-def drop_item(item, loc):
+def drop_item(item, loc, maxhp, curhp):
     cur = db.cursor()
-    sql = "SELECT ItemID FROM item INNER JOIN itemtype ON item.itemtypeID = itemtype.ItemtypeID AND item.ID = 1 AND itemtype.Name = '"+item+"'"
+    sql = "SELECT ItemID, Equipped FROM item INNER JOIN itemtype ON item.itemtypeID = itemtype.ItemtypeID AND item.ID = 1 AND itemtype.Name = '"+item+"'"
     cur.execute(sql)
     for row in cur.fetchall():
-        sql = "UPDATE item, itemtype SET RoomID = "+str(loc)+", ID = NULL, Equipped = 0 WHERE item.itemtypeID = itemtype.ItemtypeID AND ItemID = "+str(row[0])
+        if isequipped(item):
+            unequipping = unequip(item, maxhp, curhp)
+            if unequipping[2] == 0:
+                return (maxhp, curhp)
+        sql = "UPDATE item, itemtype SET RoomID = "+str(loc)+", ID = NULL WHERE item.itemtypeID = itemtype.ItemtypeID AND ItemID = "+str(row[0])
         cur.execute(sql)
         print("I have dropped the "+item+".")
-        return
+        return(maxhp, curhp)
     print("I can't drop what I don't have.")
-    return
+    return(maxhp, curhp)
 
 def check_items(name):
     cur = db.cursor()
@@ -173,10 +227,10 @@ def item_desc(item, loc):
 
 def me_desc():
     cur = db.cursor()
-    sql = "SELECT Description FROM playercharacter WHERE ID = 1"
+    sql = "SELECT Description, HitPoints FROM playercharacter WHERE ID = 1"
     cur.execute(sql)
     for row in cur.fetchall():
-        print(row[0])
+        print(row[0]+"\nI have "+str(row[1])+" HP")
     return
 wwww = 0
 def equip(item, loc, maxhp, curhp):
@@ -197,10 +251,6 @@ def equip(item, loc, maxhp, curhp):
         itemid = row[3]
     if roomid == loc:
         take_item(item, loc)
-    sql = "UPDATE item, itemtype SET Equipped = 0 WHERE itemtype.ItemtypeID = item.ItemtypeID AND itemtype.Type = '"+itemtype+"' AND item.ID = 1 AND Equipped = 1"
-    cur.execute(sql)
-    sql = "UPDATE item SET Equipped = 1 WHERE ItemID = "+str(itemid)
-    cur.execute(sql)
     if itemtype == 'shield':
         sql = "SELECT Hitpoints FROM item, itemtype WHERE itemtype.ItemtypeID = item.ItemtypeID AND itemtype.Type = 'shield' AND Equipped = 1"
         cur.execute(sql)
@@ -216,8 +266,109 @@ def equip(item, loc, maxhp, curhp):
             curhp = curhp + row[0]
             sql = "UPDATE playercharacter SET HitPoints ="+str(curhp)+" WHERE ID = 1"
             cur.execute(sql)
+    sql = "UPDATE item, itemtype SET Equipped = 0 WHERE itemtype.ItemtypeID = item.ItemtypeID AND itemtype.Type = '"+itemtype+"' AND item.ID = 1 AND Equipped = 1"
+    cur.execute(sql)
+    sql = "UPDATE item SET Equipped = 1 WHERE ItemID = "+str(itemid)
+    cur.execute(sql)
     print("I have equipped the "+item+".")
     return (curhp, maxhp)
+
+def look_merchant(loc):
+    cur = db.cursor()
+    sql = "SELECT Description FROM merchant WHERE RoomID = "+ str(loc)
+    cur.execute(sql)
+    print("")
+    for row in cur.fetchall():
+        print(row[0])
+        return
+    print("There is no merchant here.")
+    return
+
+def talk_merchant(loc):
+    cur = db.cursor()
+    sql = "SELECT Name, Dialogue, MerchantID FROM merchant WHERE RoomID = "+ str(loc)
+    cur.execute(sql)
+    for row in cur.fetchall():
+        print('I am "'+row[0]+'".\n'+row[1])
+        merchantid = row[2]
+    sql = "SELECT Name, Value FROM itemtype INNER JOIN item ON itemtype.ItemtypeID = item.ItemtypeID AND item.MerchantID = "+str(merchantid)
+    cur.execute(sql)
+    if cur.rowcount > 1:
+        print('I have the following items on sale:')
+        for row in cur.fetchall():
+            print("- "+row[0]+"("+str(row[1])+" gold)")
+    elif cur.rowcount > 1:
+        print('I have the following item on sale:')
+        for row in cur.fetchall():
+            print("- "+row[0]+"("+str(row[1])+" gold)")
+    else:
+        print("It seems i have run out of stock.")
+    return
+
+def buy_item(loc, item):
+    cur = db.cursor()
+    sql = "SELECT MerchantID FROM merchant WHERE RoomID = "+ str(loc)
+    cur.execute(sql)
+    if cur.rowcount < 1:
+        print("There is no merchant here.")
+        return
+    for row in cur.fetchall():
+        merchantid = row[0]
+    sql = "SELECT Money FROM playercharacter WHERE ID = 1"
+    cur.execute(sql)
+    for row in cur.fetchall():
+        money = row[0]
+    sql = "SELECT Name, Value, item.ItemID FROM itemtype INNER JOIN item ON itemtype.ItemtypeID = item.ItemtypeID AND item.MerchantID = "+str(merchantid)+" AND itemtype.Name = '"+item+"'"
+    cur.execute(sql)
+    if cur.rowcount < 1:
+        print("The merchant does not have that item.")
+        return
+    for row in cur.fetchall():
+        if row[1] > money:
+            print("Not enough gold, stranger")
+            return
+        money = money - row[1]
+        sql = "UPDATE playercharacter SET Money = "+str(money)+" WHERE ID = 1"
+        cur.execute(sql)
+        sql = "UPDATE item SET MerchantID = NULL, ID = 1 WHERE ItemID ="+str(row[2])
+        cur.execute(sql)
+        print("I have bought the "+item+".")
+        return
+    print("There should be no way you are seeing this message :P")
+    return
+
+def sell_item(loc, item, maxhp, curhp):
+    cur = db.cursor()
+    sql = "SELECT MerchantID FROM merchant WHERE RoomID = "+ str(loc)
+    cur.execute(sql)
+    if cur.rowcount < 1:
+        print("There is no merchant here.")
+        return(maxhp, curhp)
+    for row in cur.fetchall():
+        merchantid = row[0]
+    sql = "SELECT Money FROM playercharacter WHERE ID = 1"
+    cur.execute(sql)
+    for row in cur.fetchall():
+        money = row[0]
+    sql = "SELECT Name, Value, item.ItemID FROM itemtype INNER JOIN item ON itemtype.ItemtypeID = item.ItemtypeID AND item.ID= 1 AND itemtype.Name = '"+item+"'"
+    cur.execute(sql)
+    if cur.rowcount < 1:
+        print("I don't have that item.")
+        return(maxhp, curhp)
+    for row in cur.fetchall():
+        if isequipped(item):
+            unequipping = unequip(item, maxhp, curhp)
+            if unequipping[2] == 0:
+                return (maxhp, curhp)
+        money = money + int(row[1] * 0.5)
+        sql = "UPDATE playercharacter SET Money = "+str(money)+" WHERE ID = 1"
+        cur.execute(sql)
+        sql = "UPDATE item SET MerchantID = "+str(merchantid)+", ID = NULL WHERE ItemID ="+str(row[2])
+        cur.execute(sql)
+        print("I have sold the "+item+".")
+        return(maxhp, curhp)
+    print("There should be no way you are seeing this message :P")
+    return(maxhp, curhp)
 
 def check_button(buttonname, loc):
     cur = db.cursor()
@@ -1098,6 +1249,191 @@ def in_trap(loc, trap):
         listd.append(row[0])
     d = listd[0]
     print(d)
+
+#by Essi :)
+
+def make_enemytype_list(level):
+    cur = db.cursor()
+    enemytypes = []
+    #hae vihollistyyppien id:t, joissa oikea level ja isUnique = 0
+    sql = "SELECT enemytype.EnemytypeID FROM enemytype WHERE enemytype.Level = " + str(level) + " AND isUnique = 0;"
+    cur.execute(sql)
+    tempenemytypes = cur.fetchall()
+        
+    #muodosta vihollistyyppien id-numeroista oma lista
+    for row in tempenemytypes:
+        enemytypes.append(row[0])
+
+    return enemytypes
+
+def make_room_list(level):
+    #hae kentän huoneet, joissa encounter = 1
+    rooms = []
+    cur = db.cursor()
+    sql = "SELECT room.RoomId FROM room WHERE room.Level = " + str(level) + " AND room.Encounter = 1;"
+    cur.execute(sql)
+    temprooms = cur.fetchall()
+        
+    #muodosta huoneiden id-numeroista oma lista
+    for row in temprooms:
+        rooms.append(row[0])
+
+    return rooms
+
+def make_itemtype_list(level):
+    cur = db.cursor()
+    itemtypes = []
+    #valitse kentän esineet tähän
+    sql = "SELECT itemtype.ItemtypeID FROM itemtype WHERE created = 0 AND ((level <= " + str(level) + " AND level != 0) OR level = 5);"
+    cur.execute(sql)
+            
+    tempitemtypes = cur.fetchall()
+    for row in tempitemtypes:
+        itemtypes.append(row[0])
+    return itemtypes
+
+def set_traproom(rooms, roomid):
+    cur = db.cursor()
+    sql = "INSERT INTO Trap VALUES(NULL, 'The room seems to be bit off... Oh no sand starts to fill the room from a hole. You need to do something but what?', 1, " + str(roomid) +");"
+    cur.execute(sql)
+    rooms.remove(roomid)
+    return
+
+def set_room(rooms):
+    itemroomind = random.randint(0, len(rooms)-1)
+    itemroomid = rooms[itemroomind]
+    return itemroomid
+
+def set_item(itemroomid, itemtypes):
+    cur = db.cursor()
+    itemtypeind = random.randint((0),(len(itemtypes)-1))
+    itemtypeid = itemtypes[itemtypeind]
+    sql = "INSERT INTO item VALUES (NULL, NULL, " + str(itemroomid) + ", NULL, " + str(itemtypeid) + ", 0);"
+    cur.execute(sql)
+    return itemtypeid
+
+def remove_if_weapon(itemtypeid, itemtypes):
+    cur = db.cursor()
+    if itemtypeid <= 9:
+        sql = "UPDATE ITEMTYPE SET Created=1 WHERE ItemtypeID = " + str(itemtypeid) + ";"
+        cur.execute(sql)
+        itemtypes.remove(itemtypeid)
+    return 
+
+def set_merchant_items(level, itemtypes):
+    cur =db.cursor()
+    for i in range(0,2):
+        itemtypeind = random.randint((0),(len(itemtypes)-1))
+        itemtypeid = itemtypes[itemtypeind]
+        sql = "INSERT INTO item VALUES (NULL, NULL, NULL, " + str(level) + ", " + str(itemtypeid) +", 0);"
+        cur.execute(sql)
+
+        remove_if_weapon(itemtypeid, itemtypes)
+    return 
+
+def set_health_items(level):
+    cur = db.cursor()
+    #tehdään eka lista health itemtypeista
+    healthtypes = []
+    #hae vihollistyyppien id:t, joissa oikea level ja isUnique = 0
+    sql = "SELECT itemtype.itemtypeID FROM itemtype WHERE itemtypeID = 10 OR itemtypeID = 12;"
+    cur.execute(sql)
+    temphealthtypes = cur.fetchall()
+        
+    #muodosta vihollistyyppien id-numeroista oma lista
+    for row in temphealthtypes:
+        healthtypes.append(row[0])
+
+    ind = random.randint((0),(len(healthtypes)-1))
+    idid = healthtypes[ind]
+    sql = "INSERT INTO item VALUES (NULL, NULL, NULL, " + str(level) + ", " + str(idid) + ", 0);"
+    cur.execute(sql)
+    
+    return
+
+def set_enemy(rooms, enemytypes):
+    cur = db.cursor()
+    enemytypeind = random.randint((0),(len(enemytypes)-1))
+    enemytypeid = enemytypes[enemytypeind]
+
+    #haetaan tarvittavat tiedot, hitpointsit, tietokannasta, jotta voidaan luoda vihollinen
+    sql = "SELECT enemytype.HitPoints FROM enemytype WHERE enemytype.EnemytypeID = " + str(enemytypeid) + ";"
+    cur.execute(sql)
+    temphitpoints = cur.fetchall()
+    for row in temphitpoints:
+            hitpoints = row[0]
+                
+    #luodaan  vihollinen ja asetetaan se huoneeseen
+    sql = "INSERT INTO enemy VALUES (NULL, " + str(hitpoints) + ", " + str(rooms[-1]) + ", " + str(enemytypeid) + ");"
+    cur.execute(sql)
+    return
+
+def randomize_all():
+
+    for level in range(1,4):
+
+        rooms = make_room_list(level)
+
+        enemytypes = make_enemytype_list(level)
+       
+        #asetetaan ykköskentän trap
+        if level == 1:
+
+            #arvotaan rooms-listalta huone, johon asetetaan trap
+            whichtraproom = random.randint(1,3)
+            
+            #tallennetaan indeksiä vastaava huone muuttujaan ja poistetaan indeksiä vastaava huone rooms-listalta
+            if whichtraproom == 1:
+                set_traproom(rooms, 3)
+                     
+            elif whichtraproom == 2:
+                set_traproom(rooms, 6)
+
+            else:
+                set_traproom(rooms, 8)
+
+        #muodosta tavaratyyppien id-numeroista lista, joka ensin ekassa kentässä tietynlainen
+        #jos randomissa tulee ase tai kilpi, se poistetaan listalta ja päivitetään tietokantaan, että sellainen item on luotu
+        #hae tavaratyyppien id, joissa created = 0 ja kentän mukaan
+        
+        itemtypes = make_itemtype_list(level)
+
+        #arvotaan eri 2 huonetta, joihin tulee tavaraa
+        itemroomid = set_room(rooms)
+        itemroomid2 = set_room(rooms)
+            
+        while itemroomid == itemroomid2:
+            itemroomid2 = set_room(rooms)
+            
+        #arvotaan tavara huoneeseen ja luodaan esine huoneeseen
+        itemtypeid = set_item(itemroomid, itemtypes)
+
+        #jos arvotaan ase tai kilpi, updatetaan created tietokantaan ja poistetaan se huoneiden arvontalistalta
+        remove_if_weapon(itemtypeid, itemtypes)
+
+        itemtypeid = set_item(itemroomid2, itemtypes)
+
+        remove_if_weapon(itemtypeid, itemtypes)
+
+        #merchantin tavaroiden arpominen
+        set_merchant_items(level, itemtypes)
+
+        set_health_items(level)
+           
+        #sitten kaikkiin encounter = 1 huoneisiin arvotaan viholliset
+        #ensin otetaan huone järjestyksessä, aloitetaan listan lopusta
+        #sitten arvotaan, mikä vihollistyyppi huoneessa on
+        #luodaan huoneeseen vihollinen
+
+        while len(rooms) != 0:
+
+            set_enemy(rooms, enemytypes)
+
+            del rooms[-1]
+
+        enemytypes.clear()
+
+    return    
     
     while action != "fill" or target != "hole":
         print("I don't want to be buried alive. How could I fill hole?")
@@ -1168,6 +1504,9 @@ cur.execute(sql)
 for row in cur.fetchall():
     playermaxhp = row[0]
 playerhp = playermaxhp
+
+#Randomize everything into the floors
+randomize_all()
 
 snoopdoglives = True
 action = ""
@@ -1245,14 +1584,41 @@ while action!="quit" and (playerhp > 0 or snoopdoglives):
         
     #drop item
     elif action == "drop":
-        drop_item(target, loc)
+        hp = drop_item(target, loc, playermaxhp, playerhp)
+        playerhp = hp[0]
+        playermaxhp = hp[1]
         
     #equip item
     elif action == "equip":
         hp = equip(target, loc, playermaxhp, playerhp)
         playerhp = hp[0]
         playermaxhp = hp[1]
-    
+        
+    #talk to merchant
+    elif action == "talk" and target == "merchant":
+        talk_merchant(loc)
+
+    #buy item
+    elif action == "buy":
+        buy_item(loc, target)
+        
+    #sell item
+    elif action == "sell":
+        if target == "eidhi":
+            print("Some things are too valuable to sell")
+        else:
+            hp = sell_item(loc, target, playermaxhp, playerhp)
+            playerhp = hp[0]
+            playermaxhp = hp[1]
+            
+    #Unequip item
+    elif action == "unequip":
+        success = unequip(target, playermaxhp, playerhp)
+        if success[2] == 1:
+            playermaxhp = success[0]
+            playerhp = success[1]
+            print("I have unequipped "+target+".")
+            
     #help
     elif action == "help":
         print("The commands I can write are:\n e/east \n n/north \n s/south \n w/west \n d/down \n u/up \n i/inventory \n look/examine \n take/pick \n drop \n use \n press/touch/push \n fill hole \n equip \n unequip \n normal attack \n light attack \n heavy attack \n quit")
