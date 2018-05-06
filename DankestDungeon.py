@@ -368,7 +368,105 @@ def random_luku():
     randomluku = 0
     randomluku = random.randint(1,10)
     return randomluku
-        
+
+def healing_scroll(playermaxhp):
+    cur = db.cursor()
+    sql = "UPDATE playercharacter SET playercharacter.hitpoints = "+str(playermaxhp)
+    cur.execute(sql)
+    return
+
+def potion_name():
+    potionname = []
+    cur = db.cursor()
+    sql = "SELECT itemtype.Name FROM itemtype INNER JOIN item ON item.ID = 1 WHERE itemtype.`Type` = 'potion' AND item.ItemtypeID = itemtype.ItemtypeID"
+    cur.execute(sql)
+    for row in cur:
+        potionname.append(row[0])
+    if len(potionname) >= 2:
+        print("I have the following scrolls:")
+        for potion in potionname:
+            print("#"+potion)
+        return potionname
+            
+    elif len(potionname) == 1:
+        print("I have one scroll:")
+        for potion in potionname:
+            print("#"+potion)
+        return potionname
+    else:
+        return potionname
+
+def check_potion(potion):
+    potions = []
+    cur = db.cursor()
+    sql = "SELECT item.id FROM item,itemtype WHERE itemtype.ItemtypeID = item.ItemtypeID AND itemtype.Name = '"+potion+"'"
+    cur.execute(sql)
+    for row in cur:
+        potions.append(row[0])
+    return potions
+
+def use_potion(potion):
+    cur = db.cursor()
+    sql = "DELETE FROM item WHERE item.itemtypeid IN (SELECT itemtype.ItemtypeID FROM itemtype WHERE Name = '"+potion+"' AND itemtype.`Type` = 'potion') AND item.ID = 1 LIMIT 1;"
+    cur.execute(sql)
+    return
+
+def use_healing_potion(playermaxhp,enemyname):
+    cur = db.cursor()
+    sql = "UPDATE playercharacter SET playercharacter.hitpoints = "+str(playermaxhp)
+    cur.execute(sql)
+    print("I drink the healing potion. It tastes so bad but it makes me feel good \nMy health goes back to "+str(playermaxhp)+"\n"+enemyname+" doesn't seem to like the smell of healing potion. "+enemyname+" doesn't attack me.")
+    return
+
+def use_damage_potion(enemyname,playerdmg,loc):
+    cur = db.cursor()
+    sql = "UPDATE enemy SET enemy.Hitpoints = enemy.Hitpoints - "+str(playerdmg)+"*1.5 WHERE enemy.RoomID ="+str(loc)
+    cur.execute(sql)
+    enemyhp = check_enemyhp(loc)
+    if enemyhp > 0:
+        print("I drink the damage potion. I feel rush of blood. Before I even notice I slam my weapon to the "+enemyname+". \nI do "+str(playerdmg*1.5)+" to "+enemyname+"."+enemyname+" health is now "+str(enemyhp)+".")
+        return
+    else:
+        print("I drink the damage potion. I go full berserk before I even notice "+enemyname+" lies dead on the ground.")
+        money_money(enemyname,loc)
+        delete_deathenemy()
+        return
+    
+def riddle(enemyname,loc):
+    riddle = ""
+    cur = db.cursor()
+    sql = "SELECT enemytype.riddle FROM enemytype,enemy WHERE enemytype.Name = '"+enemyname+"' AND enemy.RoomID ="+str(loc)
+    cur.execute(sql)
+    for row in cur:
+        print(row[0])
+    return 
+    
+def check_riddle(enemyname,loc):
+    cur = db.cursor()
+    sql = "SELECT enemytype.riddle FROM enemytype,enemy WHERE enemytype.Name = '"+enemyname+"' AND enemy.RoomID ="+str(loc)
+    cur.execute(sql)
+    if cur.rowcount ==  1:
+        return True
+    else:
+        return False
+
+def money_money(enemyname,loc):
+    cur = db.cursor()
+    sql = "SELECT enemytype.Money FROM enemytype INNER JOIN enemy ON enemy.RoomID = "+str(loc)+" WHERE enemytype.Name = '"+enemyname+"'"
+    cur.execute(sql)
+    for row in cur:
+        sql = "UPDATE playercharacter SET playercharacter.Money = playercharacter.Money + "+str(row[0])
+        cur.execute(sql)
+        print("You get "+str(row[0])+" gold.")
+    return
+
+def delete_enemy(loc):
+    cur = db.cursor()
+    sql = "DELETE FROM enemy WHERE enemy.roomid ="+str(loc)
+    cur.execute(sql)
+    return
+
+
 def fight_enemy(loc):
     playerdmg = 0
     #playerdmg
@@ -385,6 +483,20 @@ def fight_enemy(loc):
     enemyunique = check_enemyunique(loc)
     print("OH NO! "+enemyname+" attacks me. \nI can use scrolls, light attack, normal attack and hard attack.")
     print(enemyname+":"+str(enemyd))
+    
+    #if enemy has riddle
+    if check_riddle(enemyname, loc) == True:
+        riddle(enemyname, loc)
+        input_string=input("").split()
+        if len(input_string)>=1:
+            target = input_string[len(input_string)-2].lower() + " " + input_string[len(input_string)-1].lower()
+            if target == "snoop dogg":
+                print("My man! You passed my riddle. Now go..")
+                money_money(enemyname, loc)
+                delete_enemy(loc)
+                return
+            else:
+                print("Hah, I knew from the start that you don't know nothing. \n Now die!")
     
     #täytyy lisätä inventory commandit myös tänne koska muuten ei voi taistellussa katsoa inventorya!
     #osioon voi myös lisätä erinlaisia komentoja vielä jos tahtoo laajentaa. esim (examine ei toimi tässä) 
@@ -628,6 +740,40 @@ def fight_enemy(loc):
             cur.execute(sql)
             for row in cur:
                 print(row[0])
+                
+        #potions 
+        elif action == "use" and target == "potion":
+            potions = []
+            potionreal = []
+            potions = potion_name()
+            #if no potions 
+            if len(potions) == 0:
+                print("I don't have any potions.")
+            #if player has potions
+            else:
+                enemyhp = check_enemyhp(loc)
+                print("")
+                input_string=input("Potion action? ").split()
+                if len(input_string)>=1:
+                    action = input_string[0].lower()
+                if len(input_string)>=2:
+                    target = input_string[len(input_string)-2].lower() + " " + input_string[len(input_string)-1].lower()
+                #if player uses healing potion
+                    if action == "use" and target == "healing potion":
+                        potionreal = check_potion(target)
+                        if len(potionreal) > 0:
+                            use_healing_potion(playermaxhp,enemyname)
+                            use_potion(target)
+                        else:
+                            print("I don't have that portion.")
+                #if player uses damage potion    
+                    elif action == "use" and target == "damage potion":
+                        potionreal = check_potion(target)
+                        if len(potionreal) > 0:
+                            use_damage_potion(enemyname,playerdmg,loc)
+                            use_potion(target)
+                        else:
+                            print("I don't have that potion.")
         
         #scroll magic attack    
         elif action == "look"  or action == "check" or action == "examine" or action == "use" and target == "scroll" or target == "spell":
@@ -652,8 +798,11 @@ def fight_enemy(loc):
                     if action == "use" and target == "healing scroll":
                         scrollreal = check_scroll(target)
                         if len(scrollreal) > 0:
-                            print("I used healing scroll.")
+                            print("Praise the Sun! I feel the light touch me. I can feel it healing my wounds.\nLight blinds the "+enemyname+".")
                             use_scroll(target)
+                            healing_scroll(playermaxhp)
+                            playerhp = check_playerhp()
+                            print("My health is back to "+str(playerhp))
                         else:
                             print("How do I do dis without spell??")
                 #fire scroll is for pure damage only bosses can hit player becouse they are stronger.          
@@ -898,6 +1047,7 @@ def fight_enemy(loc):
         enemyhp = check_enemyhp(loc)
         if enemyhp <= 0:
             print(enemyname+": "+enemydd)
+            money_money(enemyname,loc)
         playerhp = check_playerhp()
     if playerhp == 0:
         print("You died")
