@@ -584,7 +584,6 @@ def use_damage_potion(enemyname,playerdmg,loc):
         return
     
 def riddle(enemyname,loc):
-    riddle = ""
     cur = db.cursor()
     sql = "SELECT enemytype.riddle FROM enemytype,enemy WHERE enemytype.Name = '"+enemyname+"' AND enemy.RoomID ="+str(loc)
     cur.execute(sql)
@@ -594,14 +593,13 @@ def riddle(enemyname,loc):
         else:
             return False
     
-def check_riddle(enemyname,loc):
+def check_riddle(enemyname):
     cur = db.cursor()
-    sql = "SELECT enemytype.riddle FROM enemytype,enemy WHERE enemytype.Name = '"+enemyname+"' AND enemy.RoomID ="+str(loc)
+    sql = "SELECT enemytype.riddle FROM enemytype WHERE enemytype.Name = '"+enemyname+"'"
     cur.execute(sql)
-    if cur.rowcount ==  1:
-        return True
-    else:
-        return False
+    for row in cur:
+        return row[0]
+    return
 
 def money_money(enemyname,loc):
     cur = db.cursor()
@@ -638,8 +636,8 @@ def fight_enemy(loc):
     print(enemyname+":"+str(enemyd))
     
     #if enemy has riddle
-    if check_riddle(enemyname, loc) == True:
-        riddle(enemyname, loc)
+    if riddle(enemyname, loc) == True:
+        print(check_riddle(enemyname))
         input_string=input("").split()
         if len(input_string)>=1:
             target = input_string[len(input_string)-2].lower() + " " + input_string[len(input_string)-1].lower()
@@ -1237,18 +1235,26 @@ def check_traproom(loc):
         return 0
 
 def in_trap(loc, trap):
-
-    listd =[]
     action = ""
     target = ""
-    cur = db.cursor()
-    sql = "SELECT trap.description FROM trap WHERE trap.active = 1"
+    while action != "fill" or target != "hole":
+        print("I don't want to be buried alive. How could I fill hole?")
+        input_string=input("Your action? ").split()
+        if len(input_string)>=1:
+            action = input_string[0].lower()
+        else:
+            action = ""
+        if len(input_string)==2:
+            target = input_string[len(input_string)-1].lower()
+
+        else:
+            target = ""
+
+    sql = "UPDATE trap SET active = 0 WHERE active = 1;"
     cur.execute(sql)
-    listc = cur.fetchall()
-    for row in listc:
-        listd.append(row[0])
-    d = listd[0]
-    print(d)
+    print("I managed to fill the hole! Yeah, I escaped the trap!")
+    trap = 0
+    return trap
 
 #by Essi :)
 
@@ -1434,27 +1440,7 @@ def randomize_all():
         enemytypes.clear()
 
     return    
-    
-    while action != "fill" or target != "hole":
-        print("I don't want to be buried alive. How could I fill hole?")
-        input_string=input("Your action? ").split()
-        if len(input_string)>=1:
-            action = input_string[0].lower()
-        else:
-            action = ""
-        if len(input_string)==2:
-            target = input_string[len(input_string)-1].lower()
-
-        else:
-            target = ""
-
-    sql = "UPDATE trap SET active = 0 WHERE active = 1;"
-    cur.execute(sql)
-    print("I managed to fill the hole! Yeah, I escaped the trap!")
-    trap = 0
-    return  trap
-    
-            
+         
 #while action!="quit" and (playerhp > 0 or snoopdoglives):
 
 #Database connection
@@ -1554,7 +1540,7 @@ while action!="quit" and (playerhp > 0 or snoopdoglives):
         elif target == "me" or target == "myself":
             me_desc()
     #Push
-    if action == "push" or action == "press" or action == "touch":
+    elif action == "push" or action == "press" or action == "touch":
         if target == "":
             print("I can't push nothingness")
         elif check_button(target,loc):
