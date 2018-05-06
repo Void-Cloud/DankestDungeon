@@ -217,7 +217,9 @@ def equip(item, loc, maxhp, curhp):
             sql = "UPDATE playercharacter SET HitPoints ="+str(curhp)+" WHERE ID = 1"
             cur.execute(sql)
     print("I have equipped the "+item+".")
-    return (curhp, maxhp)def check_button(buttonname, loc):
+    return (curhp, maxhp)
+
+def check_button(buttonname, loc):
     cur = db.cursor()
     sql = "SELECT itemtype.type FROM itemtype,item WHERE itemtype.Name = '"+buttonname+"' AND item.RoomID ="+str(loc)
     cur.execute(sql)
