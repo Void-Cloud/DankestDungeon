@@ -4,7 +4,7 @@ import random
 mystery = str.maketrans( 
     "ABCDEFGHIJKLMabcdefghijklmNOPQRSTUVWXYZnopqrstuvwxyz", 
     "NOPQRSTUVWXYZnopqrstuvwxyzABCDEFGHIJKLMabcdefghijklm")
-
+oviauki = 0 
 def myprint(mjono):
     rivin_pituus = 60
     lista = mjono.split()
