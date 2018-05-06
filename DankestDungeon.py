@@ -1205,6 +1205,39 @@ def fight_enemy(loc):
         
     return
 
+def if_anvil(loc, target):
+    cur = db.cursor()
+    sql = "SELECT roomID from item INNER JOIN itemtype ON item.itemtypeID = itemtype.itemtypeid WHERE itemtype.name = '"+ target+"' and item.roomid = " + str(loc)
+    cur.execute(sql)
+    anvils = cur.fetchall()
+    anvilroom = anvils[0][0]
+    if loc == anvilroom:
+        sql = "SELECT itemID from item WHERE ID = 1 AND (itemtypeID = 18 OR itemtypeID = 19)"
+        cur.execute(sql)
+        if cur.rowcount == 2:
+            myprint("I made a key! Where can I use a key?")
+        else:
+            myprint("Hmm... why should I use the anvil?")
+    else:
+        myprint("I wonder what I'm trying to do.")
+    return
+def if_keypieces(loc):
+    cur = db.cursor()
+    if loc == 29: #vähän kovakoodausta kai :( tähän voisi myös tehdä avainpaloista uuden itemtyypin, avaimen, jos jaksaa. ei jaksa.
+        #INSERT INTO itemtype VALUES(NULL, 'Key', 'Key made of two pieces of key', 0, 0, 1, 'key', 0, 0, 3);
+        #DELETE FROM item WHERE item.itemtypeid = 18 or item.itemtypeid = 19;
+        sql = "SELECT itemID from item WHERE ID = 1 AND (itemtypeID = 18 OR itemtypeID = 19)"
+        cur.execute(sql)
+        if cur.rowcount == 2:
+            sql = "UPDATE leads_to SET locked = 0 where roomid_1 = 29"
+            cur.execute(sql)
+            myprint("I unlocked the door!")
+        else:
+            myprint("Hmm... Have I got everything I need?")
+    else:
+        myprint("I wonder what I'm trying to do.")
+    return
+
 #trap
 def check_traproom(loc):
     #jos ansa on tässä huoneessa ja aktiivinen, palauta arvo 1
@@ -1607,12 +1640,41 @@ while action!="quit" and (playerhp > 0 or snoopdoglives):
             
     #help
     elif action == "help":
-        print("The commands I can write are:\n e/east \n n/north \n s/south \n w/west \n d/down \n u/up \n i/inventory \n look/examine \n take/pick \n drop \n use \n press/touch/push \n fill hole \n equip \n unequip \n normal attack \n light attack \n heavy attack \n quit")
+        print("The commands I can write are:\n e/east \n n/north \n s/south \n w/west \n d/down \n u/up \n i/inventory \n talk to merchant\n buy\n sell \n look/examine \n take/pick \n drop \n use \n press/touch/push \n fill hole \n equip \n unequip \n normal attack \n light attack \n heavy attack \n quit\nWell, what about those golden items? Why do I keep thinking about them?")
     
     #Easter egg commands :3
     elif action == "breathe":
         print("I know how to breathe without help, thank you")
-
+    #use
+    elif action == "use":
+        if target == "items":
+            if loc == 36:
+                cur = db.cursor()
+                sql = "SELECT itemID from item WHERE itemID >= 2 AND itemID <= 4 AND ID = 1;"
+                cur.execute(sql)
+            
+                if cur.rowcount == 3:
+                    sql = "INSERT INTO leads_to VALUES ('D', 36, 37, 0)"
+                    cur.execute(sql)
+                    myprint("If I go down, I shall be teleported to the Dankest Dungeon!")
+                else:
+                    myprint("There is something lacking in my inventory and therefore I shall not pass to the next level! The secrets of the dankest dungeon shall forever stay in the shadows.")
+                    exit()
+            if loc == 37:      
+                sql = "SELECT itemID from item WHERE itemID >= 2 AND itemID <= 4 AND ID = 1;"
+                cur.execute(sql)
+            
+                if cur.rowcount == 3:
+                    sql = "UPDATE leads_to SET locked = 0"
+                    cur.execute(sql)
+                    myprint("I may enter the Dankest Cave of the Dankest Boss!")
+                else:
+                    myprint("There is something lacking in my inventory and therefore I shall not pass! The secrets of the dankest dungeon shall forever stay in the shadows.")
+                    exit()
+        if target == "anvil":
+                if_anvil(loc, target)
+        if target == "key" or target == "keys":
+            if_keypieces(loc)
     #???
     elif action == str.translate("fhzzba", mystery) and target == str.translate("ure", mystery) and loc == 11:
         if wwww == 0:
