@@ -153,7 +153,7 @@ INSERT INTO Leads_to VALUES("W",10,9,0);
 
 #Second level rooms and connections
 
-INSERT INTO Room VALUES(11, 0,"Oh dear! This is obviously the middle room in a ruined Mayan Temple! The walls are covered with sculpted tablets that are covered in rot. Thirteen of them say 'fhzzba ure'. Maybe the treasure is in this room... Nope.", 2); #Middle room
+INSERT INTO Room VALUES(11, 0,"Oh dear! This is obviously the middle room in a ruined Mayan Temple! The walls are covered with sculpted tablets covered with rot. Thirteen of them say 'fhzzba ure'. Maybe the treasure is in this room... Nope.", 2); #Middle room
 INSERT INTO Room VALUES(12, 1,"This hall is an ancient indoor Mesoamerican ballcourt. It was easy to get a ball back then, just use a spare head!", 2); #North room
 INSERT INTO Room VALUES(13, 1,"This is the obsidian room, the walls are decorated with blades of volcanic glass used by the Mayan people... wait, what? That's a real thing? I thought GRRM made that up!", 2); #North west room - button
 INSERT INTO Room VALUES(14, 0,"This must be the Mayan kitchen. I'm not hungry though. There's an old wooden door. ", 2); #West room
@@ -257,7 +257,7 @@ INSERT INTO Leads_to VALUES("E",35,27,0);
 INSERT INTO Room VALUES(37, 0, "An eery whisper, almost like a bark, echoes in the ominous dungeon... The smell of something sweet, rotten even, lingers in the stuffy air... There are cobwebs on the broken chains on the floor...  Something is moving in the next room... I have been teleported away from the Catacombs to the Dankest Dungeon... There's an enormous black door towering in front of me.", 4); #Dankest start
 INSERT INTO Room VALUES(38, 0, "Wooow! Dang dude, da crib is phat yo!", 4); #Dankest boss
 
-INSERT INTO Leads_to VALUES("E",37,38,1);
+INSERT INTO Leads_to VALUES("E",37,38,0);
 
 INSERT INTO playercharacter VALUES(NULL, 100, 10, 15, "Me, a humble treasure hunter.", 1);
 
