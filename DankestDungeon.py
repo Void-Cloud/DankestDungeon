@@ -1692,7 +1692,7 @@ while action!="quit" and playerhp > 0 and snoopdoglives:
                 keycheck()
         #help
         elif action == "help":
-            print("The commands I can write are:\n e/east \n n/north \n s/south \n w/west \n d/down \n u/up \n i/inventory \n look/examine \n take/pick \n drop \n use \n press/touch/push \n fill hole \n equip \n unequip \n normal attack \n light attack \n heavy attack \n quit")
+            print("The commands I can write are:\n e/east \n n/north \n s/south \n w/west \n d/down \n u/up \n i/inventory \n talk to merchant \n buy \n see \n look/examine \n take/pick \n drop \n use \n press/touch/push \n fill hole \n equip \n unequip \n normal attack \n light attack \n heavy attack \n quit")
         
         #Easter egg commands :3
         elif action == "breathe":
