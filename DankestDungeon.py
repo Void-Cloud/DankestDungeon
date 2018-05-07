@@ -1320,7 +1320,6 @@ def in_trap(loc, trap):
     trap = 0
     return trap
 
-#by Essi :)
 
 def make_enemytype_list(level):
     cur = db.cursor()
