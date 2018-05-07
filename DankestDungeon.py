@@ -4,7 +4,7 @@ import random
 mystery = str.maketrans( 
     "ABCDEFGHIJKLMabcdefghijklmNOPQRSTUVWXYZnopqrstuvwxyz", 
     "NOPQRSTUVWXYZnopqrstuvwxyzABCDEFGHIJKLMabcdefghijklm")
-oviauki = 0 
+
 def myprint(mjono):
     rivin_pituus = 60
     lista = mjono.split()
@@ -21,7 +21,7 @@ def myprint(mjono):
             print(sana, end=' ' )
         kaytetty = kaytetty + len(sana)
     print("")
-
+    
 def Dirtransform(dire):
     if dire == "E":
         return "East"
@@ -38,6 +38,14 @@ def Dirtransform(dire):
     else:
         return "Someone dun goofed."
 
+def issnoopdead():
+    cur = db.cursor()
+    sql = "SELECT enemy.HitPoints FROM enemy, enemytype WHERE enemytype.EnemytypeID = enemy.EnemytypeID AND enemytype.Name = 'Snoop Dogg'"
+    cur.execute(sql)
+    for row in cur.fetchall():
+        return True
+    return False
+ssss = 0
 def isequipped(item):
     cur = db.cursor()
     sql = "SELECT Equipped FROM item INNER JOIN itemtype ON itemtype.ItemtypeID = item.ItemtypeID AND itemtype.Name = '"+item+"'"
@@ -146,6 +154,7 @@ def ssgw():
     fdy = str.translate("VAFREG VAGB vgrzglcr INYHRF(101, 'Gur cngevbg', 'n jrveq ybbxvat zrgny pbagencgvba, chyyvat gur gevttre frrzvatyl fraqf zber zrgny sylvat ng zl rarzvrf. Vg frrzf gb qb fb vasvavgryl', 50, 0, 1, 'jrncba', 204863, 1, 10)", mystery)
     phe.execute(fdy)
     fdy = str.translate("VAFREG VAGB vgrz INYHRF(AHYY, AHYY, 20, AHYY, 101, 0)", mystery)
+    phe.execute(fdy)
 
 def check_inventory():
     cur = db.cursor()
@@ -241,11 +250,11 @@ def equip(item, loc, maxhp, curhp):
     cur.execute(sql, (str(loc), item))
     if cur.rowcount == 0:
         print("I don't have that item")
-        return
+        return(curhp, maxhp)
     for row in cur.fetchall():
         if row[0] == 1:
             print("I have that equipped already.")
-            return
+            return(curhp, maxhp)
         roomid = row[1]
         itemtype = row[2]
         itemid = row[3]
@@ -370,28 +379,84 @@ def sell_item(loc, item, maxhp, curhp):
     print("There should be no way you are seeing this message :P")
     return(maxhp, curhp)
 
-def check_button(buttonname, loc):
+def buttonpush(loc):
     cur = db.cursor()
-    sql = "SELECT itemtype.type FROM itemtype,item WHERE itemtype.Name = '"+buttonname+"' AND item.RoomID ="+str(loc)
+    sql = "SELECT itemtype.Value, itemtype.itemtypeID FROM item, itemtype WHERE item.ItemtypeID = itemtype.ItemtypeID AND itemtype.Type = 'button' AND RoomID = "+ str(loc)
     cur.execute(sql)
-    if cur.rowcount == 1:
-        return True
-    else:
-        return False
-
-def button(buttonname, loc):
-    global oviauki
-    cur = db.cursor()
-    sql = "DELETE FROM item WHERE item.itemtypeid IN (SELECT itemtype.itemtypeid FROM itemtype WHERE itemtype.name ='"+str(buttonname)+"') AND item.roomid ="+str(loc)
+    if cur.rowcount == 0:
+        print("There are no buttons here")
+        return
+    for row in cur.fetchall():
+        if row[0] == 0:
+            sql = "UPDATE itemtype SET Value = 1 WHERE ItemtypeID = "+str(row[1])
+            cur.execute(sql)
+            print("I push the button")
+        elif row[0] == 1:
+            print("I already pushed that")
+            return
+    sql = "SELECT Locked FROM leads_to WHERE RoomID_1 = 14 AND Leads_toRoomID_2 = 21"
     cur.execute(sql)
-    oviauki = oviauki + 1
-    if oviauki == 4:
-        print("I hear doors opening.")
-        cur = db.cursor()
-        sql = "UPDATE leads_to SET leads_to.Locked = 0 WHERE leads_to.RoomID_1 = 18;"
+    locked = cur.fetchone()
+    if locked[0] == 1:
+        sql = "SELECT COUNT(*) FROM itemtype WHERE Type = 'button' AND Value = 1"
         cur.execute(sql)
+        for row in cur.fetchall():
+            if row[0] == 4:
+                print("A door has opened elsewhere.")
+                sql = "UPDATE leads_to SET locked = 0 WHERE (RoomID_1 = 14 AND Leads_toRoomID_2 = 21) OR (RoomID_1 = 18 AND Leads_toRoomID_2 = 20)"
+                cur.execute(sql)
+    else:
+        return
+
+def usehppotion(playermaxhp):
+    cur = db.cursor()
+    sql = "SELECT item.itemID FROM item, itemtype WHERE item.ItemtypeID = itemtype.ItemtypeID AND itemtype.Name = 'healing potion' AND item.ID = 1"
+    cur.execute(sql)
+    for row in cur.fetchall():
+        sql = "UPDATE item SET ID = NULL WHERE ItemID = "+str(row[0])
+        cur.execute(sql)
+        sql = "UPDATE playercharacter SET HitPoints = "+str(playermaxhp)
+        cur.execute(sql)
+        return True
+    print("I don't have a healing potion")
+    return False
+
+def anvilcheck():
+    cur = db.cursor()
+    sql = "SELECT COUNT(*) FROM item, itemtype WHERE item.ItemtypeID = itemtype.ItemtypeID AND itemtype.Type = 'key' AND item.ID = 1"
+    cur.execute(sql)
+    for row in cur.fetchall():
+        if row[0] == 2:
+            print("The keys have been joined into a master key")
+            sql = "UPDATE item, itemtype SET item.ID = NULL WHERE item.ItemtypeID = itemtype.ItemtypeID AND (itemtype.Name = 'key piece' OR itemtype.Name = 'key fragment')"
+            cur.execute(sql)
+            sql = 'INSERT INTO itemtype VALUES(75, "Master key", "From two pieces a key was created", 0, 0, 1, "key", 0, 1, 3)'
+            cur.execute(sql)
+            sql = 'INSERT INTO item VALUES(NULL, 1, NULL, NULL, 75, 0)'
+            cur.execute(sql)
+            return
+    print("It's like something is still missing...")
     return
-    
+
+def keycheck():
+    cur = db.cursor()
+    sql = "SELECT COUNT(*) FROM item, itemtype WHERE item.ItemtypeID = itemtype.ItemtypeID AND itemtype.Name = 'master key' AND item.ID = 1"
+    cur.execute(sql)
+    for row in cur.fetchall():
+        if row[0] == 1:
+            sql = "UPDATE leads_to SET locked = 0 WHERE RoomID_1 = 29 AND Leads_toRoomID_2 = 36"
+            cur.execute(sql)
+            print("The door has opened")
+
+def goldencheck():
+    cur = db.cursor()
+    sql = "SELECT COUNT(*) FROM item, itemtype WHERE item.ItemtypeID = itemtype.ItemtypeID AND itemtype.Type = 'golden' AND item.ID = 1"
+    cur.execute(sql)
+    for row in cur.fetchall():
+        if row[0] == 3:
+            return True
+    return False
+
 #this gives enemy hp 
 def check_enemyhp(loc):
     enemyhp = 0
@@ -618,7 +683,7 @@ def delete_enemy(loc):
     return
 
 
-def fight_enemy(loc):
+def fight_enemy(loc, playerhp):
     playerdmg = 0
     #playerdmg
     cur = db.cursor()
@@ -652,7 +717,7 @@ def fight_enemy(loc):
     #täytyy lisätä inventory commandit myös tänne koska muuten ei voi taistellussa katsoa inventorya!
     #osioon voi myös lisätä erinlaisia komentoja vielä jos tahtoo laajentaa. esim (examine ei toimi tässä) 
     #tappeluparseri
-    while enemyhp > 0:
+    while enemyhp > 0 and playerhp > 0:
         print("")
         input_string=input("Attack action? ").split()
         if len(input_string)>=1:
@@ -1200,42 +1265,8 @@ def fight_enemy(loc):
             print(enemyname+": "+enemydd)
             money_money(enemyname,loc)
         playerhp = check_playerhp()
-    if playerhp == 0:
+    if playerhp <= 0:
         print("You died")
-        
-    return
-
-def if_anvil(loc, target):
-    cur = db.cursor()
-    sql = "SELECT roomID from item INNER JOIN itemtype ON item.itemtypeID = itemtype.itemtypeid WHERE itemtype.name = '"+ target+"' and item.roomid = " + str(loc)
-    cur.execute(sql)
-    anvils = cur.fetchall()
-    anvilroom = anvils[0][0]
-    if loc == anvilroom:
-        sql = "SELECT itemID from item WHERE ID = 1 AND (itemtypeID = 18 OR itemtypeID = 19)"
-        cur.execute(sql)
-        if cur.rowcount == 2:
-            myprint("I made a key! Where can I use a key?")
-        else:
-            myprint("Hmm... why should I use the anvil?")
-    else:
-        myprint("I wonder what I'm trying to do.")
-    return
-def if_keypieces(loc):
-    cur = db.cursor()
-    if loc == 29: #vähän kovakoodausta kai :( tähän voisi myös tehdä avainpaloista uuden itemtyypin, avaimen, jos jaksaa. ei jaksa.
-        #INSERT INTO itemtype VALUES(NULL, 'Key', 'Key made of two pieces of key', 0, 0, 1, 'key', 0, 0, 3);
-        #DELETE FROM item WHERE item.itemtypeid = 18 or item.itemtypeid = 19;
-        sql = "SELECT itemID from item WHERE ID = 1 AND (itemtypeID = 18 OR itemtypeID = 19)"
-        cur.execute(sql)
-        if cur.rowcount == 2:
-            sql = "UPDATE leads_to SET locked = 0 where roomid_1 = 29"
-            cur.execute(sql)
-            myprint("I unlocked the door!")
-        else:
-            myprint("Hmm... Have I got everything I need?")
-    else:
-        myprint("I wonder what I'm trying to do.")
     return
 
 #trap
@@ -1532,167 +1563,166 @@ action = ""
 
 look_around(loc)
 #Main Loop
-while action!="quit" and (playerhp > 0 or snoopdoglives):
+while action!="quit" and playerhp > 0 and snoopdoglives:
 
     vihuhp = check_enemyhp(loc)
-    while  vihuhp > 0:
-        fight_enemy(loc)
+    while  vihuhp > 0 and playerhp > 0:
+        fight_enemy(loc, playerhp)
         vihuhp = check_enemyhp(loc)
         delete_deathenemy()
-    
-    trap = check_traproom(loc)
-    if trap == 1:
-        in_trap(loc, trap)
-    
-    print("")
-    input_string=input("Your action? ").split()
-    if len(input_string)>=1:
-        action = input_string[0].lower()
-    else:
-        action = ""
-    if len(input_string)==2:
-        target = input_string[len(input_string)-1].lower()
-    elif len(input_string) >= 3:
-        check = input_string[len(input_string)-2].lower() + " " + input_string[len(input_string)-1].lower()
-        if check_items(check):
-            target = check
+        playerhp = check_playerhp()
+    playerhp = check_playerhp()
+    snoopdoglives = issnoopdead()
+    if loc == 36:
+        if goldencheck():
+            loc = 37
+            sql = "UPDATE playercharacter SET RoomID = "+str(loc)
+            cur.execute(sql)
+            print("There are intendations on the wall for 3 items, the golden ankh, the golden skull and the golden monkey. Luckily I have those items. Once I placed the items, a strange force pulled me into a dank, dark place... This must be the dankest dungeon I've ever been in.")
         else:
+            print("There are intendations on the wall, they are for an ankh, a skull and a monkey. It seems I have missed something. The treasures in the deepest depths of the dungeon shall remain in the shadows...")
+            exit()
+    if playerhp > 0 and snoopdoglives:
+        trap = check_traproom(loc)
+        if trap == 1:
+            in_trap(loc, trap)
+        
+        print("")
+        input_string=input("Your action? ").split()
+        if len(input_string)>=1:
+            action = input_string[0].lower()
+        else:
+            action = ""
+        if len(input_string)==2:
             target = input_string[len(input_string)-1].lower()
-    else:
-        target = ""
-        
-    #print("Parsed action: " + action)
-    #print("Parsed target: " + target)
-
-    #Look
-    if action == "look" or action == "examine":
-        if target == "":
-            look_around(loc)
-        elif check_items(target):
-            item_desc(target, loc)
-        elif target == "me" or target == "myself":
-            me_desc()
-    #Push
-    elif action == "push" or action == "press" or action == "touch":
-        if target == "":
-            print("I can't push nothingness")
-        elif check_button(target,loc):
-            print("I pushed"+target+". I can't push the"+target+" again.")
-            button(target,loc)
+        elif len(input_string) >= 3:
+            check = input_string[len(input_string)-2].lower() + " " + input_string[len(input_string)-1].lower()
+            if check_items(check):
+                target = check
+            else:
+                target = input_string[len(input_string)-1].lower()
+        else:
+            target = ""
             
-        elif target == "me" or target == "myself":
-            print("Now is not the time for this...") 
+        #print("Parsed action: " + action)
+        #print("Parsed target: " + target)
 
-    #Moving
-    elif action=="e" or action=="w" or action=="n" or action=="s" or action=="d" or action=="u" or action=="east" or action=="west" or action=="north" or action=="south" or action=="down" or action=="up":
-        action = action[0]
-        newloc = move(loc, action)
-        if newloc == loc:
-            print("I can't move there")
-        else:
-            loc = newloc
-            look_around(loc)
+        #Look
+        if action == "look" or action == "examine":
+            if target == "":
+                look_around(loc)
+            elif check_items(target):
+                item_desc(target, loc)
+            elif target == "me" or target == "myself":
+                me_desc()
+        #Push
+        elif action == "push" or action == "press" or action == "touch":
+            if target == "":
+                print("I can't push what ain't there.")
+            elif target == "button" or target == "snake button" or target == "jaquar button" or target == "quetzal button" or target == "butterfly button":
+                buttonpush(loc)
+            elif target == "me" or target == "myself":
+                print("this is not the time for that")
 
-    #check items in inventory
-    elif action=="i" or action == "inventory":
-        check_inventory()
-        
-    #pick up items
-    elif action == "take" or action == "pick" and check_items(target):
-        take_item(target, loc)
-        
-    #drop item
-    elif action == "drop":
-        hp = drop_item(target, loc, playermaxhp, playerhp)
-        playerhp = hp[0]
-        playermaxhp = hp[1]
-        
-    #equip item
-    elif action == "equip":
-        hp = equip(target, loc, playermaxhp, playerhp)
-        playerhp = hp[0]
-        playermaxhp = hp[1]
-        
-    #talk to merchant
-    elif action == "talk" and target == "merchant":
-        talk_merchant(loc)
+        #Moving
+        elif action=="e" or action=="w" or action=="n" or action=="s" or action=="d" or action=="u" or action=="east" or action=="west" or action=="north" or action=="south" or action=="down" or action=="up":
+            action = action[0]
+            newloc = move(loc, action)
+            if newloc == loc:
+                print("I can't move there")
+            else:
+                loc = newloc
+                look_around(loc)
 
-    #buy item
-    elif action == "buy":
-        buy_item(loc, target)
-        
-    #sell item
-    elif action == "sell":
-        if target == "eidhi":
-            print("Some things are too valuable to sell")
-        else:
-            hp = sell_item(loc, target, playermaxhp, playerhp)
+        #check items in inventory
+        elif action=="i" or action == "inventory":
+            check_inventory()
+            
+        #pick up items
+        elif action == "take" or action == "pick" and check_items(target):
+            take_item(target, loc)
+            
+        #drop item
+        elif action == "drop":
+            if target == "eidhi" and wwww == 1:
+                print("I'd rather not.")
+            else:
+                hp = drop_item(target, loc, playermaxhp, playerhp)
+                playerhp = hp[0]
+                playermaxhp = hp[1]
+            
+        #equip item
+        elif action == "equip":
+            hp = equip(target, loc, playermaxhp, playerhp)
             playerhp = hp[0]
             playermaxhp = hp[1]
             
-    #Unequip item
-    elif action == "unequip":
-        success = unequip(target, playermaxhp, playerhp)
-        if success[2] == 1:
-            playermaxhp = success[0]
-            playerhp = success[1]
-            print("I have unequipped "+target+".")
-            
-    #help
-    elif action == "help":
-        print("The commands I can write are:\n e/east \n n/north \n s/south \n w/west \n d/down \n u/up \n i/inventory \n talk to merchant\n buy\n sell \n look/examine \n take/pick \n drop \n use \n press/touch/push \n fill hole \n equip \n unequip \n normal attack \n light attack \n heavy attack \n quit\nWell, what about those golden items? Why do I keep thinking about them?")
-    
-    #Easter egg commands :3
-    elif action == "breathe":
-        print("I know how to breathe without help, thank you")
-    #use
-    elif action == "use":
-        if target == "items":
-            if loc == 36:
-                cur = db.cursor()
-                sql = "SELECT itemID from item WHERE itemID >= 2 AND itemID <= 4 AND ID = 1;"
-                cur.execute(sql)
-            
-                if cur.rowcount == 3:
-                    sql = "INSERT INTO leads_to VALUES ('D', 36, 37, 0)"
-                    cur.execute(sql)
-                    myprint("If I go down, I shall be teleported to the Dankest Dungeon!")
-                else:
-                    myprint("There is something lacking in my inventory and therefore I shall not pass to the next level! The secrets of the dankest dungeon shall forever stay in the shadows.")
-                    exit()
-            if loc == 37:      
-                sql = "SELECT itemID from item WHERE itemID >= 2 AND itemID <= 4 AND ID = 1;"
-                cur.execute(sql)
-            
-                if cur.rowcount == 3:
-                    sql = "UPDATE leads_to SET locked = 0"
-                    cur.execute(sql)
-                    myprint("I may enter the Dankest Cave of the Dankest Boss!")
-                else:
-                    myprint("There is something lacking in my inventory and therefore I shall not pass! The secrets of the dankest dungeon shall forever stay in the shadows.")
-                    exit()
-        if target == "anvil":
-                if_anvil(loc, target)
-        if target == "key" or target == "keys":
-            if_keypieces(loc)
-    #???
-    elif action == str.translate("fhzzba", mystery) and target == str.translate("ure", mystery) and loc == 11:
-        if wwww == 0:
-            sss()
-            wwww = 1
-            print("Rvquv, gur qrfgeblre bs jbeyqf, unf orra fhzzbarq")
-        else:
-            print("Gur qrrq unf orra qbar")
+        #talk to merchant
+        elif action == "talk" and target == "merchant":
+            talk_merchant(loc)
 
-    elif action == str.translate("urniraf", mystery) and target == str.translate("qvivqr", mystery) and loc == 20:
-        if ssss == 0:
-            ssgw()
-            print('"A patriot? Why are you giving me this?"')
-            ssss = 1
-        else:
-            print('I see the choices within my hands.')
-    elif action != "quit":
-        print("I don't know how to "+action+".")
+        #buy item
+        elif action == "buy":
+            buy_item(loc, target)
+            
+        #sell item
+        elif action == "sell":
+            if target == "eidhi" and wwww == 1:
+                print("Some things are too valuable to sell.")
+            else:
+                hp = sell_item(loc, target, playermaxhp, playerhp)
+                playerhp = hp[0]
+                playermaxhp = hp[1]
+                
+        #Unequip item
+        elif action == "unequip":
+            success = unequip(target, playermaxhp, playerhp)
+            if success[2] == 1:
+                playermaxhp = success[0]
+                playerhp = success[1]
+                print("I have unequipped "+target+".")
+        #use
+        elif action == "use":
+            if target == "healing potion":
+                if usehppotion(playermaxhp):
+                    playerhp = playermaxhp
+            elif target == "anvil" and loc == 28:
+                anvilcheck()
+            elif target == "master key" and loc == 29:
+                keycheck()
+        #help
+        elif action == "help":
+            print("The commands I can write are:\n e/east \n n/north \n s/south \n w/west \n d/down \n u/up \n i/inventory \n look/examine \n take/pick \n drop \n use \n press/touch/push \n fill hole \n equip \n unequip \n normal attack \n light attack \n heavy attack \n quit")
+        
+        #Easter egg commands :3
+        elif action == "breathe":
+            print("I know how to breathe without help, thank you")
+
+        #???
+        elif action == str.translate("fhzzba", mystery) and target == str.translate("ure", mystery) and loc == 11:
+            if wwww == 0:
+                sss()
+                wwww = 1
+                print("Rvquv, gur qrfgeblre bs jbeyqf, unf orra fhzzbarq")
+            else:
+                print("Gur qrrq unf orra qbar")
+
+        elif action == str.translate("urniraf", mystery) and target == str.translate("qvivqr", mystery) and loc == 20:
+            if ssss == 0:
+                ssgw()
+                print('"A patriot? Why are you giving me this?"')
+                ssss = 1
+            else:
+                print('I see the choices within my hands.')
+        #dev action, remember to delete
+        elif action == "destroy" and target == "everything":
+            cur = db.cursor()
+            sql = "DELETE FROM enemy"
+            cur.execute(sql)
+            sql = "INSERT INTO enemy VALUES(NULL,140,38,15)"
+            cur.execute(sql)
+        elif action != "quit":
+            print("I don't know how to "+action+".")
 if not snoopdoglives:
     print("congratz you is winner")
 else:
