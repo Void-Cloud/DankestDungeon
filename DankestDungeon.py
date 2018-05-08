@@ -1301,7 +1301,7 @@ def in_trap(loc, trap):
     action = ""
     target = ""
     while action != "fill" or target != "hole":
-        print("There's sand coming in through a hole, filling the room. I don't want to be buried alive. How could I fill hole?")
+        print("The room seems to be bit off... Oh no, sand starts coming in through a hole, filling the room! I don't want to be buried alive. How can I fill hole?")
         input_string=input("Your action? ").split()
         if len(input_string)>=1:
             action = input_string[0].lower()
