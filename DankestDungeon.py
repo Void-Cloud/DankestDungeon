@@ -975,7 +975,7 @@ def fight_enemy(loc, playerhp):
                 if len(input_string)>=2:
                     target = input_string[len(input_string)-2].lower() + " " + input_string[len(input_string)-1].lower()
                 #if player uses healing potion
-                    if action == "use" and target == "healing potion":
+                    if target == "healing potion":
                         potionreal = check_potion(target)
                         if len(potionreal) > 0:
                             use_healing_potion(playermaxhp,enemyname)
@@ -983,7 +983,7 @@ def fight_enemy(loc, playerhp):
                         else:
                             print("I don't have that portion.")
                 #if player uses damage potion    
-                    elif action == "use" and target == "damage potion":
+                    elif target == "damage potion":
                         potionreal = check_potion(target)
                         if len(potionreal) > 0:
                             use_damage_potion(enemyname,playerdmg,loc)
@@ -1011,7 +1011,7 @@ def fight_enemy(loc, playerhp):
                     target = input_string[len(input_string)-2].lower() + " " + input_string[len(input_string)-1].lower()
 
                 #if player uses healing scroll enemy doesnt hit him becouse healing scroll blinds the enemy
-                    if action == "use" and target == "healing scroll":
+                    if target == "healing scroll":
                         scrollreal = check_scroll(target)
                         if len(scrollreal) > 0:
                             print("Praise the Sun! I feel the light touch me. I can feel it healing my wounds.\nLight blinds the "+enemyname+".")
@@ -1022,7 +1022,7 @@ def fight_enemy(loc, playerhp):
                         else:
                             print("How do I do dis without spell??")
                 #fire scroll is for pure damage only bosses can hit player becouse they are stronger.          
-                    elif action == "use" and target == "fire scroll":
+                    elif target == "fire scroll":
                         scrollreal = check_scroll(target)
                         if len(scrollreal) > 0:
                             print("I used fire scroll.")
@@ -1137,7 +1137,7 @@ def fight_enemy(loc, playerhp):
                             print("Wow, wish I had that scroll..")
                             
                     #water scrolls work the same way as fire scrolls
-                    elif action == "use" and target == "water scroll":
+                    elif target == "water scroll":
                         scrollreal = check_scroll(target)
                         if len(scrollreal) > 0:
                             print("I used water scroll.")
